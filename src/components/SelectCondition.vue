@@ -33,6 +33,8 @@
               label="법정동"
               :items="dongList"
               placeholder="select"
+              v-model="dong"
+              @change="dongChange()"
             >
               <option v-for="dong in dongList" :key="dong" :value="dong">
                 {{ dong }}
@@ -41,15 +43,27 @@
             <v-select
               class="select"
               label="년"
-              :items="sidoList"
+              :items="yearList"
               placeholder="select"
-            ></v-select>
+              v-model="year"
+              @change="yearChange()"
+            >
+              <option v-for="year in yearList" :key="year" :value="year">
+                {{ gugun }}
+              </option>
+            </v-select>
             <v-select
               class="select"
               label="월"
-              :items="sidoList"
+              :items="monthList"
               placeholder="select"
-            ></v-select>
+              v-model="month"
+              @change="monthChange()"
+            >
+              <option v-for="month in monthList" :key="month" :value="month">
+                {{ month }}
+              </option>
+            </v-select>
           </v-col>
         </v-sheet>
       </v-col>
@@ -69,6 +83,11 @@ export default {
       gugunList: [],
       dong: "",
       dongList: [],
+      year: "",
+      yearList: [],
+      month: "",
+      monthList: [],
+      dongCode: "",
     };
   },
   created() {
@@ -80,12 +99,10 @@ export default {
         for (let i = 0; i < data.length; i++) {
           this.sidoList.push(data[i].sidoName);
         }
-        // console.log(this.sidoList);
       });
   },
   methods: {
     sidoChange() {
-      //console.log(this.sido);
       fetch("http://localhost:9999/home/gugunName?sidoName=" + this.sido, {
         method: "get",
       })
@@ -94,7 +111,6 @@ export default {
           for (let i = 0; i < data.length; i++) {
             this.gugunList.push(data[i].gugunName);
           }
-          // console.log(this.gugunList);
         });
     },
     gugunChange() {
@@ -109,7 +125,38 @@ export default {
           for (let i = 0; i < data.length; i++) {
             this.dongList.push(data[i].dongName);
           }
-          console.log(this.dongList);
+        });
+    },
+    dongChange() {
+      for (let i = 2022; i >= 2000; i--) {
+        this.yearList.push(i);
+      }
+    },
+    yearChange() {
+      for (let i = 1; i <= 12; i++) {
+        this.monthList.push(i);
+      }
+    },
+    monthChange() {
+      fetch(
+        `http://localhost:9999/home/dongCode?dongName=${this.dong}&sidoName=${this.sido}`,
+        {
+          method: "get",
+        }
+      )
+        .then((resp) => resp.json())
+        .then((data) => {
+          this.dongCode = data;
+          fetch(
+            `http://localhost:9999/home/list?dongCode=${this.dongCode}&dealYear=${this.year}&dealMonth=${this.month}&page=1`,
+            {
+              method: "get",
+            }
+          )
+            .then((resp) => resp.json())
+            .then((data) => {
+              console.log(data);
+            });
         });
     },
   },
