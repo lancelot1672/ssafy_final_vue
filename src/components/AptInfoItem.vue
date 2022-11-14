@@ -1,33 +1,22 @@
 <template>
-  <v-simple-table
-    fixed-header
-    height="300px"
-  >
-    <template v-slot:default>
-      <thead class="thead">
-        <tr>
-          <th class="text-left">
-            Name
-          </th>
-          <th class="text-left">
-            Calories
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="item in desserts"
-          :key="item.name"
-        >
-          <td>{{ item.name }}</td>
-          <td>{{ item.calories }}</td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
+    <v-data-table
+      :headers="headers"
+      :items="desserts"
+      :hide-default-footer="true"
+      @click:row="showRowInfo"
+      class="elevation-2"
+    >
+      <template #[getitemcontrols()]="{ item }">
+        <a :href="'#'" @click="getDetail(item.name)">
+          {{ item.name }}
+        </a>
+      </template>
+    </v-data-table>
   </template>
   
   <script>
+import { mapActions, mapMutations } from 'vuex';
+
   export default {
     name: "AptInfoItem",
     data() {
@@ -130,28 +119,22 @@
       };
     },
     methods: {
+        ...mapActions(["simpleHouse"]),
+        ...mapMutations([]),
       showRowInfo(event, { item }) {
         console.log(item);
         this.editedIndex = this.desserts.indexOf(item);
         this.editedItem = Object.assign({}, item);
         console.log(this.editedIndex);
         console.log(this.editedItem);
+
+        this.simpleHouse(this.editedItem);
+        //emit
+
       },
       getitemcontrols() {
         return `item.name`;
       },
-      getDetail(name) {
-        console.log(name);
-        this.$router.push({
-          name: "boardDetail",
-          params: { name: name },
-        });
-      },
     },
   };
   </script>
-  <style>
-    .thead>tr>th {
-        font-weight: bold;
-    }
-</style>

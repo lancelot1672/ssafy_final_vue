@@ -5,6 +5,7 @@
     <v-main class="grey lighten-3">
       <select-condition></select-condition>
       <apt-info-list></apt-info-list>
+      <simple-info-list></simple-info-list>
       <router-view />
     </v-main>
   </v-app>
@@ -14,12 +15,14 @@
 import HeaderNav from "@/components/HeaderNav.vue";
 import SelectCondition from "@/components/SelectCondition.vue";
 import AptInfoList from "@/components/AptInfoList.vue";
+import SimpleInfoList from "@/components/AptSimpleInfo.vue";
 export default {
   name: 'App',
   components:{
     HeaderNav,
     SelectCondition,
     AptInfoList,
+    SimpleInfoList,
   },
   data: () => ({
     //
