@@ -10,7 +10,7 @@
               :items="sidoList"
               placeholder="select"
               v-model="sido"
-              @change="sidoChange()"
+              @change="sidoChange"
             >
               <option v-for="sido in sidoList" :key="sido" :value="sido">
                 {{ sido }}
@@ -72,7 +72,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import http from "@/util/http-common";
 export default {
   name: "SelectCondition",
   data() {
@@ -91,37 +91,30 @@ export default {
     };
   },
   created() {
-    fetch("http://localhost:9999/home/sidoName", {
-      method: "get",
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        for (let i = 0; i < data.length; i++) {
-          this.sidoList.push(data[i].sidoName);
-        }
-      });
+    http.get("sidoName").then(({ data }) => {
+      for (let i = 0; i < data.length; i++) {
+        this.sidoList.push(data[i].sidoName);
+      }
+    });
   },
   methods: {
     sidoChange() {
-      fetch("http://localhost:9999/home/gugunName?sidoName=" + this.sido, {
-        method: "get",
-      })
-        .then((resp) => resp.json())
-        .then((data) => {
-          for (let i = 0; i < data.length; i++) {
-            this.gugunList.push(data[i].gugunName);
-          }
-        });
+      this.gugunList = [];
+      this.dongList = [];
+
+      http.get(`/gugunName?sidoName=${this.sido}`).then(({ data }) => {
+        for (let i = 0; i < data.length; i++) {
+          this.gugunList.push(data[i].gugunName);
+        }
+      });
     },
     gugunChange() {
-      fetch(
-        `http://localhost:9999/home/dongName?sidoName=${this.sido}&gugunName=${this.gugun}`,
-        {
-          method: "get",
-        }
-      )
-        .then((resp) => resp.json())
-        .then((data) => {
+      this.dongList = [];
+      http
+        .get(
+          `http://localhost:9999/home/dongName?sidoName=${this.sido}&gugunName=${this.gugun}`
+        )
+        .then(({ data }) => {
           for (let i = 0; i < data.length; i++) {
             this.dongList.push(data[i].dongName);
           }
@@ -138,23 +131,17 @@ export default {
       }
     },
     monthChange() {
-      fetch(
-        `http://localhost:9999/home/dongCode?dongName=${this.dong}&sidoName=${this.sido}`,
-        {
-          method: "get",
-        }
-      )
-        .then((resp) => resp.json())
-        .then((data) => {
+      http
+        .get(
+          `http://localhost:9999/home/dongCode?dongName=${this.dong}&sidoName=${this.sido}`
+        )
+        .then(({ data }) => {
           this.dongCode = data;
-          fetch(
-            `http://localhost:9999/home/list?dongCode=${this.dongCode}&dealYear=${this.year}&dealMonth=${this.month}&page=1`,
-            {
-              method: "get",
-            }
-          )
-            .then((resp) => resp.json())
-            .then((data) => {
+          http
+            .get(
+              `http://localhost:9999/home/list?dongCode=${this.dongCode}&dealYear=${this.year}&dealMonth=${this.month}&page=1`
+            )
+            .then(({ data }) => {
               console.log(data);
             });
         });
