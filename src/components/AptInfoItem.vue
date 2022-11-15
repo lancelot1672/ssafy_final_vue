@@ -5,7 +5,7 @@
         v-if="aptList.currPage != aptList.startPage"
         @click="getBeforePage"
       >
-        <v-icon style="font-size: 40px; color: red"
+        <v-icon style="font-size: 40px; color: RGB(229, 115, 115)"
           >fa-solid fa-angles-left</v-icon
         >
       </button>
@@ -27,27 +27,28 @@
 
         <v-list-item>
           <v-list-item-icon>
-            <v-icon>mdi-send</v-icon>
+
+            <v-icon>fa-soild fa-stairs</v-icon>
           </v-list-item-icon>
-          <v-list-item-subtitle> {{ item.floor }}</v-list-item-subtitle>
+          <v-list-item-subtitle> {{ item.floor }}층</v-list-item-subtitle>
         </v-list-item>
 
         <v-list-item>
           <v-list-item-icon>
-            <v-icon>mdi-cloud-download</v-icon>
+            <v-icon>fa-solid fa-arrow-up-from-ground-water</v-icon>
           </v-list-item-icon>
-          <v-list-item-subtitle>{{ item.area }} m2</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ item.area }}㎡</v-list-item-subtitle>
         </v-list-item>
 
         <v-list-item>
           <v-list-item-icon>
-            <v-icon>mdi-cloud-download</v-icon>
+            <v-icon>fa-solid fa-sack-dollar</v-icon>
           </v-list-item-icon>
           <v-list-item-subtitle>{{ item.dealAmount }}만원</v-list-item-subtitle>
         </v-list-item>
         <v-list-item>
           <v-list-item-icon>
-            <v-icon>mdi-cloud-download</v-icon>
+            <v-icon>fa-regular fa-calendar-days</v-icon>
           </v-list-item-icon>
           <v-list-item-subtitle
             >{{ item.dealYear }}년 {{ item.dealMonth }}월</v-list-item-subtitle
@@ -55,7 +56,7 @@
         </v-list-item>
         <v-list-item>
           <v-list-item-icon>
-            <v-icon>mdi-cloud-download</v-icon>
+            <v-icon>fa-solid fa-location-dot</v-icon>
           </v-list-item-icon>
           <v-list-item-subtitle>126.12312341</v-list-item-subtitle>
         </v-list-item>
@@ -77,7 +78,7 @@
         </v-card-actions>
       </v-card>
       <button v-if="aptList.currPage != aptList.endPage" @click="getNextPage">
-        <v-icon style="font-size: 40px">fa-duotone fa-angles-right</v-icon>
+        <v-icon style="font-size: 40px; color: RGB(229, 115, 115)">fa-duotone fa-angles-right</v-icon>
       </button>
     </div>
   </v-container>
@@ -111,5 +112,9 @@ export default {
 }
 .v-icon {
   font-size: 40px;
+}
+.v-list-item__icon {
+  text-align: center;
+  margin-left: 10px;
 }
 </style>
