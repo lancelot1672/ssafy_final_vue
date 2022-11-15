@@ -14,6 +14,7 @@ export default new Vuex.Store({
     year: "",
     month: "",
     aptList: [],
+    apt: [],
   },
   getters: {},
   mutations: {

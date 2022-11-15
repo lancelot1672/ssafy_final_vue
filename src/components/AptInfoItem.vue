@@ -11,7 +11,9 @@
       >
         <v-list-item two-line>
           <v-list-item-content>
-            <v-list-item-title class="text-h5"> {{ item.apartmentName }} </v-list-item-title>
+            <v-list-item-title class="text-h5">
+              {{ item.apartmentName }}
+            </v-list-item-title>
             <v-list-item-subtitle>{{ item.dongName }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -40,7 +42,9 @@
           <v-list-item-icon>
             <v-icon>mdi-cloud-download</v-icon>
           </v-list-item-icon>
-          <v-list-item-subtitle>{{ item.dealYear }}년 {{ item.dealMonth }}월</v-list-item-subtitle>
+          <v-list-item-subtitle
+            >{{ item.dealYear }}년 {{ item.dealMonth }}월</v-list-item-subtitle
+          >
         </v-list-item>
         <v-list-item>
           <v-list-item-icon>
@@ -66,6 +70,16 @@
         <v-divider></v-divider>
 
         <v-card-actions>
+          <div class="text-center">
+            <v-dialog v-model="dialog" width="500">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">
+                  Show
+                </v-btn>
+              </template>
+              <apt-info-detail :item="item"></apt-info-detail>
+            </v-dialog>
+          </div>
           <v-btn text> 매물보기 </v-btn>
         </v-card-actions>
       </v-card>
@@ -75,11 +89,12 @@
 </template>
 <script>
 import { mapState } from "vuex";
+import AptInfoDetail from "@/components/AptInfoDetail.vue";
 export default {
   name: "AptInfoItem",
-  components: {},
+  components: { AptInfoDetail },
   data() {
-    return {};
+    return { dialog: false };
   },
   computed: {
     ...mapState(["aptList"]),

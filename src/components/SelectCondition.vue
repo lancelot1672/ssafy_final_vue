@@ -83,6 +83,7 @@
 <script>
 import http from "@/util/http-common";
 import { mapActions } from "vuex";
+
 export default {
   name: "SelectCondition",
   data() {
@@ -124,7 +125,9 @@ export default {
       this.dongList = [];
       this.searchGugun(this.gugun);
       http
-        .get(`http://localhost:9999/home/dongName?sidoName=${this.sido}&gugunName=${this.gugun}`)
+        .get(
+          `http://localhost:9999/home/dongName?sidoName=${this.sido}&gugunName=${this.gugun}`
+        )
         .then(({ data }) => {
           for (let i = 0; i < data.length; i++) {
             this.dongList.push(data[i].dongName);
@@ -146,7 +149,9 @@ export default {
       this.searchYear(this.year);
       this.searchMonth(this.month);
       http
-        .get(`http://localhost:9999/home/dongCode?dongName=${this.dong}&sidoName=${this.sido}`)
+        .get(
+          `http://localhost:9999/home/dongCode?dongName=${this.dong}&sidoName=${this.sido}`
+        )
         .then(({ data }) => {
           this.dongCode = data;
           this.searchDongcode(this.dongCode);
