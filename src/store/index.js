@@ -13,8 +13,8 @@ export default new Vuex.Store({
     dongCode: "",
     year: "",
     month: "",
-    aptList: [],
-    apt: [],
+
+    aptList: Object,
   },
   getters: {},
   mutations: {
@@ -65,14 +65,41 @@ export default new Vuex.Store({
     searchDongcode({ commit }, dongCode) {
       commit("SET_DONGCODE", dongCode);
     },
-    searchApt({ commit }) {
+    searchApt({ commit }, page) {
+      if (!page) {
+        page = 1;
+      }
       console.log(this.state.dongCode);
       http
         .get(
-          `http://localhost:9999/home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${this.state.month}&page=1`
+          `http://localhost:9999/home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${this.state.month}&page=${page}`
         )
         .then(({ data }) => {
-          commit("SET_APT", data.boardList);
+          commit("SET_APT", data);
+        });
+    },
+    searchBeforePage({ commit }) {
+      let currPage = this.state.aptList.currPage;
+      http
+        .get(
+          `http://localhost:9999/home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${
+            this.state.month
+          }&page=${currPage - 1}`
+        )
+        .then(({ data }) => {
+          commit("SET_APT", data);
+        });
+    },
+    searchNextPage({ commit }) {
+      let currPage = this.state.aptList.currPage;
+      http
+        .get(
+          `http://localhost:9999/home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${
+            this.state.month
+          }&page=${currPage + 1}`
+        )
+        .then(({ data }) => {
+          commit("SET_APT", data);
         });
     },
   },

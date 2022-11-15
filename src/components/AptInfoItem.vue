@@ -1,9 +1,16 @@
 <template>
   <v-container>
-    <div class="card-section" v-if="aptList[0]">
-      <button>◀</button>
+    <div class="card-section" v-if="aptList.boardList[0]">
+      <button
+        v-if="aptList.currPage != aptList.startPage"
+        @click="getBeforePage"
+      >
+        <v-icon style="font-size: 40px; color: red"
+          >fa-solid fa-angles-left</v-icon
+        >
+      </button>
       <v-card
-        v-for="item in aptList"
+        v-for="item in aptList.boardList"
         :key="item.index"
         class="mx-auto"
         max-width="300"
@@ -36,7 +43,7 @@
           <v-list-item-icon>
             <v-icon>mdi-cloud-download</v-icon>
           </v-list-item-icon>
-          <v-list-item-subtitle>{{ item.Amount }}원</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ item.dealAmount }}만원</v-list-item-subtitle>
         </v-list-item>
         <v-list-item>
           <v-list-item-icon>
@@ -52,20 +59,6 @@
           </v-list-item-icon>
           <v-list-item-subtitle>126.12312341</v-list-item-subtitle>
         </v-list-item>
-        <!-- 
-        <v-list class="transparent">
-          <v-list-item v-for="item in aptInfo" :key="item.day">
-            <v-list-item-title>{{ item.day }}</v-list-item-title>
-
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-
-            <v-list-item-subtitle class="text-right">
-              {{ item.temp }}
-            </v-list-item-subtitle>
-          </v-list-item>
-        </v-list> -->
 
         <v-divider></v-divider>
 
@@ -83,12 +76,14 @@
           <v-btn text> 매물보기 </v-btn>
         </v-card-actions>
       </v-card>
-      <button>▶</button>
+      <button v-if="aptList.currPage != aptList.endPage" @click="getNextPage">
+        <v-icon style="font-size: 40px">fa-duotone fa-angles-right</v-icon>
+      </button>
     </div>
   </v-container>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import AptInfoDetail from "@/components/AptInfoDetail.vue";
 export default {
   name: "AptInfoItem",
@@ -99,10 +94,22 @@ export default {
   computed: {
     ...mapState(["aptList"]),
   },
+  methods: {
+    ...mapActions(["searchNextPage", "searchBeforePage"]),
+    getNextPage() {
+      this.searchNextPage();
+    },
+    getBeforePage() {
+      this.searchBeforePage();
+    },
+  },
 };
 </script>
-<style>
+<style scope>
 .card-section {
   display: flex;
+}
+.v-icon {
+  font-size: 40px;
 }
 </style>

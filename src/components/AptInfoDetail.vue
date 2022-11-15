@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import http from "@/util/http-common";
+// import http from "@/util/http-common";
 export default {
   name: "AptInfoDetail",
   data() {
@@ -28,13 +28,13 @@ export default {
   props: {
     item: Object,
   },
-  created() {
-    http.get("sidoName").then(({ data }) => {
-      for (let i = 0; i < data.length; i++) {
-        this.sidoList.push(data[i].sidoName);
-      }
-    });
-  },
+  //   created() {
+  //     http.get("sidoName").then(({ data }) => {
+  //       for (let i = 0; i < data.length; i++) {
+  //         this.sidoList.push(data[i].sidoName);
+  //       }
+  //     });
+  //   },
 };
 </script>
 
