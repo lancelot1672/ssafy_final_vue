@@ -72,7 +72,7 @@
                   dark
                   v-bind="attrs"
                   v-on="on"
-                  @click="clickDetail(index)"
+                  @click="clickDetail(item.no)"
                 >
                   Show
                 </v-btn>
@@ -110,9 +110,8 @@ export default {
     getBeforePage() {
       this.searchBeforePage();
     },
-    clickDetail(index) {
-      this.idx = index;
-      this.getAptDetailInfo(this.idx);
+    clickDetail(no) {
+      this.getAptDetailInfo(no);
     },
   },
 };

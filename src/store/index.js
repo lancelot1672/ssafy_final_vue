@@ -78,6 +78,7 @@ export default new Vuex.Store({
           `home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${this.state.month}&page=${page}`
         )
         .then(({ data }) => {
+          console.log(data);
           commit("SET_APT", data);
         });
     },
@@ -105,15 +106,27 @@ export default new Vuex.Store({
           commit("SET_APT", data);
         });
     },
-    getAptDetailInfo({ commit }, idx) { 
-      http
-      .get(
-        `view/houseRead?apartmentName=${this.state.aptList.boardList[idx].apartmentName}&floor=${this.state.aptList.boardList[idx].floor}&dealYear=${this.state.aptList.boardList[idx].dealYear}&dealMonth=${this.state.aptList.boardList[idx].dealMonth}`
-      )
-        .then(({ data }) => {
-          console.log(data);
-        commit("SET_APT_DETAIL", data)
-      });
+    getAptDetailInfo({ commit }, no) { 
+      console.log(no);
+      console.log(commit);
+
+      if(this.state.aptList){
+        const aptList = this.state.aptList.boardList;
+        aptList.forEach((info)=>{
+          if(info.no == no){
+            this.state.aptDetailInfo = info;
+          }
+        })
+      }
+      // http
+      // .get(
+      //   `view/houseRead?apartmentName=${this.state.aptList.boardList[idx].apartmentName}&floor=${this.state.aptList.boardList[idx].floor}&dealYear=${this.state.aptList.boardList[idx].dealYear}&dealMonth=${this.state.aptList.boardList[idx].dealMonth}`
+      // )
+      //   .then(({ data }) => {
+      //     console.log(data);
+      //   commit("SET_APT_DETAIL", data)
+      // });
+      
     }
   },
   modules: {},
