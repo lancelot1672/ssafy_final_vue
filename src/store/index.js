@@ -13,8 +13,8 @@ export default new Vuex.Store({
     dongCode: "",
     year: "",
     month: "",
-
     aptList: Object,
+    aptDetailInfo:Object,
   },
   getters: {},
   mutations: {
@@ -42,6 +42,9 @@ export default new Vuex.Store({
     SET_APT(state, aptList) {
       state.aptList = aptList;
     },
+    SET_APT_DETAIL(state, aptDetailInfo) { 
+      state.aptDetailInfo = aptDetailInfo;
+    }
   },
   actions: {
     simpleHouse({ commit }, house) {
@@ -72,7 +75,7 @@ export default new Vuex.Store({
       console.log(this.state.dongCode);
       http
         .get(
-          `http://localhost:9999/home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${this.state.month}&page=${page}`
+          `home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${this.state.month}&page=${page}`
         )
         .then(({ data }) => {
           commit("SET_APT", data);
@@ -82,7 +85,7 @@ export default new Vuex.Store({
       let currPage = this.state.aptList.currPage;
       http
         .get(
-          `http://localhost:9999/home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${
+          `home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${
             this.state.month
           }&page=${currPage - 1}`
         )
@@ -94,7 +97,7 @@ export default new Vuex.Store({
       let currPage = this.state.aptList.currPage;
       http
         .get(
-          `http://localhost:9999/home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${
+          `home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${
             this.state.month
           }&page=${currPage + 1}`
         )
@@ -102,6 +105,16 @@ export default new Vuex.Store({
           commit("SET_APT", data);
         });
     },
+    getAptDetailInfo({ commit }, idx) { 
+      http
+      .get(
+        `view/houseRead?apartmentName=${this.state.aptList.boardList[idx].apartmentName}&floor=${this.state.aptList.boardList[idx].floor}&dealYear=${this.state.aptList.boardList[idx].dealYear}&dealMonth=${this.state.aptList.boardList[idx].dealMonth}`
+      )
+        .then(({ data }) => {
+          console.log(data);
+        commit("SET_APT_DETAIL", data)
+      });
+    }
   },
   modules: {},
 });

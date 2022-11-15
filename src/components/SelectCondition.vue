@@ -67,13 +67,14 @@
             outlined
             placeholder="select"
             v-model="month"
-            @change="monthChange()"
           >
             <option v-for="month in monthList" :key="month" :value="month">
               {{ month }}
             </option>
           </v-select>
-          <v-btn outlined color="rgb(117,117,117)">검색</v-btn>
+          <v-btn outlined color="rgb(117,117,117)" @click="monthChange()"
+            >검색</v-btn
+          >
         </div>
       </v-col>
     </v-row>
@@ -102,7 +103,7 @@ export default {
     };
   },
   created() {
-    http.get("sidoName").then(({ data }) => {
+    http.get("home/sidoName").then(({ data }) => {
       for (let i = 0; i < data.length; i++) {
         this.sidoList.push(data[i].sidoName);
       }
@@ -115,7 +116,7 @@ export default {
       //선택된 시도를 state에 저장
       this.searchSido(this.sido);
 
-      http.get(`/gugunName?sidoName=${this.sido}`).then(({ data }) => {
+      http.get(`home/gugunName?sidoName=${this.sido}`).then(({ data }) => {
         for (let i = 0; i < data.length; i++) {
           this.gugunList.push(data[i].gugunName);
         }
@@ -125,9 +126,7 @@ export default {
       this.dongList = [];
       this.searchGugun(this.gugun);
       http
-        .get(
-          `http://localhost:9999/home/dongName?sidoName=${this.sido}&gugunName=${this.gugun}`
-        )
+        .get(`home/dongName?sidoName=${this.sido}&gugunName=${this.gugun}`)
         .then(({ data }) => {
           for (let i = 0; i < data.length; i++) {
             this.dongList.push(data[i].dongName);
@@ -149,9 +148,7 @@ export default {
       this.searchYear(this.year);
       this.searchMonth(this.month);
       http
-        .get(
-          `http://localhost:9999/home/dongCode?dongName=${this.dong}&sidoName=${this.sido}`
-        )
+        .get(`home/dongCode?dongName=${this.dong}&sidoName=${this.sido}`)
         .then(({ data }) => {
           this.dongCode = data;
           this.searchDongcode(this.dongCode);

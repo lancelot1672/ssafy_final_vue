@@ -1,15 +1,13 @@
 <template>
   <div>
     <v-card>
-      <v-card-title class="text-h5 grey lighten-2">
-        Privacy Policy
+      <v-card-title class="text-h5 grey lighten-2"
+        >{{ aptDetailInfo.floor }}
       </v-card-title>
 
-      <v-card-actions> </v-card-actions>
+      <v-card-actions>{{ aptDetailInfo.floor }} </v-card-actions>
       <v-divider></v-divider>
-      <v-card-text>
-        {{ item }}
-      </v-card-text>
+      <v-card-text></v-card-text>
 
       <v-divider></v-divider>
 
@@ -19,22 +17,15 @@
 </template>
 
 <script>
-// import http from "@/util/http-common";
+import { mapState } from "vuex";
 export default {
   name: "AptInfoDetail",
   data() {
     return {};
   },
-  props: {
-    item: Object,
+  computed: {
+    ...mapState(["aptDetailInfo"]),
   },
-  //   created() {
-  //     http.get("sidoName").then(({ data }) => {
-  //       for (let i = 0; i < data.length; i++) {
-  //         this.sidoList.push(data[i].sidoName);
-  //       }
-  //     });
-  //   },
 };
 </script>
 

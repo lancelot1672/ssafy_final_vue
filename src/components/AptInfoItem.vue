@@ -10,8 +10,8 @@
         >
       </button>
       <v-card
-        v-for="item in aptList.boardList"
-        :key="item.index"
+        v-for="(item, index) in aptList.boardList"
+        :key="index"
         class="mx-auto"
         max-width="300"
         min-width="300"
@@ -66,16 +66,23 @@
           <div class="text-center">
             <v-dialog v-model="dialog" width="500">
               <template v-slot:activator="{ on, attrs }">
-                <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">
+                <v-btn
+                  color="red lighten-2"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="clickDetail(index)"
+                >
                   Show
                 </v-btn>
               </template>
-              <apt-info-detail :item="item"></apt-info-detail>
+              <apt-info-detail></apt-info-detail>
             </v-dialog>
           </div>
           <v-btn text> 매물보기 </v-btn>
         </v-card-actions>
       </v-card>
+
       <button v-if="aptList.currPage != aptList.endPage" @click="getNextPage">
         <v-icon style="font-size: 40px">fa-duotone fa-angles-right</v-icon>
       </button>
@@ -89,18 +96,22 @@ export default {
   name: "AptInfoItem",
   components: { AptInfoDetail },
   data() {
-    return { dialog: false };
+    return { dialog: false, detailInfo: [], idx: "" };
   },
   computed: {
     ...mapState(["aptList"]),
   },
   methods: {
-    ...mapActions(["searchNextPage", "searchBeforePage"]),
+    ...mapActions(["searchNextPage", "searchBeforePage", "getAptDetailInfo"]),
     getNextPage() {
       this.searchNextPage();
     },
     getBeforePage() {
       this.searchBeforePage();
+    },
+    clickDetail(index) {
+      this.idx = index;
+      this.getAptDetailInfo(this.idx);
     },
   },
 };
