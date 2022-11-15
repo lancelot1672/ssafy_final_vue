@@ -7,6 +7,8 @@
             class="select"
             label="시도"
             :items="sidoList"
+            dense
+            outlined
             placeholder="select"
             v-model="sido"
             @change="sidoChange()"
@@ -19,6 +21,8 @@
             class="select"
             label="구군"
             :items="gugunList"
+            dense
+            outlined
             placeholder="select"
             v-model="gugun"
             @change="gugunChange()"
@@ -31,6 +35,8 @@
             class="select"
             label="법정동"
             :items="dongList"
+            dense
+            outlined
             placeholder="select"
             v-model="dong"
             @change="dongChange()"
@@ -43,6 +49,8 @@
             class="select"
             label="년"
             :items="yearList"
+            dense
+            outlined
             placeholder="select"
             v-model="year"
             @change="yearChange()"
@@ -55,6 +63,8 @@
             class="select"
             label="월"
             :items="monthList"
+            dense
+            outlined
             placeholder="select"
             v-model="month"
             @change="monthChange()"
@@ -63,7 +73,7 @@
               {{ month }}
             </option>
           </v-select>
-          <v-btn class="search_btn">검색</v-btn>
+          <v-btn outlined color="rgb(117,117,117)">검색</v-btn>
         </div>
       </v-col>
     </v-row>
@@ -110,9 +120,7 @@ export default {
     gugunChange() {
       this.dongList = [];
       http
-        .get(
-          `http://localhost:9999/home/dongName?sidoName=${this.sido}&gugunName=${this.gugun}`
-        )
+        .get(`http://localhost:9999/home/dongName?sidoName=${this.sido}&gugunName=${this.gugun}`)
         .then(({ data }) => {
           for (let i = 0; i < data.length; i++) {
             this.dongList.push(data[i].dongName);
@@ -131,9 +139,7 @@ export default {
     },
     monthChange() {
       http
-        .get(
-          `http://localhost:9999/home/dongCode?dongName=${this.dong}&sidoName=${this.sido}`
-        )
+        .get(`http://localhost:9999/home/dongCode?dongName=${this.dong}&sidoName=${this.sido}`)
         .then(({ data }) => {
           this.dongCode = data;
           http
@@ -152,10 +158,10 @@ export default {
 <style scoped>
 .select_section {
   display: flex;
-  padding-left: 200px;
-  padding-right: 50px;
-  border: 1px solid #757575;
-  border-radius: 10px;
+  padding-left: 100px;
+  padding-right: 100px;
+
+  margin-top: 20px;
 }
 .select {
   margin: 0px 20px;
@@ -165,5 +171,9 @@ export default {
   width: 200px;
   margin-top: 10px;
   background: none;
+}
+.v-btn {
+  background: none;
+  width: 200px;
 }
 </style>
