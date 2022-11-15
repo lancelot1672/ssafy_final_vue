@@ -72,6 +72,7 @@
 
 <script>
 import http from "@/util/http-common";
+import { mapActions } from "vuex";
 export default {
   name: "SelectCondition",
   data() {
@@ -100,6 +101,8 @@ export default {
     sidoChange() {
       this.gugunList = [];
       this.dongList = [];
+      //선택된 시도를 state에 저장
+      this.searchSido(this.sido);
 
       http.get(`/gugunName?sidoName=${this.sido}`).then(({ data }) => {
         for (let i = 0; i < data.length; i++) {
@@ -109,6 +112,7 @@ export default {
     },
     gugunChange() {
       this.dongList = [];
+      this.searchGugun(this.gugun);
       http
         .get(
           `http://localhost:9999/home/dongName?sidoName=${this.sido}&gugunName=${this.gugun}`
@@ -130,21 +134,29 @@ export default {
       }
     },
     monthChange() {
+      this.searchDong(this.dong);
+      this.searchYear(this.year);
+      this.searchMonth(this.month);
       http
         .get(
           `http://localhost:9999/home/dongCode?dongName=${this.dong}&sidoName=${this.sido}`
         )
         .then(({ data }) => {
           this.dongCode = data;
-          http
-            .get(
-              `http://localhost:9999/home/list?dongCode=${this.dongCode}&dealYear=${this.year}&dealMonth=${this.month}&page=1`
-            )
-            .then(({ data }) => {
-              console.log(data);
-            });
+          this.searchDongcode(this.dongCode);
+          this.searchApt();
         });
     },
+    ...mapActions([
+      "searchApt",
+      "searchSido",
+      "searchGugun",
+      "searchDong",
+      "searchYear",
+      "searchMonth",
+      "searchDongcode",
+      "searchApt",
+    ]),
   },
 };
 </script>
