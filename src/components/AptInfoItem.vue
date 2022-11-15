@@ -27,7 +27,6 @@
 
         <v-list-item>
           <v-list-item-icon>
-
             <v-icon>fa-soild fa-stairs</v-icon>
           </v-list-item-icon>
           <v-list-item-subtitle> {{ item.floor }}층</v-list-item-subtitle>
@@ -80,12 +79,13 @@
               <apt-info-detail></apt-info-detail>
             </v-dialog>
           </div>
-          <v-btn text> 매물보기 </v-btn>
         </v-card-actions>
       </v-card>
 
       <button v-if="aptList.currPage != aptList.endPage" @click="getNextPage">
-        <v-icon style="font-size: 40px; color: RGB(229, 115, 115)">fa-duotone fa-angles-right</v-icon>
+        <v-icon style="font-size: 40px; color: RGB(229, 115, 115)"
+          >fa-duotone fa-angles-right</v-icon
+        >
       </button>
     </div>
   </v-container>

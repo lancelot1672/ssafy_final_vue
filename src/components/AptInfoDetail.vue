@@ -2,16 +2,39 @@
   <div>
     <v-card>
       <v-card-title class="text-h5 grey lighten-2"
-        >{{ aptDetailInfo.dealAmount }}
+        >{{ aptDetailInfo.apartmentName }}
       </v-card-title>
 
-      <v-card-actions>{{ aptDetailInfo.dealAmount }} </v-card-actions>
-      <v-divider></v-divider>
-      <v-card-text></v-card-text>
-
-      <v-divider></v-divider>
-
       <v-card-actions> </v-card-actions>
+      <v-divider></v-divider>
+      <v-card-text>
+        <div>Word of the Day</div>
+        <p class="text-h4 text--primary">el·ee·mos·y·nar·y</p>
+        <p>adjective</p>
+        <div class="text--primary">{{ aptDetailInfo.apartmentName }}"</div>
+      </v-card-text>
+
+      <v-divider></v-divider>
+
+      <v-card-actions>
+        <div>
+          {{ aptDetailInfo.dealAmount }}
+          <v-bottom-navigation
+            absolute
+            color="white"
+            hide-on-scroll
+            horizontal
+            scroll-target="#scroll-threshold-example"
+            scroll-threshold="500"
+          >
+            <v-btn>
+              <span>Favorites</span>
+
+              <v-icon>mdi-heart</v-icon>
+            </v-btn>
+          </v-bottom-navigation>
+        </div>
+      </v-card-actions>
     </v-card>
   </div>
 </template>
