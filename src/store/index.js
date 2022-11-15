@@ -107,25 +107,17 @@ export default new Vuex.Store({
         });
     },
     getAptDetailInfo({ commit }, no) { 
-      console.log(no);
-      console.log(commit);
+      let detail;
 
       if(this.state.aptList){
         const aptList = this.state.aptList.boardList;
         aptList.forEach((info)=>{
           if(info.no == no){
-            this.state.aptDetailInfo = info;
+            detail = info;
           }
         })
       }
-      // http
-      // .get(
-      //   `view/houseRead?apartmentName=${this.state.aptList.boardList[idx].apartmentName}&floor=${this.state.aptList.boardList[idx].floor}&dealYear=${this.state.aptList.boardList[idx].dealYear}&dealMonth=${this.state.aptList.boardList[idx].dealMonth}`
-      // )
-      //   .then(({ data }) => {
-      //     console.log(data);
-      //   commit("SET_APT_DETAIL", data)
-      // });
+      commit("SET_APT_DETAIL", detail);
       
     }
   },
