@@ -1,139 +1,93 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="desserts"
-    :hide-default-footer="true"
-    @click:row="showRowInfo"
-    class="elevation-2"
-  >
-    <template #[getitemcontrols()]="{ item }">
-      <a :href="'#'" @click="getDetail(item.name)">
-        {{ item.name }}
-      </a>
-    </template>
-  </v-data-table>
-</template>
-  
-<script>
-import { mapActions, mapMutations } from "vuex";
+  <v-container>
+    <div class="card-section" v-if="aptList[0]">
+      <button>◀</button>
+      <v-card
+        v-for="item in aptList"
+        :key="item.index"
+        class="mx-auto"
+        max-width="300"
+        min-width="300"
+      >
+        <v-list-item two-line>
+          <v-list-item-content>
+            <v-list-item-title class="text-h5"> {{ item.apartmentName }} </v-list-item-title>
+            <v-list-item-subtitle>{{ item.dongName }}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-send</v-icon>
+          </v-list-item-icon>
+          <v-list-item-subtitle> {{ item.floor }}</v-list-item-subtitle>
+        </v-list-item>
+
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-cloud-download</v-icon>
+          </v-list-item-icon>
+          <v-list-item-subtitle>{{ item.area }} m2</v-list-item-subtitle>
+        </v-list-item>
+
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-cloud-download</v-icon>
+          </v-list-item-icon>
+          <v-list-item-subtitle>{{ item.Amount }}원</v-list-item-subtitle>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-cloud-download</v-icon>
+          </v-list-item-icon>
+          <v-list-item-subtitle>{{ item.dealYear }}년 {{ item.dealMonth }}월</v-list-item-subtitle>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-cloud-download</v-icon>
+          </v-list-item-icon>
+          <v-list-item-subtitle>126.12312341</v-list-item-subtitle>
+        </v-list-item>
+        <!-- 
+        <v-list class="transparent">
+          <v-list-item v-for="item in aptInfo" :key="item.day">
+            <v-list-item-title>{{ item.day }}</v-list-item-title>
+
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-subtitle class="text-right">
+              {{ item.temp }}
+            </v-list-item-subtitle>
+          </v-list-item>
+        </v-list> -->
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-btn text> 매물보기 </v-btn>
+        </v-card-actions>
+      </v-card>
+      <button>▶</button>
+    </div>
+  </v-container>
+</template>
+<script>
+import { mapState } from "vuex";
 export default {
   name: "AptInfoItem",
+  components: {},
   data() {
-    return {
-      headers: [
-        {
-          text: "Dessert (100g serving)",
-          align: "start",
-          sortable: false,
-          value: "name",
-        },
-        { text: "Calories", value: "calories" },
-        { text: "Fat (g)", value: "fat" },
-        { text: "Carbs (g)", value: "carbs" },
-        { text: "Protein (g)", value: "protein" },
-        { text: "Iron (%)", value: "iron" },
-      ],
-      desserts: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: "1%",
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: "1%",
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: "7%",
-        },
-        {
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: "8%",
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          iron: "16%",
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: "0%",
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: "2%",
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          iron: "45%",
-        },
-        {
-          name: "Donut",
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          iron: "22%",
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          iron: "6%",
-        },
-      ],
-    };
+    return {};
   },
-  methods: {
-    ...mapActions(["simpleHouse"]),
-    ...mapMutations([]),
-    showRowInfo(event, { item }) {
-      console.log(item);
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      console.log(this.editedIndex);
-      console.log(this.editedItem);
-
-      this.simpleHouse(this.editedItem);
-      //emit
-    },
-    getitemcontrols() {
-      return `item.name`;
-    },
+  computed: {
+    ...mapState(["aptList"]),
   },
 };
 </script>
+<style>
+.card-section {
+  display: flex;
+}
+</style>
