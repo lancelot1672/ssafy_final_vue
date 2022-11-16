@@ -78,19 +78,22 @@
           <v-col cols="12" sm="9">
             <v-sheet min-height="70vh" rounded="lg">
               <!-- <div style="background-color: gray; min-height: 53vh">asdf</div> -->
-              <div style="min-height: 60vh">
+              <div style="min-height: 50vh">
                 <v-simple-table>
-                  <template v-slot:default>
+
                     <thead>
                       <tr>
-                        <th class="text-left">제목</th>
-                        <th class="text-left">주소</th>
-                        <th class="text-left">작성자</th>
-                        <th class="text-left">조회수</th>
+                        <th class="text-left" width="10%">#</th>
+                        <th class="text-left" width="40%">제목</th>
+                        <th class="text-left" width="15%">주소</th>
+                        <th class="text-left" width="10%">작성자</th>
+                        <th class="text-left" width="15%">작성일시</th>
+                        <th class="text-left" width="10%">조회수</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="item in boadlist.boardList" :key="item.name">
+                      <tr v-for="item in boardList.boardList" :key="item.name">
+                        <td>{{ item.bno }}</td>
                         <td>
                           <router-link
                             :to="{
@@ -102,15 +105,26 @@
                         </td>
                         <td>{{ item.sido }} {{ item.gugun }}</td>
                         <td>{{ item.user_id }}</td>
+                        <td>{{ item.regtime }}</td>
                         <td>{{ item.hit }}</td>
                       </tr>
                     </tbody>
-                  </template>
+
                 </v-simple-table>
               </div>
+              <!-- nav-bar -->
               <div class="text-center" style="min-height: 3vh">
-                <v-pagination v-model="page" :length="6"></v-pagination>
+                <!-- <v-pagination v-model="page" :length="10"></v-pagination> -->
+                <button class="page-btn" v-if="boardList.startPage > 1">
+                <v-icon>fa-duotone fa-chevron-left</v-icon>
+                </button>
+                <button class="page-btn" v-for="page in pageRange()" :key="page" @click="getBoardList(page)">
+                  {{page}}
+                </button>
+                <button class="page-btn" v-if="boardList.endPage < boardList.totalPage" >
+                  <v-icon>fa-duotone fa-chevron-right</v-icon></button>
               </div>
+
               <div style="min-height: 7vh">
                 <v-btn
                   style="float: right"
@@ -140,10 +154,11 @@ export default {
     loading: false,
     search: "",
     selected: [],
-    boadlist: [],
+    boardList: [],
     page: 0,
   }),
   created() {
+    //gugun 가져오기 - 나중에 user의 정보에서 빼오기
     http.get(`home/gugunName?sidoName=서울특별시`).then(({ data }) => {
       for (let i = 0; i < data.length; i++) {
         this.items.push({
@@ -195,23 +210,55 @@ export default {
         this.loading = false;
       }, 2000);
     },
-    changeTable(item) {
-      // console.log(item.text);
-      http.get(`board?page=1&sido=${item.text}`).then(({ data }) => {
-        // console.log(data);
-        this.boadlist = data;
-        console.log(this.boadlist);
+    changeTable(item) {   //구 정보를 선택했을 때 처음 가지고 오는 boardList
+      console.log(item.text);
+      http.get(`board?page=1&gugun=${item.text}`).then(({ data }) => {
+        console.log(data);
+        this.boardList = data;
+        console.log(this.boardList);
       });
     },
     close() {
-      this.boadlist = [];
+      this.boardlist = [];
     },
     moveWritePage() {
       this.$router.push({ name: "write" });
     },
+    pageRange(){
+      let start = this.boardList.startPage;
+      let end = this.boardList.endPage;
+
+      let list = [];
+      for(let i=start; i<= end; i++){
+        list.push(i);
+      }
+      return list;
+    },
+    getBoardList(page){
+      let selected = this.selected;
+      http.get(`board?page=${page}&gugun=${selected[0].text}`).then(({ data }) => {
+        this.boardList = data;
+        console.log(this.boardList);
+      });
+    }
   },
 };
 </script>
 
-<style>
+<style >
+  .page-btn {
+    border-style: solid;
+    border: none;
+    border-radius: 5px;
+    background: #FFFFFF;
+
+    min-width: 34px;
+    height: 34px;
+    padding: 0 5px;
+    margin: 0 5px;
+    text-decoration: none;
+    transition: 0.3s cubic-bezier(0, 0, 0.2, 1);
+
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  }
 </style>
