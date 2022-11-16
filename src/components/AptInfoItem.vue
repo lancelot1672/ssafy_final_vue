@@ -64,7 +64,7 @@
 
         <v-card-actions>
           <div class="text-center">
-            <v-dialog v-model="dialog" width="500">
+            <v-dialog v-model="dialog" width="800">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   color="red lighten-2"
