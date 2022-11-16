@@ -1,6 +1,6 @@
 <template>
-  <v-app id="inspire">
-    <v-main class="grey lighten-3">
+  <div>
+    <v-main class="grey lighten-3" style="padding:30px 0px 0px">
       <v-container>
         <v-row>
           <!-- 왼쪽 -->
@@ -78,24 +78,24 @@
           <v-col cols="12" sm="9">
             <v-sheet min-height="70vh" rounded="lg">
               <!-- <div style="background-color: gray; min-height: 53vh">asdf</div> -->
-              <div style="min-height: 50vh">
+              <div style="min-height: 70vh; max-height: 70vh">
                 <v-simple-table>
 
                     <thead>
                       <tr>
-                        <th class="text-left" width="10%">#</th>
-                        <th class="text-left" width="40%">제목</th>
-                        <th class="text-left" width="15%">주소</th>
-                        <th class="text-left" width="10%">작성자</th>
-                        <th class="text-left" width="15%">작성일시</th>
-                        <th class="text-left" width="10%">조회수</th>
+                        <th class="th" width="10%">#</th>
+                        <th width="40%">제목</th>
+                        <th width="15%">주소</th>
+                        <th width="10%">작성자</th>
+                        <th width="15%">작성일시</th>
+                        <th width="10%">조회수</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="item in boardList.boardList" :key="item.name">
                         <td>{{ item.bno }}</td>
                         <td>
-                          <router-link
+                          <router-link style="color:black;" class="board-link"
                             :to="{
                               name: 'read',
                               query: { bno: item.bno },
@@ -131,7 +131,7 @@
                   class="mx-4"
                   fab
                   dark
-                  color="cyan"
+                  color="#E57373"
                   @click="moveWritePage()"
                 >
                   <v-icon dark> mdi-pencil </v-icon>
@@ -142,7 +142,7 @@
         </v-row>
       </v-container>
     </v-main>
-  </v-app>
+</div>
 </template>
 
 <script>
@@ -260,5 +260,9 @@ export default {
     transition: 0.3s cubic-bezier(0, 0, 0.2, 1);
 
     box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  }
+  .board-link:hover{
+    text-decoration: underline;
+    color: RGB(193, 193, 193);
   }
 </style>

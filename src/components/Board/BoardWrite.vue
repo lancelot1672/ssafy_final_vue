@@ -1,19 +1,18 @@
 <template>
-  <v-app id="inspire">
-    <v-main class="grey lighten-3">
-      <v-container>
+    <div class="AddWrap">
+      <div class="menuclass">
+        <button class="previous-btn" @click="moveBoardListPage"><v-icon style="color : #E57373">fa-solid fa-square-caret-left</v-icon>
+         목록보기</button>
+      </div>
+      <div class="boardclass">
+        <div class="titleclass">
+          <span class="board_title">글쓰기</span>
+          </div>
+          <div class="writerclass">
         <v-row>
           <!-- 오른쪽 -->
           <v-col cols="18">
-            <v-sheet min-height="70vh" rounded="lg">
               <v-col cols="12">
-                <div>
-                  <v-btn tile color="success" @click="moveBoardListPage()">
-                    <v-icon left> mdi-pencil </v-icon>
-                    목록
-                  </v-btn>
-                </div>
-                <br />
                 <v-text-field
                   v-model="title"
                   :counter="200"
@@ -65,12 +64,11 @@
                   글쓰기
                 </v-btn>
               </v-col>
-            </v-sheet>
           </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
+          </v-row>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>
@@ -128,4 +126,9 @@ export default {
 </script>
 
 <style>
+.AddWrap {
+  width: 60%;
+  height: 1000px;
+  margin: auto;
+}
 </style>

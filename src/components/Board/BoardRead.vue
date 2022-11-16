@@ -1,27 +1,16 @@
 <template>
-  <div>
     <div class="AddWrap">
-      <h1>
-        게시판 상세보기&nbsp;<v-btn
-          depressed
-          color="error"
-          @click="moveBoardListPage()"
-        >
-          목록
-        </v-btn>
-        <span style="float: right">
-          <v-btn depressed color="error"> 수정 </v-btn>
-          &nbsp;
-          <v-btn depressed color="error" @click="deletePage(board.bno)">
-            삭제
-          </v-btn>
-          &nbsp;
-        </span>
-      </h1>
+      <div class="menuclass">
+        <button class="previous-btn" @click="moveBoardListPage"><v-icon style="color : #E57373">fa-solid fa-square-caret-left</v-icon>
+         목록보기</button>
+      </div>
 
       <div class="boardclass">
         <div class="titleclass">
-          <h2>{{ board.title }}</h2>
+          <span class="board_title">{{ board.title }}</span>
+          <!-- 버튼들 -->
+          <button class="update-btn"><v-icon style="color : rgb(255,255,255);">fa-light fa-wrench</v-icon></button>
+          <button class="delete-btn"><v-icon style="color : rgb(255,255,255);">fa-regular fa-trash-can</v-icon></button>
         </div>
         <div class="writerclass">
           <v-chip
@@ -73,12 +62,11 @@
           <br />
           <v-divider></v-divider>
           <div class="contentclass" v-html="board.content"></div>
+          <v-divider></v-divider>
+          <!-- comment -->
         </div>
       </div>
-      <div class="commentclass">댓글 작성하는 곳</div>
-      <div class="commentclass">댓글 보여주는 곳</div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -118,34 +106,70 @@ export default {
   height: 800px;
   margin: auto;
 }
+.menuclass{
+  margin-top: 10px;
+}
 .boardclass {
-  height: 50%;
   border-radius: 0.5em;
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(224, 224, 224);
+
+  min-height: 80vh;
+  max-height: 100vh;
+  margin-top: 10px;
 }
 .titleclass {
   height: 13%;
   border-radius: 0.5em 0.5em 0em 0em;
-  background-color: rgb(204, 204, 204);
+  background-color: #E57373;
+  color : #FFFFFF;
   border: 1px;
-  text-align: center;
+  text-align: left;
   padding: 0.5em;
+
+  position: relative;
+}
+.board_title {
+  font-weight: bold;
+  font-size: 24px;
+  margin-left: 10px;
 }
 .writerclass {
   height: 8%;
   background-color: rgb(255, 255, 255);
   border: 1px;
   margin: 1em;
+
+
 }
 .contentclass {
   margin: 1em;
-  text-align: center;
+  max-height: 50vh;
+  min-height: 50vh;
 }
 .commentclass {
   height: 20%;
   border-radius: 0.5em;
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(224, 224, 224);
+
+
+}
+
+.update-btn{
+  
+  position: absolute;
+  right: 50px;
+  top : 10px;
+}
+.delete-btn{
+  position: absolute;
+  right: 15px;
+  top : 10px;
+}
+.previous-btn {
+  color: #E57373;
+  font-weight: bold;
+  font-size: 20px;
 }
 </style>
