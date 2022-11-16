@@ -17,23 +17,7 @@
       <v-divider></v-divider>
 
       <v-card-actions>
-        <div>
-          {{ aptDetailInfo.dealAmount }}
-          <v-bottom-navigation
-            absolute
-            color="white"
-            hide-on-scroll
-            horizontal
-            scroll-target="#scroll-threshold-example"
-            scroll-threshold="500"
-          >
-            <v-btn>
-              <span>Favorites</span>
-
-              <v-icon>mdi-heart</v-icon>
-            </v-btn>
-          </v-bottom-navigation>
-        </div>
+        
       </v-card-actions>
     </v-card>
   </div>
