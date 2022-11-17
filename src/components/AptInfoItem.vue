@@ -1,13 +1,8 @@
 <template>
   <v-container>
     <div class="card-section" v-if="aptList.boardList[0]">
-      <button
-        v-if="aptList.currPage != aptList.startPage"
-        @click="getBeforePage"
-      >
-        <v-icon style="font-size: 40px; color: RGB(229, 115, 115)"
-          >fa-solid fa-angles-left</v-icon
-        >
+      <button v-if="aptList.currPage != aptList.startPage" @click="getBeforePage">
+        <v-icon style="font-size: 40px; color: RGB(229, 115, 115)">fa-solid fa-angles-left</v-icon>
       </button>
       <v-card
         v-for="(item, index) in aptList.boardList"
@@ -49,9 +44,7 @@
           <v-list-item-icon>
             <v-icon>fa-regular fa-calendar-days</v-icon>
           </v-list-item-icon>
-          <v-list-item-subtitle
-            >{{ item.dealYear }}년 {{ item.dealMonth }}월</v-list-item-subtitle
-          >
+          <v-list-item-subtitle>{{ item.dealYear }}년 {{ item.dealMonth }}월</v-list-item-subtitle>
         </v-list-item>
         <v-list-item>
           <v-list-item-icon>
