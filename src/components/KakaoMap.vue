@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="map" style="width: 100%; height: 60vh"></div>
+    <div class="map" id="place1" style="width: 100%; height: 60vh"></div>
   </div>
 </template>
 <script>
@@ -39,7 +39,7 @@ export default {
         marker.setMap(null);
       });
 
-      const container = document.getElementById("map");
+      const container = document.getElementById("place1");
       const options = {
         center: new kakao.maps.LatLng(
           this.aptList.boardList[0].lat,

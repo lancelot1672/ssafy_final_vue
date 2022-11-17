@@ -32,7 +32,8 @@
                 <td>
                   &nbsp;
                   <strong
-                    >{{ sido }} {{ aptDetailInfo.dongName }} {{ aptDetailInfo.roadName }}
+                    >{{ sido }} {{ aptDetailInfo.dongName }}
+                    {{ aptDetailInfo.roadName }}
                     {{ aptDetailInfo.jibun }}</strong
                   >
                 </td>
@@ -45,7 +46,10 @@
                 </td>
                 <td>
                   &nbsp;
-                  <strong>{{ aptDetailInfo.dealYear }}년 {{ aptDetailInfo.dealMonth }}월</strong>
+                  <strong
+                    >{{ aptDetailInfo.dealYear }}년
+                    {{ aptDetailInfo.dealMonth }}월</strong
+                  >
                 </td>
               </tr>
               <tr>
@@ -81,16 +85,10 @@
             </table>
           </div>
           <div class="detailMiddleRight">
-            <div id="detail_map" style="width: 700px"></div>
+            <div class="map" id="map" style="width: 100%; height: 455px"></div>
           </div>
         </div>
       </div>
-
-      <!-- <div class="map-section">
-        <div>
-          <div id="map" style="width: 100%; height: 60vh"></div>
-        </div>
-      </div> -->
     </v-card>
   </div>
 </template>
@@ -111,32 +109,43 @@ export default {
   },
   methods: {
     initMap() {
+      // console.log("하이");
       this.markers.forEach((marker) => {
         marker.setMap(null);
       });
 
-      const container = document.getElementById("detail_map");
+      const container = document.getElementById("map");
+      console.log(container);
       const options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        center: new kakao.maps.LatLng(
+          this.aptDetailInfo.lat,
+          this.aptDetailInfo.lng
+        ),
         level: 4,
       };
       //지도 객체를 등록합니다.
       //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
-      const map = new kakao.maps.Map(container, options); // 지도를 생성합니다.
-      this.map = map;
+      this.map = new kakao.maps.Map(container, options); // 지도를 생성합니다.
 
-      let marker = new kakao.maps.Marker({
-        map: this.map,
-        title: "abc",
-        position: new kakao.maps.LatLng(33.450701, 126.570667),
+      console.log(this.map);
+      var markerPosition = new kakao.maps.LatLng(
+        this.aptDetailInfo.lat,
+        this.aptDetailInfo.lng
+      );
+
+      // 마커를 생성합니다
+      var marker = new kakao.maps.Marker({
+        position: markerPosition,
       });
-      console.log(marker);
-      // var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-      // // 마커 이미지의 이미지 크기 입니다
-      // var imageSize = new kakao.maps.Size(24, 35);
 
-      // // 마커 이미지를 생성합니다
-      // var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+      // 마커가 지도 위에 표시되도록 설정합니다
+      marker.setMap(this.map);
+      // let marker = new kakao.maps.Marker({
+      //   map: this.map,
+      //   title: "abc",
+      //   position: new kakao.maps.LatLng(33.450701, 126.570667),
+      // });
+      // console.log(marker);
     },
   },
   mounted() {
@@ -180,7 +189,6 @@ export default {
   width: 30%;
 }
 .detailMiddleRight {
-  border: 1px solid black;
   margin: 20px;
   width: 70%;
 }
