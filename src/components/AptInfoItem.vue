@@ -57,20 +57,9 @@
 
       <v-card-actions>
         <div class="text-center">
-          <v-dialog v-model="dialog" width="800">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="red lighten-2"
-                dark
-                v-bind="attrs"
-                v-on="on"
-                @click="clickDetail(item.no)"
-              >
-                Show
-              </v-btn>
-            </template>
-            <apt-info-detail></apt-info-detail>
-          </v-dialog>
+          <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on" @click="clickDetail(item.no)">
+            Show
+          </v-btn>
         </div>
       </v-card-actions>
     </v-card>
@@ -82,10 +71,8 @@
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
-import AptInfoDetail from "@/components/AptInfoDetail.vue";
 export default {
   name: "AptInfoItem",
-  components: { AptInfoDetail },
   data() {
     return { dialog: false, detailInfo: [], idx: "" };
   },

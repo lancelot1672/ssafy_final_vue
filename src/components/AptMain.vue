@@ -11,6 +11,9 @@
     </div>
     <select-condition></select-condition>
     <apt-info-list></apt-info-list>
+    <div class="map_section" min-height="10vh" rounded="lg">
+      <kakao-map></kakao-map>
+    </div>
     <router-view />
   </v-container>
 </template>
@@ -18,11 +21,13 @@
 <script>
 import SelectCondition from "@/components/SelectCondition.vue";
 import AptInfoList from "@/components/AptInfoList.vue";
+import KakaoMap from "./KakaoMap.vue";
 export default {
   name: "App",
   components: {
     SelectCondition,
     AptInfoList,
+    KakaoMap,
   },
   data: () => ({
     //
@@ -48,5 +53,9 @@ export default {
   margin-left: 10px;
   font-size: 25px;
   font-weight: bold;
+}
+.map_section {
+  margin: 50px 150px;
+  box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 9%);
 }
 </style>
