@@ -2,7 +2,8 @@
   <v-app>
     <header-nav></header-nav>
 
-    <v-main class="grey lighten-3">
+    <!-- <v-main class="grey lighten-3"> -->
+    <v-main>
       <!--    <select-condition></select-condition>
       <apt-info-list></apt-info-list>
       <simple-info-list></simple-info-list> -->

@@ -1,25 +1,28 @@
 <template>
-  <div>
+  <v-container>
+    <div class="main-header-section">
+      <div class="section1">
+        <img src="@/assets/detailsmallhouse.png" width="100px" />
+        <span class="main-header-title">전국구 아파트 정보</span>
+      </div>
+      <div class="section1">
+        <span class="main-header-title2">시군구를 선택하고 아파트 상세 정보를 확인하세요</span>
+      </div>
+    </div>
     <select-condition></select-condition>
     <apt-info-list></apt-info-list>
-    <simple-info-list></simple-info-list>
-    <kakao-map></kakao-map>
     <router-view />
-  </div>
+  </v-container>
 </template>
 
 <script>
 import SelectCondition from "@/components/SelectCondition.vue";
 import AptInfoList from "@/components/AptInfoList.vue";
-import SimpleInfoList from "@/components/AptSimpleInfo.vue";
-import KakaoMap from "@/components/KakaoMap.vue";
 export default {
   name: "App",
   components: {
     SelectCondition,
     AptInfoList,
-    SimpleInfoList,
-    KakaoMap,
   },
   data: () => ({
     //
@@ -27,4 +30,23 @@ export default {
 };
 </script>
 <style>
+.section1 {
+  display: flex;
+}
+.main-header-section {
+  margin-top: 50px;
+  margin-left: 120px;
+  margin-bottom: 50px;
+}
+.main-header-title {
+  font-size: 40px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+.main-header-title2 {
+  margin-left: 10px;
+  font-size: 25px;
+  font-weight: bold;
+}
 </style>

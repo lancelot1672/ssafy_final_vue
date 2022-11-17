@@ -8,7 +8,7 @@
             label="시도"
             :items="sidoList"
             dense
-            outlined
+            solo
             placeholder="select"
             v-model="sido"
             @change="sidoChange()"
@@ -22,7 +22,7 @@
             label="구군"
             :items="gugunList"
             dense
-            outlined
+            solo
             placeholder="select"
             v-model="gugun"
             @change="gugunChange()"
@@ -36,7 +36,7 @@
             label="법정동"
             :items="dongList"
             dense
-            outlined
+            solo
             placeholder="select"
             v-model="dong"
             @change="dongChange()"
@@ -50,7 +50,7 @@
             label="년"
             :items="yearList"
             dense
-            outlined
+            solo
             placeholder="select"
             v-model="year"
             @change="yearChange()"
@@ -64,7 +64,7 @@
             label="월"
             :items="monthList"
             dense
-            outlined
+            solo
             placeholder="select"
             v-model="month"
           >
@@ -72,9 +72,7 @@
               {{ month }}
             </option>
           </v-select>
-          <v-btn outlined color="rgb(117,117,117)" @click="monthChange()"
-            >검색</v-btn
-          >
+          <v-btn color="#FFFFFF" elevation="2" @click="monthChange()"><strong>검색</strong></v-btn>
         </div>
       </v-col>
     </v-row>
@@ -125,13 +123,11 @@ export default {
     gugunChange() {
       this.dongList = [];
       this.searchGugun(this.gugun);
-      http
-        .get(`home/dongName?sidoName=${this.sido}&gugunName=${this.gugun}`)
-        .then(({ data }) => {
-          for (let i = 0; i < data.length; i++) {
-            this.dongList.push(data[i].dongName);
-          }
-        });
+      http.get(`home/dongName?sidoName=${this.sido}&gugunName=${this.gugun}`).then(({ data }) => {
+        for (let i = 0; i < data.length; i++) {
+          this.dongList.push(data[i].dongName);
+        }
+      });
     },
     dongChange() {
       for (let i = 2022; i >= 2000; i--) {
@@ -147,13 +143,11 @@ export default {
       this.searchDong(this.dong);
       this.searchYear(this.year);
       this.searchMonth(this.month);
-      http
-        .get(`home/dongCode?dongName=${this.dong}&sidoName=${this.sido}`)
-        .then(({ data }) => {
-          this.dongCode = data;
-          this.searchDongcode(this.dongCode);
-          this.searchApt();
-        });
+      http.get(`home/dongCode?dongName=${this.dong}&sidoName=${this.sido}`).then(({ data }) => {
+        this.dongCode = data;
+        this.searchDongcode(this.dongCode);
+        this.searchApt();
+      });
     },
     ...mapActions([
       "searchApt",
@@ -172,10 +166,7 @@ export default {
 <style scoped>
 .select_section {
   display: flex;
-  padding-left: 100px;
-  padding-right: 100px;
-
-  margin-top: 20px;
+  margin: 20px 100px;
 }
 .select {
   margin: 0px 20px;
