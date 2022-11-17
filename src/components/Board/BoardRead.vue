@@ -1,72 +1,91 @@
 <template>
-    <div class="AddWrap">
-      <div class="menuclass">
-        <button class="previous-btn" @click="moveBoardListPage"><v-icon style="color : #E57373">fa-solid fa-square-caret-left</v-icon>
-         목록보기</button>
+  <div class="AddWrap">
+    <div class="menuclass">
+      <button class="previous-btn" @click="moveBoardListPage">
+        <v-icon style="color: #e57373">fa-solid fa-square-caret-left</v-icon>
+        목록보기
+      </button>
+    </div>
+
+    <div class="boardclass">
+      <div class="titleclass">
+        <span class="board_title">{{ board.title }}</span>
+        <!-- 버튼들 -->
+        <button
+          class="update-btn"
+          @click="
+            moveBoardModifyPage(
+              board.bno,
+              board.title,
+              board.user_id,
+              board.content,
+              board.gugun
+            )
+          "
+        >
+          <v-icon style="color: rgb(255, 255, 255)">fa-light fa-wrench</v-icon>
+        </button>
+        <button class="delete-btn" @click="boardDelete(board.bno)">
+          <v-icon style="color: rgb(255, 255, 255)"
+            >fa-regular fa-trash-can</v-icon
+          >
+        </button>
       </div>
+      <div class="writerclass">
+        <v-chip
+          v-if="1"
+          :color="`red lighten-4`"
+          class="ml-0 mr-2 black--text"
+          label
+          small
+        >
+          작성자
+        </v-chip>
 
-      <div class="boardclass">
-        <div class="titleclass">
-          <span class="board_title">{{ board.title }}</span>
-          <!-- 버튼들 -->
-          <button class="update-btn"><v-icon style="color : rgb(255,255,255);">fa-light fa-wrench</v-icon></button>
-          <button class="delete-btn"><v-icon style="color : rgb(255,255,255);">fa-regular fa-trash-can</v-icon></button>
-        </div>
-        <div class="writerclass">
-          <v-chip
-            v-if="1"
-            :color="`red lighten-4`"
-            class="ml-0 mr-2 black--text"
-            label
-            small
-          >
-            작성자
-          </v-chip>
-
-          <span> {{ board.user_id }}</span>
-          <br />
-          <br />
-          <v-chip
-            v-if="1"
-            :color="`red lighten-4`"
-            class="ml-0 mr-2 black--text"
-            label
-            small
-          >
-            주소
-          </v-chip>
-          <span> {{ board.sido }} {{ board.gugun }}</span>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <v-chip
-            v-if="1"
-            :color="`red lighten-4`"
-            class="ml-0 mr-2 black--text"
-            label
-            small
-          >
-            등록일자
-          </v-chip>
-          <span> {{ board.regtime }}</span>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <v-chip
-            v-if="1"
-            :color="`red lighten-4`"
-            class="ml-0 mr-2 black--text"
-            label
-            small
-          >
-            조회수
-          </v-chip>
-          <span> {{ board.hit }}</span>
-          <br />
-          <br />
-          <v-divider></v-divider>
-          <div class="contentclass" v-html="board.content"></div>
-          <v-divider></v-divider>
-          <!-- comment -->
-        </div>
+        <span> {{ board.user_id }}</span>
+        <br />
+        <br />
+        <v-chip
+          v-if="1"
+          :color="`red lighten-4`"
+          class="ml-0 mr-2 black--text"
+          label
+          small
+        >
+          주소
+        </v-chip>
+        <span> {{ board.sido }} {{ board.gugun }}</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <v-chip
+          v-if="1"
+          :color="`red lighten-4`"
+          class="ml-0 mr-2 black--text"
+          label
+          small
+        >
+          등록일자
+        </v-chip>
+        <span> {{ board.regtime }}</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <v-chip
+          v-if="1"
+          :color="`red lighten-4`"
+          class="ml-0 mr-2 black--text"
+          label
+          small
+        >
+          조회수
+        </v-chip>
+        <span> {{ board.hit }}</span>
+        <br />
+        <br />
+        <v-divider></v-divider>
+        <div class="contentclass" v-html="board.content"></div>
+        <v-divider></v-divider>
+        <!-- comment -->
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -90,10 +109,17 @@ export default {
     moveBoardListPage() {
       this.$router.push({ name: "board" });
     },
-    deletePage(bno) {
+    boardDelete(bno) {
       http.delete(`board?bno=` + bno).then(({ data }) => {
         console.log(data);
+        alert("삭제 완료");
         this.$router.push({ name: "board" });
+      });
+    },
+    moveBoardModifyPage(bno, title, user_id, content, gugun) {
+      this.$router.push({
+        name: "modify",
+        query: { bno, title, user_id, content, gugun },
       });
     },
   },
@@ -106,7 +132,7 @@ export default {
   height: 800px;
   margin: auto;
 }
-.menuclass{
+.menuclass {
   margin-top: 10px;
 }
 .boardclass {
@@ -121,8 +147,8 @@ export default {
 .titleclass {
   height: 13%;
   border-radius: 0.5em 0.5em 0em 0em;
-  background-color: #E57373;
-  color : #FFFFFF;
+  background-color: #e57373;
+  color: #ffffff;
   border: 1px;
   text-align: left;
   padding: 0.5em;
@@ -139,8 +165,6 @@ export default {
   background-color: rgb(255, 255, 255);
   border: 1px;
   margin: 1em;
-
-
 }
 .contentclass {
   margin: 1em;
@@ -152,23 +176,20 @@ export default {
   border-radius: 0.5em;
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(224, 224, 224);
-
-
 }
 
-.update-btn{
-  
+.update-btn {
   position: absolute;
   right: 50px;
-  top : 10px;
+  top: 10px;
 }
-.delete-btn{
+.delete-btn {
   position: absolute;
   right: 15px;
-  top : 10px;
+  top: 10px;
 }
 .previous-btn {
-  color: #E57373;
+  color: #e57373;
   font-weight: bold;
   font-size: 20px;
 }

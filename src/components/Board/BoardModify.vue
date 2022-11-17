@@ -8,7 +8,7 @@
     </div>
     <div class="boardclass">
       <div class="titleclass">
-        <span class="board_title">글쓰기</span>
+        <span class="board_title">글 수정하기</span>
       </div>
       <div class="writerclass">
         <v-row>
@@ -88,15 +88,16 @@ import http from "@/util/http-common";
 export default {
   data() {
     return {
-      title: "",
-      user_id: "",
-      select: "",
+      title: this.$route.query.title,
+      user_id: this.$route.query.user_id,
+      select: [],
       items: [],
       sido: "서울특별시",
-      editorData: "",
+      editorData: this.$route.query.content,
       editorConfig: {
         // The configuration of the editor.
       },
+      board: [],
     };
   },
   created() {
@@ -105,14 +106,16 @@ export default {
         this.items.push(data[i].gugunName);
       }
     });
+    this.detailBoard(this.$route.query.gugun);
   },
   methods: {
     write() {
       // console.log(this.editorData);
       http
-        .post(
+        .put(
           `board`,
           JSON.stringify({
+            bno: this.$route.query.bno,
             title: this.title,
             user_id: this.user_id,
             gugun: this.select[0],
@@ -131,6 +134,9 @@ export default {
     },
     moveBoardListPage() {
       this.$router.push({ name: "board" });
+    },
+    detailBoard(gugun) {
+      this.select.push(gugun);
     },
   },
 };

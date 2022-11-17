@@ -4,6 +4,7 @@ import AptMain from "@/components/AptMain";
 import BoardList from "@/components/Board/BoardList";
 import BoardRead from "@/components/Board/BoardRead";
 import BoardWrite from "@/components/Board/BoardWrite";
+import BoardModify from "@/components/Board/BoardModify";
 Vue.use(VueRouter);
 
 const routes = [
@@ -31,6 +32,11 @@ const routes = [
     path: "/write",
     name: "write",
     component: BoardWrite,
+  },
+  {
+    path: "/modify",
+    name: "modify",
+    component: BoardModify,
   },
 ];
 

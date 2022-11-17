@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-main class="grey lighten-3" style="padding:30px 0px 0px">
+    <v-main class="grey lighten-3" style="padding: 30px 0px 0px">
       <v-container>
         <v-row>
           <!-- 왼쪽 -->
@@ -78,51 +78,60 @@
           <v-col cols="12" sm="9">
             <v-sheet min-height="70vh" rounded="lg">
               <!-- <div style="background-color: gray; min-height: 53vh">asdf</div> -->
-              <div style="min-height: 70vh; max-height: 70vh">
+              <div style="min-height: 60vh; max-height: 0vh">
                 <v-simple-table>
-
-                    <thead>
-                      <tr>
-                        <th class="th" width="10%">#</th>
-                        <th width="40%">제목</th>
-                        <th width="15%">주소</th>
-                        <th width="10%">작성자</th>
-                        <th width="15%">작성일시</th>
-                        <th width="10%">조회수</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="item in boardList.boardList" :key="item.name">
-                        <td>{{ item.bno }}</td>
-                        <td>
-                          <router-link style="color:black;" class="board-link"
-                            :to="{
-                              name: 'read',
-                              query: { bno: item.bno },
-                            }"
-                            >{{ item.title }}</router-link
-                          >
-                        </td>
-                        <td>{{ item.sido }} {{ item.gugun }}</td>
-                        <td>{{ item.user_id }}</td>
-                        <td>{{ item.regtime }}</td>
-                        <td>{{ item.hit }}</td>
-                      </tr>
-                    </tbody>
-
+                  <thead>
+                    <tr>
+                      <th class="th" width="10%">#</th>
+                      <th width="40%">제목</th>
+                      <th width="15%">주소</th>
+                      <th width="10%">작성자</th>
+                      <th width="15%">작성일시</th>
+                      <th width="10%">조회수</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in boardList.boardList" :key="item.name">
+                      <td>{{ item.bno }}</td>
+                      <td>
+                        <router-link
+                          style="color: black"
+                          class="board-link"
+                          :to="{
+                            name: 'read',
+                            query: { bno: item.bno },
+                          }"
+                          >{{ item.title }}</router-link
+                        >
+                      </td>
+                      <td>{{ item.sido }} {{ item.gugun }}</td>
+                      <td>{{ item.user_id }}</td>
+                      <td>{{ item.regtime }}</td>
+                      <td>{{ item.hit }}</td>
+                    </tr>
+                  </tbody>
                 </v-simple-table>
               </div>
               <!-- nav-bar -->
               <div class="text-center" style="min-height: 3vh">
                 <!-- <v-pagination v-model="page" :length="10"></v-pagination> -->
                 <button class="page-btn" v-if="boardList.startPage > 1">
-                <v-icon>fa-duotone fa-chevron-left</v-icon>
+                  <v-icon>fa-duotone fa-chevron-left</v-icon>
                 </button>
-                <button class="page-btn" v-for="page in pageRange()" :key="page" @click="getBoardList(page)">
-                  {{page}}
+                <button
+                  class="page-btn"
+                  v-for="page in pageRange()"
+                  :key="page"
+                  @click="getBoardList(page)"
+                >
+                  {{ page }}
                 </button>
-                <button class="page-btn" v-if="boardList.endPage < boardList.totalPage" >
-                  <v-icon>fa-duotone fa-chevron-right</v-icon></button>
+                <button
+                  class="page-btn"
+                  v-if="boardList.endPage < boardList.totalPage"
+                >
+                  <v-icon>fa-duotone fa-chevron-right</v-icon>
+                </button>
               </div>
 
               <div style="min-height: 7vh">
@@ -142,7 +151,7 @@
         </v-row>
       </v-container>
     </v-main>
-</div>
+  </div>
 </template>
 
 <script>
@@ -210,7 +219,8 @@ export default {
         this.loading = false;
       }, 2000);
     },
-    changeTable(item) {   //구 정보를 선택했을 때 처음 가지고 오는 boardList
+    changeTable(item) {
+      //구 정보를 선택했을 때 처음 가지고 오는 boardList
       console.log(item.text);
       http.get(`board?page=1&gugun=${item.text}`).then(({ data }) => {
         console.log(data);
@@ -224,45 +234,48 @@ export default {
     moveWritePage() {
       this.$router.push({ name: "write" });
     },
-    pageRange(){
+    pageRange() {
       let start = this.boardList.startPage;
       let end = this.boardList.endPage;
 
       let list = [];
-      for(let i=start; i<= end; i++){
+      for (let i = start; i <= end; i++) {
         list.push(i);
       }
       return list;
     },
-    getBoardList(page){
+    getBoardList(page) {
       let selected = this.selected;
-      http.get(`board?page=${page}&gugun=${selected[0].text}`).then(({ data }) => {
-        this.boardList = data;
-        console.log(this.boardList);
-      });
-    }
+      http
+        .get(`board?page=${page}&gugun=${selected[0].text}`)
+        .then(({ data }) => {
+          this.boardList = data;
+          console.log(this.boardList);
+        });
+    },
   },
 };
 </script>
 
 <style >
-  .page-btn {
-    border-style: solid;
-    border: none;
-    border-radius: 5px;
-    background: #FFFFFF;
+.page-btn {
+  border-style: solid;
+  border: none;
+  border-radius: 5px;
+  background: #ffffff;
 
-    min-width: 34px;
-    height: 34px;
-    padding: 0 5px;
-    margin: 0 5px;
-    text-decoration: none;
-    transition: 0.3s cubic-bezier(0, 0, 0.2, 1);
+  min-width: 34px;
+  height: 34px;
+  padding: 0 5px;
+  margin: 0 5px;
+  text-decoration: none;
+  transition: 0.3s cubic-bezier(0, 0, 0.2, 1);
 
-    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
-  }
-  .board-link:hover{
-    text-decoration: underline;
-    color: RGB(193, 193, 193);
-  }
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+.board-link:hover {
+  text-decoration: underline;
+  color: RGB(193, 193, 193);
+}
 </style>
