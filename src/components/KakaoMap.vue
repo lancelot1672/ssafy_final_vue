@@ -4,12 +4,17 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   name: "kakaoMap",
   data() {
     return {
       map: Object,
+      markers: [],
     };
+  },
+  computed: {
+    ...mapState(["aptList"]),
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
@@ -23,24 +28,51 @@ export default {
       document.head.appendChild(script);
     }
   },
+  watch: {
+    aptList() {
+      this.initMap();
+    },
+  },
   methods: {
     initMap() {
+      this.markers.forEach((marker) => {
+        marker.setMap(null);
+      });
+
       const container = document.getElementById("map");
       const options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 5,
+        center: new kakao.maps.LatLng(
+          this.aptList.boardList[0].lat,
+          this.aptList.boardList[0].lng
+        ),
+        level: 4,
       };
-
       //지도 객체를 등록합니다.
       //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
-      const map = new kakao.maps.Map(container, options);
+      const map = new kakao.maps.Map(container, options); // 지도를 생성합니다.
       this.map = map;
-      const markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
 
-      const marker = new kakao.maps.Marker({
-        position: markerPosition,
-      });
-      marker.setMap(this.map);
+      var imageSrc =
+        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+      // 마커 이미지의 이미지 크기 입니다
+      var imageSize = new kakao.maps.Size(24, 35);
+
+      // 마커 이미지를 생성합니다
+      var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+      for (let i = 0; i < this.aptList.boardList.length; i++) {
+        this.markers.push(
+          new kakao.maps.Marker({
+            map: this.map,
+            title: this.aptList.boardList[i].apartmentName,
+            position: new kakao.maps.LatLng(
+              this.aptList.boardList[i].lat,
+              this.aptList.boardList[i].lng
+            ),
+            image: markerImage, // 마커 이미지
+          })
+        );
+      }
     },
     displayInfoWindow() {
       if (this.infowindow && this.infowindow.getMap()) {

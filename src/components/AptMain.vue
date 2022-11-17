@@ -6,12 +6,22 @@
         <span class="main-header-title">전국구 아파트 정보</span>
       </div>
       <div class="section1">
-        <span class="main-header-title2">시군구를 선택하고 아파트 상세 정보를 확인하세요</span>
+        <span class="main-header-title2"
+          >시군구를 선택하고 아파트 상세 정보를 확인하세요</span
+        >
       </div>
     </div>
     <select-condition></select-condition>
     <apt-info-list></apt-info-list>
-    <div class="map_section" min-height="10vh" rounded="lg">
+    <apt-info-detail
+      v-if="aptDetailInfo != `function Object() { [native code] }`"
+    ></apt-info-detail>
+    <div
+      class="map_section"
+      min-height="10vh"
+      rounded="lg"
+      v-if="aptList != `function Object() { [native code] }`"
+    >
       <kakao-map></kakao-map>
     </div>
     <router-view />
@@ -22,12 +32,20 @@
 import SelectCondition from "@/components/SelectCondition.vue";
 import AptInfoList from "@/components/AptInfoList.vue";
 import KakaoMap from "./KakaoMap.vue";
+import AptInfoDetail from "@/components/AptInfoDetail.vue";
+
+import { mapState } from "vuex";
+
 export default {
   name: "App",
   components: {
     SelectCondition,
     AptInfoList,
     KakaoMap,
+    AptInfoDetail,
+  },
+  computed: {
+    ...mapState(["aptList", "aptDetailInfo"]),
   },
   data: () => ({
     //
