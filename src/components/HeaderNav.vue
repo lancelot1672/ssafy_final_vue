@@ -21,7 +21,7 @@ export default {
     links: [
       { name: "AptMain", path: "/aptmain" },
       { name: "Board", path: "/board" },
-      { name: "Profile", path: "aptmain" },
+      { name: "Recommend", path: "/recommend" },
       { name: "Updates", path: "aptmain" },
     ],
   }),

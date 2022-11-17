@@ -38,6 +38,11 @@ const routes = [
     name: "modify",
     component: BoardModify,
   },
+  {
+    path: "/recommend",
+    name: "Recommend",
+    component: () => import("@/views/RecommendView"),
+  }
 ];
 
 const router = new VueRouter({
