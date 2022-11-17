@@ -1,11 +1,25 @@
 <template>
-  <div>
-    <v-main class="grey lighten-3" style="padding: 30px 0px 0px">
+  <v-container>
+    <div class="main-header-section">
+      <div class="section1">
+        <img src="@/assets/qa.png" width="70px" />
+        <span class="main-header-title">
+          &nbsp; 서울특별시 아파트 Q&A 게시판</span
+        >
+      </div>
+      <div class="section1">
+        <span class="main-header-title2"
+          >구군을 선택해서 물어보고 싶은 게시물을 자유롭게 확인하고
+          작성하세요</span
+        >
+      </div>
+    </div>
+    <v-main style="padding: 30px 0px 0px">
       <v-container>
         <v-row>
           <!-- 왼쪽 -->
           <v-col cols="10" sm="3">
-            <v-sheet min-height="70vh" rounded="lg">
+            <v-sheet min-height="70vh" rounded="lg" elevation="3">
               <v-responsive class="overflow-y-auto" max-height="70vh">
                 <!-- 내용 -->
                 <v-toolbar flat color="transparent">
@@ -76,7 +90,7 @@
 
           <!-- 오른쪽 -->
           <v-col cols="12" sm="9">
-            <v-sheet min-height="70vh" rounded="lg">
+            <v-sheet min-height="70vh" rounded="lg" elevation="3">
               <!-- <div style="background-color: gray; min-height: 53vh">asdf</div> -->
               <div style="min-height: 60vh; max-height: 0vh">
                 <v-simple-table>
@@ -101,7 +115,7 @@
                             name: 'read',
                             query: { bno: item.bno },
                           }"
-                          >{{ item.title }}</router-link
+                          ><strong>{{ item.title }}</strong></router-link
                         >
                       </td>
                       <td>{{ item.sido }} {{ item.gugun }}</td>
@@ -151,7 +165,7 @@
         </v-row>
       </v-container>
     </v-main>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -277,5 +291,24 @@ export default {
 .board-link:hover {
   text-decoration: underline;
   color: RGB(193, 193, 193);
+}
+.section1 {
+  display: flex;
+}
+.main-header-section {
+  margin-top: 50px;
+  margin-left: 120px;
+  margin-bottom: 50px;
+}
+.main-header-title {
+  font-size: 40px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+.main-header-title2 {
+  margin-left: 10px;
+  font-size: 25px;
+  font-weight: bold;
 }
 </style>
