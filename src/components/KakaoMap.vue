@@ -1,6 +1,10 @@
 <template>
-  <div>
-    <div class="map" id="place1" style="width: 100%; height: 60vh"></div>
+  <div class="mapmain" style="border-radius: 3rem">
+    <div
+      class="map"
+      id="place1"
+      style="width: 100%; height: 60vh; border-radius: 1rem"
+    ></div>
   </div>
 </template>
 <script>

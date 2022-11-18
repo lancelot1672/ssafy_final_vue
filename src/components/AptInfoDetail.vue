@@ -85,7 +85,11 @@
             </table>
           </div>
           <div class="detailMiddleRight">
-            <div class="map" id="map" style="width: 100%; height: 455px"></div>
+            <div
+              class="map"
+              id="map"
+              style="width: 100%; height: 455px; border-radius: 1rem"
+            ></div>
           </div>
         </div>
       </div>

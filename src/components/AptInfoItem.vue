@@ -1,5 +1,5 @@
 <template>
-  <div class="card-section" v-if="aptList.boardList[0]">
+  <div class="card-section" v-if="aptList">
     <button v-if="aptList.currPage != aptList.startPage" @click="getBeforePage">
       <v-icon style="font-size: 40px; color: RGB(229, 115, 115)"
         >fa-solid fa-angles-left</v-icon
