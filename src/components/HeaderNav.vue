@@ -4,14 +4,18 @@
       :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'"
       size="32"
     ></v-avatar>
-    <img src="@/assets/logoleft1.png" class="header-title" width="270px"/>
+    <img src="@/assets/logoleft1.png" class="header_title" width="270px" />
     <v-tabs centered class="ml-n9" color="grey darken-1">
       <v-tab v-for="(link, index) in links" :key="index">
         <router-link :to="link.path">{{ link.name }}</router-link>
       </v-tab>
     </v-tabs>
 
-    <v-avatar class="hidden-sm-and-down" color="grey darken-1 shrink" size="32"></v-avatar>
+    <v-avatar
+      class="hidden-sm-and-down"
+      color="grey darken-1 shrink"
+      size="32"
+    ></v-avatar>
   </v-app-bar>
 </template>
 <script>
@@ -34,7 +38,7 @@ export default {
 a {
   text-decoration: none;
 }
-.header-title {
+.header_title {
   position: absolute;
   left: 40px;
 }
