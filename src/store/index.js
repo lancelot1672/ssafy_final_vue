@@ -6,6 +6,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    sidoList : [],
+    gugunList : [],
+    dongList : [],
     house: null,
     sido: "",
     gugun: "",
@@ -15,8 +18,6 @@ export default new Vuex.Store({
     month: "",
     aptList: Object,
     aptDetailInfo: Object,
-    isapt: "false",
-    isaptList: "false"
   },
   getters: {},
   mutations: {
@@ -26,12 +27,23 @@ export default new Vuex.Store({
     SET_SIDO(state, sido) {
       state.sido = sido;
     },
+    SET_SIDOLIST(state, sidoList){
+      state.sidoList = sidoList;
+    },
+
     SET_GUGUN(state, gugun) {
       state.gugun = gugun;
+    },
+    SET_GUGUNLIST(state, gugunList){
+      state.gugunList = gugunList;
     },
     SET_DONG(state, dong) {
       state.dong = dong;
     },
+    SET_DONGLIST(state, dongList){
+      state.dongList = dongList;
+    }
+    ,
     SET_YEAR(state, year) {
       state.year = year;
     },
@@ -59,6 +71,40 @@ export default new Vuex.Store({
     simpleHouse({ commit }, house) {
       commit("SET_SIMPLE_HOUSE", house);
     },
+    searchSidoList({commit}){
+      // 시도 리스트를 검색합니다.
+      let sidoList = [];
+      http.get("home/sidoName").then(({ data })=>{
+        for (let i = 0; i < data.length; i++) {
+          sidoList.push(data[i].sidoName);
+        }
+        commit("SET_SIDOLIST", sidoList);
+      });
+      
+    },
+    searchGugunList({commit}, sido){
+      //시도에 따른 구군 리스트를 검색합니다.
+      let gugunList = [];
+
+      http.get(`home/gugunName?sidoName=${sido}`).then(({ data }) => {
+        for (let i = 0; i < data.length; i++) {
+          gugunList.push(data[i].gugunName);
+        }
+        commit("SET_GUGUNLIST", gugunList);
+      });
+    },
+    searchDongList({commit}, payload){
+      //구군에 따른 동 리스트를 검새합니다.
+      let dongList = [];
+      http
+      .get(`home/dongName?sidoName=${payload.sido}&gugunName=${payload.gugun}`)
+      .then(({ data }) => {
+        for (let i = 0; i < data.length; i++) {
+          dongList.push(data[i].dongName);
+        }
+        commit("SET_DONGLIST", dongList);
+      });
+    },
     searchSido({ commit }, sido) {
       commit("SET_SIDO", sido);
     },
@@ -74,8 +120,17 @@ export default new Vuex.Store({
     searchMonth({ commit }, month) {
       commit("SET_MONTH", month);
     },
-    searchDongcode({ commit }, dongCode) {
-      commit("SET_DONGCODE", dongCode);
+    searchDongcode({ commit }, payload) {
+      let dongCode;
+      http
+      .get(`home/dongCode?dongName=${payload.dong}&sidoName=${payload.sido}`)
+      .then(({ data }) => {
+        console.log(data);
+        dongCode = data;
+        commit("SET_DONGCODE", dongCode);
+      });
+      console.log(dongCode);
+
     },
     searchApt({ commit }, page) {
       // 검색 조건에 따른 아파트 리스트

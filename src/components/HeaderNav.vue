@@ -8,7 +8,7 @@
     <v-tabs centered class="ml-n9" color="grey darken-1">
       <v-tab v-for="(link, index) in links" :key="index">
         <router-link :to="link.path">{{ link.name }}</router-link>
-      </v-tab>
+      </v-tab>햐
     </v-tabs>
 
     <v-avatar
