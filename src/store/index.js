@@ -14,7 +14,9 @@ export default new Vuex.Store({
     year: "",
     month: "",
     aptList: Object,
-    aptDetailInfo:Object,
+    aptDetailInfo: Object,
+    isapt: "false",
+    isaptList: "false"
   },
   getters: {},
   mutations: {
@@ -44,6 +46,13 @@ export default new Vuex.Store({
     },
     SET_APT_DETAIL(state, aptDetailInfo) { 
       state.aptDetailInfo = aptDetailInfo;
+    },
+    CLEAR_APT(state) { 
+      state.aptList = [];
+      state.aptDetailInfo = [];
+    },
+    CLEAR_APT_DETAIL(state) { 
+      state.aptDetailInfo = [];
     }
   },
   actions: {

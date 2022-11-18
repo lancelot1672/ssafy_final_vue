@@ -72,7 +72,9 @@
               {{ month }}
             </option>
           </v-select>
-          <v-btn color="#FFFFFF" elevation="2" @click="monthChange()"><strong>검색</strong></v-btn>
+          <v-btn color="#FFFFFF" elevation="2" @click="monthChange()"
+            ><strong>검색</strong></v-btn
+          >
         </div>
       </v-col>
     </v-row>
@@ -81,7 +83,7 @@
 
 <script>
 import http from "@/util/http-common";
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 
 export default {
   name: "SelectCondition",
@@ -108,6 +110,7 @@ export default {
     });
   },
   methods: {
+    ...mapMutations(["CLEAR_APT", "CLEAR_APT_DETAIL"]),
     sidoChange() {
       this.gugunList = [];
       this.dongList = [];
@@ -123,11 +126,13 @@ export default {
     gugunChange() {
       this.dongList = [];
       this.searchGugun(this.gugun);
-      http.get(`home/dongName?sidoName=${this.sido}&gugunName=${this.gugun}`).then(({ data }) => {
-        for (let i = 0; i < data.length; i++) {
-          this.dongList.push(data[i].dongName);
-        }
-      });
+      http
+        .get(`home/dongName?sidoName=${this.sido}&gugunName=${this.gugun}`)
+        .then(({ data }) => {
+          for (let i = 0; i < data.length; i++) {
+            this.dongList.push(data[i].dongName);
+          }
+        });
     },
     dongChange() {
       for (let i = 2022; i >= 2000; i--) {
@@ -143,11 +148,13 @@ export default {
       this.searchDong(this.dong);
       this.searchYear(this.year);
       this.searchMonth(this.month);
-      http.get(`home/dongCode?dongName=${this.dong}&sidoName=${this.sido}`).then(({ data }) => {
-        this.dongCode = data;
-        this.searchDongcode(this.dongCode);
-        this.searchApt();
-      });
+      http
+        .get(`home/dongCode?dongName=${this.dong}&sidoName=${this.sido}`)
+        .then(({ data }) => {
+          this.dongCode = data;
+          this.searchDongcode(this.dongCode);
+          this.searchApt();
+        });
     },
     ...mapActions([
       "searchApt",
