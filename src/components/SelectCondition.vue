@@ -67,12 +67,13 @@
             solo
             placeholder="select"
             v-model="month"
+            @change="monthChange()"
           >
             <option v-for="month in monthList" :key="month" :value="month">
               {{ month }}
             </option>
           </v-select>
-          <v-btn color="#FFFFFF" elevation="2" @click="monthChange()"
+          <v-btn color="#FFFFFF" elevation="2" @click="search()"
             ><strong>검색</strong></v-btn
           >
         </div>
@@ -82,19 +83,15 @@
 </template>
 
 <script>
-import http from "@/util/http-common";
-import { mapActions, mapMutations } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
   name: "SelectCondition",
   data() {
     return {
       sido: "",
-      sidoList: [],
       gugun: "",
-      gugunList: [],
       dong: "",
-      dongList: [],
       year: "",
       yearList: [],
       month: "",
@@ -103,36 +100,29 @@ export default {
     };
   },
   created() {
-    http.get("home/sidoName").then(({ data }) => {
-      for (let i = 0; i < data.length; i++) {
-        this.sidoList.push(data[i].sidoName);
-      }
-    });
+    this.searchSidoList();
+  },
+  computed:{
+    ...mapState(["sidoList","gugunList", "dongList"]),
   },
   methods: {
-    ...mapMutations(["CLEAR_APT", "CLEAR_APT_DETAIL"]),
+    ...mapMutations(["SET_SIDOLIST","SET_GUGUNLIST","SET_DONGLIST","CLEAR_APT", "CLEAR_APT_DETAIL"]),
     sidoChange() {
-      this.gugunList = [];
-      this.dongList = [];
       //선택된 시도를 state에 저장
       this.searchSido(this.sido);
 
-      http.get(`home/gugunName?sidoName=${this.sido}`).then(({ data }) => {
-        for (let i = 0; i < data.length; i++) {
-          this.gugunList.push(data[i].gugunName);
-        }
-      });
+      //action
+      this.searchGugunList(this.sido);
     },
     gugunChange() {
-      this.dongList = [];
+      //선택된 구군을 state에 저장
       this.searchGugun(this.gugun);
-      http
-        .get(`home/dongName?sidoName=${this.sido}&gugunName=${this.gugun}`)
-        .then(({ data }) => {
-          for (let i = 0; i < data.length; i++) {
-            this.dongList.push(data[i].dongName);
-          }
-        });
+
+      //action
+      this.searchDongList({
+        sido : this.sido,
+        gugun : this.gugun,
+      });
     },
     dongChange() {
       for (let i = 2022; i >= 2000; i--) {
@@ -148,15 +138,20 @@ export default {
       this.searchDong(this.dong);
       this.searchYear(this.year);
       this.searchMonth(this.month);
-      http
-        .get(`home/dongCode?dongName=${this.dong}&sidoName=${this.sido}`)
-        .then(({ data }) => {
-          this.dongCode = data;
-          this.searchDongcode(this.dongCode);
-          this.searchApt();
-        });
+
+      this.searchDongcode({
+        dong : this.dong,
+        sido : this.sido
+      });
+      
+    },
+    search(){
+      this.searchApt();
     },
     ...mapActions([
+      "searchSidoList",
+      "searchGugunList",
+      "searchDongList",
       "searchApt",
       "searchSido",
       "searchGugun",

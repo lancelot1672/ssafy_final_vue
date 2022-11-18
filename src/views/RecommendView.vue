@@ -123,65 +123,44 @@
 </template>
 
 <script>
-import http from "@/util/http-common";
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
+
 export default {
   name: "RecommendView",
   data() {
     return {
       sido: "",
-      sidoList: [],
       gugun: "",
-      gugunList: [],
       dong: "",
-      dongList: [],
-      year: "",
-      yearList: [],
-      month: "",
-      monthList: [],
       dongCode: "",
       tab: null,
       items: ["지하철", "버스", "따릉이"],
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     };
   },
+  computed:{
+    ...mapState(["gugunList", "dongList"]),
+  },
   created() {
-    http.get("home/sidoName").then(({ data }) => {
-      for (let i = 0; i < data.length; i++) {
-        this.sidoList.push(data[i].sidoName);
-      }
-    });
+    this.sido = "서울특별시";
+    this.searchGugunList(this.sido);
   },
   methods: {
-    sidoChange() {
-      this.gugunList = [];
-      this.dongList = [];
-      //선택된 시도를 state에 저장
-      this.searchSido(this.sido);
-
-      http.get(`home/gugunName?sidoName=${this.sido}`).then(({ data }) => {
-        for (let i = 0; i < data.length; i++) {
-          this.gugunList.push(data[i].gugunName);
-        }
+    gugunChange() {
+      //action
+      this.searchDongList({
+        sido : this.sido,
+        gugun : this.gugun,
       });
     },
-    gugunChange() {
-      this.dongList = [];
-      this.searchGugun(this.gugun);
-      http
-        .get(`home/dongName?sidoName=${this.sido}&gugunName=${this.gugun}`)
-        .then(({ data }) => {
-          for (let i = 0; i < data.length; i++) {
-            this.dongList.push(data[i].dongName);
-          }
-        });
+    dongChange(){
+      //동코드 가져와
+      this.searchDongcode({
+        dong : this.dong,
+        sido : this.sido
+      });
     },
-    dongChange() {
-      for (let i = 2022; i >= 2000; i--) {
-        this.yearList.push(i);
-      }
-    },
-    ...mapActions(["searchSido", "searchGugun"]),
+    ...mapActions(["searchGugunList","searchDongList","searchDongcode"]),
   },
 };
 </script>
