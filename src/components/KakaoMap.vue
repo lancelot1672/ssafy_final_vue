@@ -1,5 +1,5 @@
 <template>
-  <div class="mapmain" style="border-radius: 3rem">
+  <div class="mapmain" v-if="aptList" style="border-radius: 1rem">
     <div
       class="map"
       id="place1"
@@ -42,7 +42,8 @@ export default {
       this.markers.forEach((marker) => {
         marker.setMap(null);
       });
-
+      console.log(this.aptList);
+      if(this.aptList){
       const container = document.getElementById("place1");
       const options = {
         center: new kakao.maps.LatLng(
@@ -77,6 +78,8 @@ export default {
           })
         );
       }
+      }
+      
     },
     displayInfoWindow() {
       if (this.infowindow && this.infowindow.getMap()) {

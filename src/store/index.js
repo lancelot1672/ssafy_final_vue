@@ -48,11 +48,11 @@ export default new Vuex.Store({
       state.aptDetailInfo = aptDetailInfo;
     },
     CLEAR_APT(state) { 
-      state.aptList = [];
-      state.aptDetailInfo = [];
+      state.aptList = Object;
+      state.aptDetailInfo = Object;
     },
     CLEAR_APT_DETAIL(state) { 
-      state.aptDetailInfo = [];
+      state.aptDetailInfo = Object;
     }
   },
   actions: {
@@ -78,6 +78,11 @@ export default new Vuex.Store({
       commit("SET_DONGCODE", dongCode);
     },
     searchApt({ commit }, page) {
+      // 검색 조건에 따른 아파트 리스트
+
+      //아파트 리스트 초기화
+      commit("CLEAR_APT");
+
       if (!page) {
         page = 1;
       }
@@ -87,11 +92,19 @@ export default new Vuex.Store({
           `home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${this.state.month}&page=${page}`
         )
         .then(({ data }) => {
-          console.log(data);
+          console.log(data.boardList);
+          if(data.boardList.length == 0){
+            data = null;
+          }
           commit("SET_APT", data);
         });
     },
     searchBeforePage({ commit }) {
+      //다음 페이지 목록 보여주기
+
+      //aptDetail info 초기화
+      commit("CLEAR_APT_DETAIL");
+
       let currPage = this.state.aptList.currPage;
       http
         .get(
@@ -104,6 +117,11 @@ export default new Vuex.Store({
         });
     },
     searchNextPage({ commit }) {
+      //다음 페이지 목록 보여주기
+
+      //aptDetail info 초기화
+      commit("CLEAR_APT_DETAIL");
+
       let currPage = this.state.aptList.currPage;
       http
         .get(
