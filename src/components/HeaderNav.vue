@@ -4,7 +4,7 @@
       :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'"
       size="32"
     ></v-avatar>
-    <img src="@/assets/logoleft1.png" :ㅅclass="header-title" width="270px"/>
+    <img src="@/assets/logoleft1.png" class="header-title" width="270px"/>
     <v-tabs centered class="ml-n9" color="grey darken-1">
       <v-tab v-for="(link, index) in links" :key="index">
         <router-link :to="link.path">{{ link.name }}</router-link>
