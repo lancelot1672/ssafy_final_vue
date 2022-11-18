@@ -85,11 +85,13 @@
             </table>
           </div>
           <div class="detailMiddleRight">
-            <div
-              class="map"
-              id="map"
-              style="width: 100%; height: 455px; border-radius: 1rem"
-            ></div>
+            <div>
+              <div
+                class="map"
+                id="map"
+                style="width: 100%; height: 455px; border-radius: 1rem"
+              ></div>
+            </div>
           </div>
         </div>
       </div>
@@ -113,13 +115,12 @@ export default {
   },
   methods: {
     initMap() {
-      // console.log("하이");
       this.markers.forEach((marker) => {
         marker.setMap(null);
       });
 
       const container = document.getElementById("map");
-      console.log(container);
+
       const options = {
         center: new kakao.maps.LatLng(
           this.aptDetailInfo.lat,
@@ -131,7 +132,6 @@ export default {
       //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
       this.map = new kakao.maps.Map(container, options); // 지도를 생성합니다.
 
-      console.log(this.map);
       var markerPosition = new kakao.maps.LatLng(
         this.aptDetailInfo.lat,
         this.aptDetailInfo.lng
@@ -144,12 +144,6 @@ export default {
 
       // 마커가 지도 위에 표시되도록 설정합니다
       marker.setMap(this.map);
-      // let marker = new kakao.maps.Marker({
-      //   map: this.map,
-      //   title: "abc",
-      //   position: new kakao.maps.LatLng(33.450701, 126.570667),
-      // });
-      // console.log(marker);
     },
   },
   mounted() {
@@ -160,7 +154,7 @@ export default {
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
       script.src =
-        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=fee2964f095ecaef309e6699b5d8e22d";
+        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=fee2964f095ecaef309e6699b5d8e22d&libraries=services";
       document.head.appendChild(script);
     }
   },
