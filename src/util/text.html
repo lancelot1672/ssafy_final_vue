@@ -64,7 +64,7 @@
         }
         document.querySelector('#click2').onclick = async function(){
             //animal 데이터 fetch로 가져오기
-            let response = await fetch('http://openapi.seoul.go.kr:8088/7775476a766c616e363269696a6f71/json/LOCALDATA_020302/1/10/')
+            let response = await fetch('http://openapi.seoul.go.kr:8088/7775476a766c616e363269696a6f71/json/LOCALDATA_020302/1/1000/')
             let data = await response.json();
             let list = data.LOCALDATA_020302.row;
             console.log(list);
@@ -92,17 +92,18 @@
                         lat : info.road_address.x,
                         lng : info.road_address.y,
                     }
-                    after.push(json);
+                    console.log(json);
+                    //after.push(json);
 
-                    // let response = await fetch('http://localhost:9999/animal/insert',{
-                    //     method : "post",
-                    //     headers : {
-                    //         "Content-Type":"Application/json",
-                    //     },
-                    //     body : JSON.stringify(json),
-                    // });
-                    // let data = response.text();
-                    // console.log(data);
+                    let response = await fetch('http://localhost:9999/animal/pharmacy',{
+                        method : "post",
+                        headers : {
+                            "Content-Type":"Application/json",
+                        },
+                        body : JSON.stringify(json),
+                    });
+                    let data = response.text();
+                    console.log(data);
                 }
 
                 

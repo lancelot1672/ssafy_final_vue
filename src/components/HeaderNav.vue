@@ -8,7 +8,7 @@
     <v-tabs centered class="ml-n9" color="grey darken-1">
       <v-tab v-for="(link, index) in links" :key="index">
         <router-link :to="link.path">{{ link.name }}</router-link>
-      </v-tab>햐
+      </v-tab>
     </v-tabs>
 
     <v-avatar
@@ -27,6 +27,8 @@ export default {
       { name: "Board", path: "/board" },
       { name: "Recommend", path: "/recommend" },
       { name: "Updates", path: "aptmain" },
+      { name: "Login", path: "/user/login" },
+      { name: "Join", path: "/user/join" },
     ],
   }),
   methods: {

@@ -42,7 +42,18 @@ const routes = [
     path: "/recommend",
     name: "Recommend",
     component: () => import("@/views/RecommendView"),
+  },
+  {
+    path : "/user/login",
+    name : "login",
+    component: () => import("@/views/UserLogin"),
+  },
+  {
+    path : "/user/join",
+    name : "join",
+    component: () => import("@/views/UserJoin"),
   }
+
 ];
 
 const router = new VueRouter({
