@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import http from "@/util/http-common";
+import jwtDecode from "jwt-decode";
 
 Vue.use(Vuex);
 
@@ -18,6 +19,10 @@ export default new Vuex.Store({
     month: "",
     aptList: Object,
     aptDetailInfo: Object,
+    isLogin : false,
+    isLoginError: false,
+    userInfo: null,
+    isValidToken: false,
   },
   getters: {},
   mutations: {
@@ -65,7 +70,21 @@ export default new Vuex.Store({
     },
     CLEAR_APT_DETAIL(state) { 
       state.aptDetailInfo = Object;
-    }
+    },
+    //user
+    SET_IS_LOGIN: (state, isLogin) => {
+      state.isLogin = isLogin;
+    },
+    SET_IS_LOGIN_ERROR: (state, isLoginError) => {
+      state.isLoginError = isLoginError;
+    },
+    SET_IS_VALID_TOKEN: (state, isValidToken) => {
+      state.isValidToken = isValidToken;
+    },
+    SET_USER_INFO: (state, userInfo) => {
+      state.isLogin = true;
+      state.userInfo = userInfo;
+    },
   },
   actions: {
     simpleHouse({ commit }, house) {
@@ -201,6 +220,43 @@ export default new Vuex.Store({
       }
       commit("SET_APT_DETAIL", detail);
       
+    },
+    userConfirm({commit}, user){
+      //비동기
+      http.post('/user/login',JSON.stringify(user)).then(({data})=>{
+        if(data.message === "success"){
+          let accessToken = data["access-token"];
+          let refreshToken = data["refresh-token"];
+          // console.log("login success token created!!!! >> ", accessToken, refreshToken);
+          commit("SET_IS_LOGIN", true);
+          commit("SET_IS_LOGIN_ERROR", false);
+          commit("SET_IS_VALID_TOKEN", true);
+          sessionStorage.setItem("access-token", accessToken);
+          sessionStorage.setItem("refresh-token", refreshToken);
+        } else {
+          commit("SET_IS_LOGIN", false);
+          commit("SET_IS_LOGIN_ERROR", true);
+          commit("SET_IS_VALID_TOKEN", false);
+        }
+      },
+      (error) => {
+        console.log(error);
+      });
+    },
+    async getUserInfo({commit}, token){
+      let decodeToken = jwtDecode(token);
+      // console.log("2. getUserInfo() decodeToken :: ", decodeToken);
+      console.log(decodeToken);
+
+      http.post(`user/${decodeToken.userid}`).then(({data})=>{
+        console.log(data);
+        if (data.message === "success") {
+          commit("SET_USER_INFO", data.userInfo);
+          // console.log("3. getUserInfo data >> ", data);
+        } else {
+          console.log("유저 정보 없음!!!!");
+        }
+      });
     }
   },
   modules: {},

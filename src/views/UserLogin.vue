@@ -8,8 +8,7 @@
 				</a>
 			</div>
 
-			<form class="loginFrm" name="loginFrm" action="/"
-				method="post">
+			<form class="loginFrm" v-on:submit.prevent>
 				<div>
 					<h3 class="login_title">
 						<label for="memberId">아이디</label>
@@ -44,7 +43,9 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
 export default {
+	
 	data(){
 		return {
 			user:{
@@ -53,15 +54,25 @@ export default {
 			}
 		}
 	},
+	computed: {
+    ...mapState(["isLogin", "isLoginError", "userInfo"]),
+},
 	methods:{
+		...mapActions(["userConfirm", "getUserInfo"]),
 		async confirm(){
 			//로그인 버튼 클릭시 이벤트
 			//비동기 호출
+			await this.userConfirm(this.user);
 
 			//토큰 가져오기
+			let token = sessionStorage.getItem("access-token");
+			console.log(token);
 
 			//발급 받은 토큰을 통해 비동기로 데이터 요청
-
+			if(this.isLogin){
+				await this.getUserInfo(token);
+				this.$router.push({ name: "main" });
+			}
 			
 		}
 	}
