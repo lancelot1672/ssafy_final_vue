@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data(){
     return {
@@ -61,6 +62,19 @@ export default {
         age : null,
       }
     }
+  },
+  methods :{
+    ...mapActions(["userConfirm","getUserInfo"]),
+    async confime(){
+      await this.userConfirm(this.user);
+      let token = sessionStorage.getItem("access-token");
+      // console.log("1. confirm() token >> " + token);
+      if (this.isLogin) {
+        await this.getUserInfo(token);
+        // console.log("4. confirm() userInfo :: ", this.userInfo);
+        this.$router.push({ name: "main" });
+      }
+    },
   }
 }
 </script>
