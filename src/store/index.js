@@ -231,7 +231,6 @@ export default new Vuex.Store({
     },
 
     getRecommandResult({ commit }, dongName) {
-
       http
         .get(
           `station/list?dongName=${dongName}`
