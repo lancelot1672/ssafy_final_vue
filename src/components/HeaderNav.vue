@@ -4,7 +4,12 @@
       :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'"
       size="32"
     ></v-avatar>
-    <img src="@/assets/logoleft1.png" @click="movePage" class="header_title" width="240px" />
+    <img
+      src="@/assets/logoleft1.png"
+      @click="movePage"
+      class="header_title"
+      width="240px"
+    />
     <v-tabs centered class="ml-n9" color="grey darken-1">
       <v-tab v-for="(link, index) in links" :key="index">
         <router-link :to="link.path">{{ link.name }}</router-link>
@@ -27,15 +32,14 @@ export default {
       { name: "Board", path: "/board" },
       { name: "Recommend", path: "/recommend" },
       { name: "Updates", path: "aptmain" },
-      { name: "Login", path: "/user/login" },
-      { name: "Join", path: "/user/join" },
+      // { name: "Login", path: "/user/login" },
+      // { name: "Join", path: "/user/join" },
     ],
   }),
   methods: {
     movePage() {
-      this.$route.push({path:"/"});
+      this.$route.push({ path: "/" });
     },
-    
   },
 };
 </script>

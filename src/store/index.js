@@ -18,6 +18,7 @@ export default new Vuex.Store({
     month: "",
     aptList: Object,
     aptDetailInfo: Object,
+    StationApt:Object,
   },
   getters: {},
   mutations: {
@@ -65,6 +66,9 @@ export default new Vuex.Store({
     },
     CLEAR_APT_DETAIL(state) { 
       state.aptDetailInfo = Object;
+    },
+    STATION_APT(state, StationApt) { 
+      state.StationApt = StationApt;
     }
   },
   actions: {
@@ -201,6 +205,16 @@ export default new Vuex.Store({
       }
       commit("SET_APT_DETAIL", detail);
       
+    },
+    getRecommandResult({ commit }, dongName) { 
+
+      http
+        .get(
+          `station/list?dongName=${dongName}`
+        )
+        .then(({ data }) => {
+          commit("STATION_APT", data);
+        });
     }
   },
   modules: {},
