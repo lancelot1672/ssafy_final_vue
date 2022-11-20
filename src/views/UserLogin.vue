@@ -13,7 +13,7 @@
 					<h3 class="login_title">
 						<label for="memberId">아이디</label>
 					</h3>
-					<input type="text" v-model="user.userid" @keyup.enter="confirm" placeholder="아이디" />
+					<input type="text" v-model="user.userId" @keyup.enter="confirm" placeholder="아이디" />
 
 				</div>
 
@@ -21,7 +21,7 @@
 					<h3 class="login_title">
 						<label for="password">비밀번호</label>
 					</h3>
-					<input type="password" v-model="user.userpw" @keyup.enter="confirm"
+					<input type="password" v-model="user.userPw" @keyup.enter="confirm"
 						placeholder="비밀번호" />
 				</div>
 
@@ -49,8 +49,8 @@ export default {
 	data(){
 		return {
 			user:{
-				userid : null,
-				userpw : null,
+				userId : null,
+				userPw : null,
 			}
 		}
 	},
@@ -68,12 +68,13 @@ export default {
 			let token = sessionStorage.getItem("access-token");
 			console.log(token);
 
+			console.log(this.isLogin);
 			//발급 받은 토큰을 통해 비동기로 데이터 요청
 			if(this.isLogin){
 				await this.getUserInfo(token);
 				this.$router.push({ name: "main" });
 			}
-			
+			console.log(this.isLogin);
 		}
 	}
 }

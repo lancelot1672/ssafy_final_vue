@@ -221,13 +221,15 @@ export default new Vuex.Store({
       commit("SET_APT_DETAIL", detail);
       
     },
-    userConfirm({commit}, user){
+    async userConfirm({commit}, user){
+      console.log(user);
       //비동기
-      http.post('/user/login',JSON.stringify(user)).then(({data})=>{
+      await http.post('/user/login',JSON.stringify(user)).then( ({data})=>{
         if(data.message === "success"){
           let accessToken = data["access-token"];
           let refreshToken = data["refresh-token"];
-          // console.log("login success token created!!!! >> ", accessToken, refreshToken);
+          console.log("login success token created!!!! >> ", accessToken, refreshToken);
+          this.state.isLogin = true;
           commit("SET_IS_LOGIN", true);
           commit("SET_IS_LOGIN_ERROR", false);
           commit("SET_IS_VALID_TOKEN", true);
@@ -246,15 +248,34 @@ export default new Vuex.Store({
     async getUserInfo({commit}, token){
       let decodeToken = jwtDecode(token);
       // console.log("2. getUserInfo() decodeToken :: ", decodeToken);
-      console.log(decodeToken);
+      console.log(decodeToken.userid);
 
-      http.post(`user/${decodeToken.userid}`).then(({data})=>{
+      await http.get(`user/${decodeToken.userid}`).then(({data})=>{
         console.log(data);
         if (data.message === "success") {
           commit("SET_USER_INFO", data.userInfo);
           // console.log("3. getUserInfo data >> ", data);
         } else {
           console.log("유저 정보 없음!!!!");
+        }
+      }).catch(async (error)=>{
+        console.log("getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ", error.response.status);
+        commit("SET_IS_VALID_TOKEN", false);
+        //await this.dispatch("tokenRegeneration");
+      });
+    },
+    async tokenRegeneration({commit, state}){
+      console.log("토큰 재발급 >> 기존 토큰 정보 : {}", sessionStorage.getItem("access-token"));
+      console.log(state.userInfo);
+      await http.post(`/user/refresh`,
+        JSON.stringify(state.userInfo)
+      ).then(({data})=>{
+        console.log(data);
+        if (data.message === "success") {
+          let accessToken = data["access-token"];
+          console.log("재발급 완료 >> 새로운 토큰 : {}", accessToken);
+          sessionStorage.setItem("access-token", accessToken);
+          commit("SET_IS_VALID_TOKEN", true);
         }
       });
     }
