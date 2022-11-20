@@ -45,7 +45,7 @@
       </div>
     </div>
     <!--  -->
-    <div class="card-section">
+    <div class="card-section" v-if="StationApt[0] != null">
       <v-card
         class="mx-auto"
         max-width="300"
@@ -53,68 +53,71 @@
         max-height="300"
         elevation="17"
         color="#FF6450"
-        style="text-align: center; padding: 1rem; border-radius: 1rem"
+        style="text-align: center; padding-top: 2.5rem; border-radius: 1rem"
         round
-        ><h1 style="color: white">무슨무슨 아파트</h1></v-card
       >
+        <h1 style="color: white">{{ StationApt[0].apartmentName }}</h1>
+        <p style="color: white; font-size: 13px">
+          {{ sido }} {{ StationApt[0].dongName }} {{ StationApt[0].roadName }}
+          {{ StationApt[0].jibun }}
+        </p>
+        <v-img
+          src="@/assets/bus.png"
+          max-height="120"
+          max-width="120"
+          style="margin: 0 auto"
+        ></v-img>
+      </v-card>
       <v-card
         class="mx-auto"
         max-width="300"
         min-width="300"
-        elevation="17"
         max-height="300"
+        elevation="17"
         color="#04DC00"
-        style="text-align: center; padding: 1rem; border-radius: 1rem"
+        style="text-align: center; padding-top: 2.5rem; border-radius: 1rem"
         round
-        ><h1>무슨무슨 아파트</h1></v-card
       >
+        <h1 style="color: black">{{ StationApt[1].apartmentName }}</h1>
+        <p style="color: black; font-size: 13px">
+          {{ sido }} {{ StationApt[1].dongName }} {{ StationApt[1].roadName }}
+          {{ StationApt[1].jibun }}
+        </p>
+        <v-img
+          src="@/assets/subway.png"
+          max-height="120"
+          max-width="120"
+          style="margin: 0 auto"
+        ></v-img>
+      </v-card>
       <v-card
         class="mx-auto"
         max-width="300"
         min-width="300"
-        elevation="17"
         max-height="300"
+        elevation="17"
         color="#06A0E6"
-        style="text-align: center; padding: 1rem; border-radius: 1rem"
-        ><h1 style="color: white">무슨무슨 아파트</h1></v-card
+        style="text-align: center; padding-top: 2.5rem; border-radius: 1rem"
+        round
       >
+        <h1 style="color: white">{{ StationApt[2].apartmentName }}</h1>
+        <p style="color: white; font-size: 13px">
+          {{ sido }} {{ StationApt[2].dongName }} {{ StationApt[2].roadName }}
+          {{ StationApt[2].jibun }}
+        </p>
+        <v-img
+          src="@/assets/bike.png"
+          max-height="120"
+          max-width="120"
+          style="margin: 0 auto"
+        ></v-img>
+      </v-card>
     </div>
     <div class="info-section">
       <p>※ 추천 매물은 교통의 종합적인 데이터를 바탕으로 ..</p>
     </div>
-    <div class="traffic-section">
-      <div class="traffic-info">
-        <img src="@/assets/metro.png" width="100px" height="100px" />
-        <div class="traffic-detail">
-          <h3 class="traffic-title">지하철</h3>
-          <p class="traffic-content">
-            가장 가까운 지하철역은 ____입니다. 500m안에 지하철역이 존재합니다.
-          </p>
-        </div>
-      </div>
-      <v-divider />
-      <div class="traffic-info">
-        <img src="@/assets/metro.png" width="100px" height="100px" />
-        <div class="traffic-detail">
-          <h3 class="traffic-title">지하철</h3>
-          <p class="traffic-content">
-            가장 가까운 지하철역은 ____입니다. 500m안에 지하철역이 존재합니다.
-          </p>
-        </div>
-      </div>
-      <v-divider />
-      <div class="traffic-info">
-        <img src="@/assets/metro.png" width="100px" height="100px" />
-        <div class="traffic-detail">
-          <h3 class="traffic-title">지하철</h3>
-          <p class="traffic-content">
-            가장 가까운 지하철역은 ____입니다. 500m안에 지하철역이 존재합니다.
-          </p>
-        </div>
-      </div>
-    </div>
 
-    <v-card color="basil">
+    <!-- <v-card color="basil">
       <v-card-title class="text-center justify-center py-6">
         <h1 class="font-weight-bold text-h2 basil--text">Kakao Map</h1>
       </v-card-title>
@@ -132,7 +135,65 @@
           </v-card>
         </v-tab-item>
       </v-tabs-items>
-    </v-card>
+    </v-card> -->
+
+    <div class="stationDetail" v-if="StationApt[0] != null">
+      <!-- <div class="traffic-section"> -->
+      <div>
+        <div class="traffic-info">
+          <h1>{{ StationApt[0].apartmentName }} 아파트 상세 정보</h1>
+        </div>
+      </div>
+      <div class="stationDetailSubway">
+        <div class="SDSubwayLeft">
+          <v-img
+            src="@/assets/subwaygif.gif"
+            style="margin: 0 auto; border-radius: 2rem"
+          ></v-img>
+        </div>
+        <div class="SDSubwayRight">
+          <h1>직선거리 500m 이내의</h1>
+          <h1>지하철역은 {{ StationApt[0].stationList.length }}개 입니다.</h1>
+          <br />
+          <div
+            v-for="(station, index) in StationApt[0].stationList"
+            :key="index"
+          >
+            <v-chip class="ma-2" color="green" text-color="white">
+              2호선
+            </v-chip>
+            <strong>{{ StationApt[0].stationList[index].name }}역</strong>까지
+            {{ StationApt[0].stationList[index].distance }} 거리입니다.
+          </div>
+        </div>
+      </div>
+      <div class="stationDetailBus">
+        <div class="SDBusLeft">
+          <h1>직선거리 100m 이내의</h1>
+          <h1>버스정류장은 {{ StationApt[0].busList.length }}개 입니다.</h1>
+        </div>
+        <div class="SDBusRight">
+          <v-img
+            src="@/assets/busgif.gif"
+            style="margin: 0 auto; border-radius: 2rem"
+            max-height="280px"
+          ></v-img>
+        </div>
+      </div>
+      <div class="stationDetailBike">
+        <div class="SDBikeLeft">
+          <v-img
+            src="@/assets/bikegif.gif"
+            style="margin: 0 auto; border-radius: 2rem"
+            max-height="300px"
+          ></v-img>
+        </div>
+        <div class="SDBikeRight">
+          <h1>직선거리 100m 이내의</h1>
+          <h1>따릉이는 {{ StationApt[1].bikeList.length }}개 입니다.</h1>
+        </div>
+      </div>
+    </div>
   </v-container>
 </template>
 
@@ -244,5 +305,53 @@ export default {
 }
 .basil--text {
   color: #356859 !important;
+}
+.stationDetail {
+  width: 70%;
+  margin: 0 auto;
+  height: 1000px;
+}
+.stationDetailSubway {
+  height: 33.3%;
+  margin: 1rem;
+}
+.stationDetailBus {
+  height: 33.3%;
+}
+.stationDetailBike {
+  height: 33.3%;
+}
+.SDSubwayLeft {
+  width: 40%;
+  height: 100%;
+  float: left;
+}
+.SDSubwayRight {
+  width: 60%;
+  height: 100%;
+  float: left;
+  text-align: center;
+}
+.SDBusLeft {
+  width: 60%;
+  height: 100%;
+  float: left;
+  text-align: center;
+}
+.SDBusRight {
+  width: 40%;
+  height: 100%;
+  float: left;
+}
+.SDBikeLeft {
+  width: 40%;
+  height: 100%;
+  float: left;
+}
+.SDBikeRight {
+  width: 60%;
+  height: 100%;
+  float: left;
+  text-align: center;
 }
 </style>
