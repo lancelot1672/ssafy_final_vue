@@ -27,8 +27,7 @@ export default {
       const script = document.createElement("script");
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
-      script.src =
-        `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAO_MAP_SERVICE_KEY}`;
+      script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAO_MAP_SERVICE_KEY}`;
       document.head.appendChild(script);
     }
   },
@@ -43,43 +42,42 @@ export default {
         marker.setMap(null);
       });
       console.log(this.aptList);
-      if(this.aptList){
-      const container = document.getElementById("place1");
-      const options = {
-        center: new kakao.maps.LatLng(
-          this.aptList.boardList[0].lat,
-          this.aptList.boardList[0].lng
-        ),
-        level: 4,
-      };
-      //지도 객체를 등록합니다.
-      //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
-      const map = new kakao.maps.Map(container, options); // 지도를 생성합니다.
-      this.map = map;
+      if (this.aptList) {
+        const container = document.getElementById("place1");
+        const options = {
+          center: new kakao.maps.LatLng(
+            this.aptList.boardList[0].lat,
+            this.aptList.boardList[0].lng
+          ),
+          level: 4,
+        };
+        //지도 객체를 등록합니다.
+        //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
+        const map = new kakao.maps.Map(container, options); // 지도를 생성합니다.
+        this.map = map;
 
-      var imageSrc =
-        "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-      // 마커 이미지의 이미지 크기 입니다
-      var imageSize = new kakao.maps.Size(24, 35);
+        var imageSrc =
+          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        // 마커 이미지의 이미지 크기 입니다
+        var imageSize = new kakao.maps.Size(24, 35);
 
-      // 마커 이미지를 생성합니다
-      var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+        // 마커 이미지를 생성합니다
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
-      for (let i = 0; i < this.aptList.boardList.length; i++) {
-        this.markers.push(
-          new kakao.maps.Marker({
-            map: this.map,
-            title: this.aptList.boardList[i].apartmentName,
-            position: new kakao.maps.LatLng(
-              this.aptList.boardList[i].lat,
-              this.aptList.boardList[i].lng
-            ),
-            image: markerImage, // 마커 이미지
-          })
-        );
+        for (let i = 0; i < this.aptList.boardList.length; i++) {
+          this.markers.push(
+            new kakao.maps.Marker({
+              map: this.map,
+              title: this.aptList.boardList[i].apartmentName,
+              position: new kakao.maps.LatLng(
+                this.aptList.boardList[i].lat,
+                this.aptList.boardList[i].lng
+              ),
+              image: markerImage, // 마커 이미지
+            })
+          );
+        }
       }
-      }
-      
     },
     displayInfoWindow() {
       if (this.infowindow && this.infowindow.getMap()) {

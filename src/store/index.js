@@ -19,10 +19,12 @@ export default new Vuex.Store({
     month: "",
     aptList: Object,
     aptDetailInfo: Object,
+    StationApt:Object,
     isLogin : false,
     isLoginError: false,
     userInfo: null,
     isValidToken: false,
+
   },
   getters: {},
   mutations: {
@@ -71,6 +73,11 @@ export default new Vuex.Store({
     CLEAR_APT_DETAIL(state) { 
       state.aptDetailInfo = Object;
     },
+
+    STATION_APT(state, StationApt) { 
+      state.StationApt = StationApt;
+    },
+
     //user
     SET_IS_LOGIN: (state, isLogin) => {
       state.isLogin = isLogin;
@@ -85,6 +92,7 @@ export default new Vuex.Store({
       state.isLogin = true;
       state.userInfo = userInfo;
     },
+
   },
   actions: {
     simpleHouse({ commit }, house) {
@@ -221,9 +229,18 @@ export default new Vuex.Store({
       commit("SET_APT_DETAIL", detail);
       
     },
+    getRecommandResult({ commit }, dongName) {
+      http
+        .get(
+          `station/list?dongName=${dongName}`
+        )
+        .then(({ data }) => {
+          commit("STATION_APT", data);
+        });
+    },
     async userConfirm({commit}, user){
       console.log(user);
-      //비동기
+//비동기
       await http.post('/user/login',JSON.stringify(user)).then( ({data})=>{
         if(data.message === "success"){
           let accessToken = data["access-token"];

@@ -38,7 +38,7 @@
               {{ dong }}
             </option>
           </v-select>
-          <v-btn color="#FFFFFF" elevation="2" @click="monthChange()"
+          <v-btn color="#FFFFFF" elevation="2" @click="searchResult()"
             ><strong>검색</strong></v-btn
           >
         </div>
@@ -50,20 +50,34 @@
         class="mx-auto"
         max-width="300"
         min-width="300"
+        max-height="300"
         elevation="17"
-      ></v-card>
+        color="#FF6450"
+        style="text-align: center; padding: 1rem; border-radius: 1rem"
+        round
+        ><h1 style="color: white">무슨무슨 아파트</h1></v-card
+      >
       <v-card
         class="mx-auto"
         max-width="300"
         min-width="300"
         elevation="17"
-      ></v-card>
+        max-height="300"
+        color="#04DC00"
+        style="text-align: center; padding: 1rem; border-radius: 1rem"
+        round
+        ><h1>무슨무슨 아파트</h1></v-card
+      >
       <v-card
         class="mx-auto"
         max-width="300"
         min-width="300"
         elevation="17"
-      ></v-card>
+        max-height="300"
+        color="#06A0E6"
+        style="text-align: center; padding: 1rem; border-radius: 1rem"
+        ><h1 style="color: white">무슨무슨 아파트</h1></v-card
+      >
     </div>
     <div class="info-section">
       <p>※ 추천 매물은 교통의 종합적인 데이터를 바탕으로 ..</p>
@@ -138,8 +152,8 @@ export default {
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     };
   },
-  computed:{
-    ...mapState(["gugunList", "dongList"]),
+  computed: {
+    ...mapState(["gugunList", "dongList", "StationApt"]),
   },
   created() {
     this.sido = "서울특별시";
@@ -149,18 +163,27 @@ export default {
     gugunChange() {
       //action
       this.searchDongList({
-        sido : this.sido,
-        gugun : this.gugun,
+        sido: this.sido,
+        gugun: this.gugun,
       });
     },
-    dongChange(){
+    dongChange() {
       //동코드 가져와
       this.searchDongcode({
-        dong : this.dong,
-        sido : this.sido
+        dong: this.dong,
+        sido: this.sido,
       });
     },
-    ...mapActions(["searchGugunList","searchDongList","searchDongcode"]),
+    // 검색 버튼 누를때 실행됨
+    searchResult() {
+      this.getRecommandResult(this.dong);
+    },
+    ...mapActions([
+      "searchGugunList",
+      "searchDongList",
+      "searchDongcode",
+      "getRecommandResult",
+    ]),
   },
 };
 </script>
