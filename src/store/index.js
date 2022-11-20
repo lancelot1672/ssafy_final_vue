@@ -2,10 +2,17 @@ import Vue from "vue";
 import Vuex from "vuex";
 import http from "@/util/http-common";
 import jwtDecode from "jwt-decode";
-import { login, findById, tokenRegeneration} from "@/api/member";
+import { login, findById, tokenRegeneration, logout} from "@/api/member";
+import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  plugins: [
+    createPersistedState({
+      // 브라우저 종료시 제거하기 위해 localStorage가 아닌 sessionStorage로 변경. (default: localStorage)
+      storage: sessionStorage,
+    }),
+  ],
   state: {
     sidoList : [],
     gugunList : [],
@@ -302,30 +309,47 @@ export default new Vuex.Store({
           if (error.response.status === 401) {
             console.log("갱신 실패");
             // 다시 로그인 전 DB에 저장된 RefreshToken 제거.
-            // await logout(
-            //   state.userInfo.userid,
-            //   ({ data }) => {
-            //     if (data.message === "success") {
-            //       console.log("리프레시 토큰 제거 성공");
-            //     } else {
-            //       console.log("리프레시 토큰 제거 실패");
-            //     }
-            //     alert("RefreshToken 기간 만료!!! 다시 로그인해 주세요.");
-            //     commit("SET_IS_LOGIN", false);
-            //     commit("SET_USER_INFO", null);
-            //     commit("SET_IS_VALID_TOKEN", false);
-            //     router.push({ name: "login" });
-            //   },
-            //   (error) => {
-            //     console.log(error);
-            //     commit("SET_IS_LOGIN", false);
-            //     commit("SET_USER_INFO", null);
-            //   }
-            // );
+            await logout(
+              state.userInfo.userid,
+              ({ data }) => {
+                if (data.message === "success") {
+                  console.log("리프레시 토큰 제거 성공");
+                } else {
+                  console.log("리프레시 토큰 제거 실패");
+                }
+                alert("RefreshToken 기간 만료!!! 다시 로그인해 주세요.");
+                commit("SET_IS_LOGIN", false);
+                commit("SET_USER_INFO", null);
+                commit("SET_IS_VALID_TOKEN", false);
+                this.$route.push({ name: "login" });
+              },
+              (error) => {
+                console.log(error);
+                commit("SET_IS_LOGIN", false);
+                commit("SET_USER_INFO", null);
+              }
+            );
           }
         }
       );
-    }
+    },
+    async userLogout({ commit }, userid) {
+      await logout(
+        userid,
+        ({ data }) => {
+          if (data.message === "success") {
+            commit("SET_IS_LOGIN", false);
+            commit("SET_USER_INFO", null);
+            commit("SET_IS_VALID_TOKEN", false);
+          } else {
+            console.log("유저 정보 없음!!!!");
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
   },
   modules: {},
 });
