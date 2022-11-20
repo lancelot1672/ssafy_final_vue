@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import http from "@/util/http-common";
 import jwtDecode from "jwt-decode";
-
+import { login, findById, tokenRegeneration} from "@/api/member";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -238,63 +238,93 @@ export default new Vuex.Store({
           commit("STATION_APT", data);
         });
     },
-    async userConfirm({commit}, user){
+    async userConfirm({ commit }, user) {
       console.log(user);
-//비동기
-      await http.post('/user/login',JSON.stringify(user)).then( ({data})=>{
-        if(data.message === "success"){
-          let accessToken = data["access-token"];
-          let refreshToken = data["refresh-token"];
-          console.log("login success token created!!!! >> ", accessToken, refreshToken);
-          this.state.isLogin = true;
-          commit("SET_IS_LOGIN", true);
-          commit("SET_IS_LOGIN_ERROR", false);
-          commit("SET_IS_VALID_TOKEN", true);
-          sessionStorage.setItem("access-token", accessToken);
-          sessionStorage.setItem("refresh-token", refreshToken);
-        } else {
-          commit("SET_IS_LOGIN", false);
-          commit("SET_IS_LOGIN_ERROR", true);
-          commit("SET_IS_VALID_TOKEN", false);
+      await login(
+        user,
+        ({ data }) => {
+          if (data.message === "success") {
+            let accessToken = data["access-token"];
+            let refreshToken = data["refresh-token"];
+            
+            console.log("login success token created!!!! >> ", accessToken, refreshToken);
+            
+            commit("SET_IS_LOGIN", true);
+            commit("SET_IS_LOGIN_ERROR", false);
+            commit("SET_IS_VALID_TOKEN", true);
+            sessionStorage.setItem("access-token", accessToken);
+            sessionStorage.setItem("refresh-token", refreshToken);
+          } else {
+            commit("SET_IS_LOGIN", false);
+            commit("SET_IS_LOGIN_ERROR", true);
+            commit("SET_IS_VALID_TOKEN", false);
+          }
+        },
+        (error) => {
+          console.log(error);
         }
-      },
-      (error) => {
-        console.log(error);
-      });
+      );
     },
-    async getUserInfo({commit}, token){
+    async getUserInfo({ commit, dispatch }, token) {
       let decodeToken = jwtDecode(token);
-      // console.log("2. getUserInfo() decodeToken :: ", decodeToken);
-      console.log(decodeToken.userid);
-
-      await http.get(`user/${decodeToken.userid}`).then(({data})=>{
-        console.log(data);
-        if (data.message === "success") {
-          commit("SET_USER_INFO", data.userInfo);
-          // console.log("3. getUserInfo data >> ", data);
-        } else {
-          console.log("유저 정보 없음!!!!");
+      console.log("2. getUserInfo() decodeToken :: ", decodeToken);
+      await findById(
+        decodeToken.userid,
+        ({ data }) => {
+          if (data.message === "success") {
+            commit("SET_USER_INFO", data.userInfo);
+            console.log("3. getUserInfo data >> ", data);
+          } else {
+            console.log("유저 정보 없음!!!!");
+          }
+        },
+        async (error) => {
+          console.log("getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ", error.response.status);
+          commit("SET_IS_VALID_TOKEN", false);
+          await dispatch("tokenRegeneration");
         }
-      }).catch(async (error)=>{
-        console.log("getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ", error.response.status);
-        commit("SET_IS_VALID_TOKEN", false);
-        //await this.dispatch("tokenRegeneration");
-      });
+      );
     },
-    async tokenRegeneration({commit, state}){
+    async tokenRegeneration({ commit, state }) {
       console.log("토큰 재발급 >> 기존 토큰 정보 : {}", sessionStorage.getItem("access-token"));
-      console.log(state.userInfo);
-      await http.post(`/user/refresh`,
-        JSON.stringify(state.userInfo)
-      ).then(({data})=>{
-        console.log(data);
-        if (data.message === "success") {
-          let accessToken = data["access-token"];
-          console.log("재발급 완료 >> 새로운 토큰 : {}", accessToken);
-          sessionStorage.setItem("access-token", accessToken);
-          commit("SET_IS_VALID_TOKEN", true);
+      await tokenRegeneration(
+        JSON.stringify(state.userInfo),
+        ({ data }) => {
+          if (data.message === "success") {
+            let accessToken = data["access-token"];
+            console.log("재발급 완료 >> 새로운 토큰 : {}", accessToken);
+            sessionStorage.setItem("access-token", accessToken);
+            commit("SET_IS_VALID_TOKEN", true);
+          }
+        },
+        async (error) => {
+          // HttpStatus.UNAUTHORIZE(401) : RefreshToken 기간 만료 >> 다시 로그인!!!!
+          if (error.response.status === 401) {
+            console.log("갱신 실패");
+            // 다시 로그인 전 DB에 저장된 RefreshToken 제거.
+            // await logout(
+            //   state.userInfo.userid,
+            //   ({ data }) => {
+            //     if (data.message === "success") {
+            //       console.log("리프레시 토큰 제거 성공");
+            //     } else {
+            //       console.log("리프레시 토큰 제거 실패");
+            //     }
+            //     alert("RefreshToken 기간 만료!!! 다시 로그인해 주세요.");
+            //     commit("SET_IS_LOGIN", false);
+            //     commit("SET_USER_INFO", null);
+            //     commit("SET_IS_VALID_TOKEN", false);
+            //     router.push({ name: "login" });
+            //   },
+            //   (error) => {
+            //     console.log(error);
+            //     commit("SET_IS_LOGIN", false);
+            //     commit("SET_USER_INFO", null);
+            //   }
+            // );
+          }
         }
-      });
+      );
     }
   },
   modules: {},

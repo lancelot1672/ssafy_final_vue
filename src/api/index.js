@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // local vue api axios instance
-function aptInstance() {
+function apiInstance() {
   const instance = axios.create({
     baseURL: process.env.VUE_APP_API_BASE_URL,
     headers: {
@@ -10,4 +10,4 @@ function aptInstance() {
   });
   return instance;
 }
-export { aptInstance };
+export { apiInstance };
