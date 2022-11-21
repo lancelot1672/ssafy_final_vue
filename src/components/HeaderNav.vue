@@ -11,7 +11,7 @@
       width="240px"
     />
     <v-tabs centered class="ml-n9" color="grey darken-1">
-      <v-tab v-for="(link, index) in links" :key="index">
+      <v-tab v-for="(link, index) in links" :key="index" @click="movePage(link)">
         <router-link :to="link.path">{{ link.name }}</router-link>
       </v-tab>
     </v-tabs>
@@ -22,10 +22,10 @@
       size="32"
     ></v-avatar> -->
     <span class="auth" v-if="!userInfo">
-      <a href="/user/login">Login</a>
-      <a href="/user/join">Join</a>
+      <router-link :to="{name : 'login'}">Login</router-link>
+      <router-link :to="{name : 'join'}">Regist</router-link>
     </span>
-    <span class="auth" v-if="userInfo">
+    <span class="auth" v-show="userInfo">
       <a @click="onclickLogout">Logout</a>
     </span>
   </v-app-bar>
@@ -52,8 +52,8 @@ export default {
   },
   methods: {
     ...mapActions(["userLogout"]),
-    movePage() {
-      this.$router.push({ path: "/" });
+    movePage(link) {
+      this.$router.push({ path: link.path });
     },
     onclickLogout() {
       console.log(this.userInfo.userid);
@@ -70,6 +70,7 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
+  margin: 0px 10px;
 }
 .header_title {
   position: absolute;

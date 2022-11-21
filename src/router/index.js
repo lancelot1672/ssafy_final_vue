@@ -50,15 +50,23 @@ const routes = [
     component: () => import("@/views/RecommendView"),
   },
   {
-    path : "/user/login",
-    name : "login",
-    component: () => import("@/views/UserLogin"),
+    path: "/user",
+    name : "user",
+    component : () => import("@/views/UserView"),
+    children : [
+      {
+        path : "/login",
+        name : "login",
+        component: () => import("@/components/user/UserLogin"),
+      },
+      {
+        path : "/join",
+        name : "join",
+        component: () => import("@/components/user/UserJoin"),
+      }
+    ]
   },
-  {
-    path : "/user/join",
-    name : "join",
-    component: () => import("@/views/UserJoin"),
-  }
+
 
 ];
 
