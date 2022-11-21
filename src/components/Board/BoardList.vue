@@ -3,14 +3,11 @@
     <div class="main-header-section">
       <div class="section1">
         <img src="@/assets/qa.png" width="70px" />
-        <span class="main-header-title">
-          &nbsp; 서울특별시 아파트 Q&A 게시판</span
-        >
+        <span class="main-header-title"> &nbsp; 서울특별시 아파트 Q&A 게시판</span>
       </div>
       <div class="section1">
         <span class="main-header-title2"
-          >구군을 선택해서 물어보고 싶은 게시물을 자유롭게 확인하고
-          작성하세요</span
+          >구군을 선택해서 물어보고 싶은 게시물을 자유롭게 확인하고 작성하세요</span
         >
       </div>
     </div>
@@ -33,20 +30,13 @@
                 <!-- search -->
                 <v-container class="py-0">
                   <v-row align="center" justify="start">
-                    <v-col
-                      v-for="(selection, i) in selections"
-                      :key="selection.text"
-                    >
+                    <v-col v-for="(selection, i) in selections" :key="selection.text">
                       <v-chip
                         :disabled="loading"
                         close
                         @click:close="selected.splice(i, 1), close()"
                       >
-                        <v-icon
-                          left
-                          v-text="selection.icon"
-                          color="red"
-                        ></v-icon>
+                        <v-icon left v-text="selection.icon" color="red"></v-icon>
                         {{ selection.text }}
                       </v-chip>
                     </v-col>
@@ -140,10 +130,7 @@
                 >
                   {{ page }}
                 </button>
-                <button
-                  class="page-btn"
-                  v-if="boardList.endPage < boardList.totalPage"
-                >
+                <button class="page-btn" v-if="boardList.endPage < boardList.totalPage">
                   <v-icon>fa-duotone fa-chevron-right</v-icon>
                 </button>
               </div>
@@ -170,6 +157,7 @@
 
 <script>
 import http from "@/util/http-common";
+import { mapState } from "vuex";
 
 export default {
   data: () => ({
@@ -192,6 +180,7 @@ export default {
     });
   },
   computed: {
+    ...mapState(["userInfo"]),
     allSelected() {
       return this.selected.length === this.items.length;
     },
@@ -246,7 +235,12 @@ export default {
       this.boardlist = [];
     },
     moveWritePage() {
-      this.$router.push({ name: "write" });
+      if (this.userInfo) {
+        this.$router.push({ name: "write" });
+      } else {
+        alert("로그인 후 이용해주세요!!");
+        this.$router.push({ name: "login" });
+      }
     },
     pageRange() {
       let start = this.boardList.startPage;
@@ -260,18 +254,16 @@ export default {
     },
     getBoardList(page) {
       let selected = this.selected;
-      http
-        .get(`board?page=${page}&gugun=${selected[0].text}`)
-        .then(({ data }) => {
-          this.boardList = data;
-          console.log(this.boardList);
-        });
+      http.get(`board?page=${page}&gugun=${selected[0].text}`).then(({ data }) => {
+        this.boardList = data;
+        console.log(this.boardList);
+      });
     },
   },
 };
 </script>
 
-<style >
+<style>
 .page-btn {
   border-style: solid;
   border: none;
@@ -285,8 +277,8 @@ export default {
   text-decoration: none;
   transition: 0.3s cubic-bezier(0, 0, 0.2, 1);
 
-  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
-    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%),
+    0px 1px 5px 0px rgb(0 0 0 / 12%);
 }
 .board-link:hover {
   text-decoration: underline;

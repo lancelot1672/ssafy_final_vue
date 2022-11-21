@@ -57,10 +57,7 @@
                 </template>
               </v-combobox>
               <div id="app">
-                <ckeditor
-                  v-model="editorData"
-                  :config="editorConfig"
-                ></ckeditor>
+                <ckeditor v-model="editorData" :config="editorConfig"></ckeditor>
               </div>
               <br />
               <v-btn
@@ -83,6 +80,8 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
+import { boardWrite } from "@/api/board";
 import http from "@/util/http-common";
 
 export default {
@@ -99,7 +98,11 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState(["userInfo"]),
+  },
   created() {
+    this.user_id = this.userInfo.userId;
     http.get(`home/gugunName?sidoName=서울특별시`).then(({ data }) => {
       for (let i = 0; i < data.length; i++) {
         this.items.push(data[i].gugunName);
@@ -107,27 +110,30 @@ export default {
     });
   },
   methods: {
+    ...mapActions([""]),
     write() {
       // console.log(this.editorData);
-      http
-        .post(
-          `board`,
-          JSON.stringify({
-            title: this.title,
-            user_id: this.user_id,
-            gugun: this.select[0],
-            content: this.editorData,
-            sido: this.sido,
-          })
-        )
-        .then(({ data }) => {
-          console.log(data);
-          this.$router.push({ name: "board" });
-        })
-        .catch((resp) => {
-          console.log(resp);
-          alert("다시 작성해주세요");
-        });
+      let board = {
+        title: this.title,
+        user_id: this.user_id,
+        gugun: this.select[0],
+        content: this.editorData,
+        sido: this.sido,
+      };
+      boardWrite(
+        board,
+        ({ data }) => {
+          if (data === "success") {
+            alert("글 작성이 완료되었습니다.");
+            this.$router.push({ name: "board" });
+          } else {
+            console.log("에러~~");
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
     moveBoardListPage() {
       this.$router.push({ name: "board" });

@@ -4,6 +4,12 @@
       <div class="detailMain">
         <div class="aptName">
           <h1>{{ aptDetailInfo.apartmentName }} 아파트</h1>
+          <button class="like-btn" @click="changeLike" v-if="isLike" id="like">
+            <v-icon color="red">fa-solid fa-heart</v-icon>
+          </button>
+          <button class="like-btn" @click="changeLike" v-else id="unlike">
+            <v-icon color="red">fa-regular fa-heart</v-icon>
+          </button>
         </div>
         <div class="detailMiddle">
           <div class="detailMiddleLeft">
@@ -46,10 +52,7 @@
                 </td>
                 <td>
                   &nbsp;
-                  <strong
-                    >{{ aptDetailInfo.dealYear }}년
-                    {{ aptDetailInfo.dealMonth }}월</strong
-                  >
+                  <strong>{{ aptDetailInfo.dealYear }}년 {{ aptDetailInfo.dealMonth }}월</strong>
                 </td>
               </tr>
               <tr>
@@ -100,7 +103,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   name: "AptInfoDetail",
   components: {},
@@ -108,10 +111,12 @@ export default {
     return {
       map: Object,
       markers: [],
+      isLike: false,
     };
   },
+  created() {},
   computed: {
-    ...mapState(["aptDetailInfo", "sido"]),
+    ...mapState(["aptDetailInfo", "sido", "likeList", "userInfo"]),
   },
   methods: {
     initMap() {
@@ -122,20 +127,14 @@ export default {
       const container = document.getElementById("map");
 
       const options = {
-        center: new kakao.maps.LatLng(
-          this.aptDetailInfo.lat,
-          this.aptDetailInfo.lng
-        ),
+        center: new kakao.maps.LatLng(this.aptDetailInfo.lat, this.aptDetailInfo.lng),
         level: 4,
       };
       //지도 객체를 등록합니다.
       //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
       this.map = new kakao.maps.Map(container, options); // 지도를 생성합니다.
 
-      var markerPosition = new kakao.maps.LatLng(
-        this.aptDetailInfo.lat,
-        this.aptDetailInfo.lng
-      );
+      var markerPosition = new kakao.maps.LatLng(this.aptDetailInfo.lat, this.aptDetailInfo.lng);
 
       // 마커를 생성합니다
       var marker = new kakao.maps.Marker({
@@ -145,6 +144,40 @@ export default {
       // 마커가 지도 위에 표시되도록 설정합니다
       marker.setMap(this.map);
     },
+    check_like() {
+      let no = this.aptDetailInfo.no;
+      this.isLike = false;
+
+      this.likeList.forEach((likeInfo) => {
+        if (no === likeInfo.houseCode) {
+          this.isLike = true;
+        }
+      });
+    },
+    async changeLike() {
+      if (this.isLike) {
+        //좋아요 되어 있으면 delete하고 바꾸기
+        console.log("싫어요~");
+
+        let no;
+        this.likeList.forEach((info) => {
+          if (info.houseCode === this.aptDetailInfo.no) no = info.no;
+        });
+        await this.unlike(no);
+        this.isLike = false;
+      } else {
+        // 좋아요 처리
+        console.log("좋아요~~");
+        let likeInfo = {
+          userId: this.userInfo.userId,
+          houseCode: this.aptDetailInfo.no,
+        };
+        await this.like(likeInfo);
+
+        this.isLike = true;
+      }
+    },
+    ...mapActions(["like", "unlike"]),
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
@@ -162,6 +195,7 @@ export default {
     aptDetailInfo() {
       this.map = null;
       this.initMap();
+      this.check_like();
     },
   },
 };
@@ -172,10 +206,28 @@ export default {
   margin-top: 5rem;
   background-color: rgb(255, 255, 255);
   height: 600px;
+  -webkit-animation: fadein 1s;
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 .aptName {
   padding: 1rem;
   text-align: center;
+
+  position: relative;
+}
+.like-btn {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  font-size: 25px;
 }
 .detailMiddle {
   display: flex;

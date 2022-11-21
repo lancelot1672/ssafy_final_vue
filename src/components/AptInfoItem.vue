@@ -1,9 +1,7 @@
 <template>
   <div class="card-section" v-if="aptList">
     <button v-if="aptList.currPage != aptList.startPage" @click="getBeforePage">
-      <v-icon style="font-size: 40px; color: RGB(229, 115, 115)"
-        >fa-solid fa-angles-left</v-icon
-      >
+      <v-icon style="font-size: 40px; color: RGB(229, 115, 115)">fa-solid fa-angles-left</v-icon>
     </button>
     <v-card
       v-for="(item, index) in aptList.boardList"
@@ -46,9 +44,7 @@
         <v-list-item-icon>
           <v-icon>fa-regular fa-calendar-days</v-icon>
         </v-list-item-icon>
-        <v-list-item-subtitle
-          >{{ item.dealYear }}년 {{ item.dealMonth }}월</v-list-item-subtitle
-        >
+        <v-list-item-subtitle>{{ item.dealYear }}년 {{ item.dealMonth }}월</v-list-item-subtitle>
       </v-list-item>
       <v-list-item>
         <v-list-item-icon>
@@ -61,7 +57,7 @@
 
       <v-card-actions>
         <div class="text-center">
-          <v-btn color="red lighten-2" dark @click="clickDetail(item.no)">
+          <v-btn class="abtn" color="red lighten-2" dark @click="clickDetail(item.no)">
             Show
           </v-btn>
         </div>
@@ -69,9 +65,7 @@
     </v-card>
 
     <button v-if="aptList.currPage != aptList.endPage" @click="getNextPage">
-      <v-icon style="font-size: 40px; color: RGB(229, 115, 115)"
-        >fa-duotone fa-angles-right</v-icon
-      >
+      <v-icon style="font-size: 40px; color: RGB(229, 115, 115)">fa-duotone fa-angles-right</v-icon>
     </button>
   </div>
 </template>
@@ -95,6 +89,7 @@ export default {
       this.searchBeforePage();
     },
     clickDetail(no) {
+      this.$store.commit("CLEAR_APT_DETAIL");
       this.getAptDetailInfo(no);
     },
   },

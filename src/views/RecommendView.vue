@@ -38,14 +38,12 @@
               {{ dong }}
             </option>
           </v-select>
-          <v-btn color="#FFFFFF" elevation="2" @click="searchResult()"
-            ><strong>검색</strong></v-btn
-          >
+          <v-btn color="#FFFFFF" elevation="2" @click="searchResult()"><strong>검색</strong></v-btn>
         </div>
       </div>
     </div>
     <!--  -->
-    <div class="card-section" v-if="StationApt[0] != null">
+    <div class="card-section" v-if="StationApt != null">
       <v-card
         class="mx-auto"
         max-width="300"
@@ -117,28 +115,7 @@
       <p>※ 추천 매물은 교통의 종합적인 데이터를 바탕으로 ..</p>
     </div>
 
-    <!-- <v-card color="basil">
-      <v-card-title class="text-center justify-center py-6">
-        <h1 class="font-weight-bold text-h2 basil--text">Kakao Map</h1>
-      </v-card-title>
-
-      <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
-        <v-tab v-for="item in items" :key="item">
-          {{ item }}
-        </v-tab>
-      </v-tabs>
-
-      <v-tabs-items v-model="tab">
-        <v-tab-item v-for="item in items" :key="item">
-          <v-card color="basil" flat>
-            <v-card-text>{{ text }}</v-card-text>
-          </v-card>
-        </v-tab-item>
-      </v-tabs-items>
-    </v-card> -->
-
-    <div class="stationDetail" v-if="StationApt[0] != null">
-      <!-- <div class="traffic-section"> -->
+    <div class="stationDetail" v-if="StationApt != null">
       <div>
         <div class="traffic-info">
           <h1>{{ StationApt[0].apartmentName }} 아파트 상세 정보</h1>
@@ -146,22 +123,14 @@
       </div>
       <div class="stationDetailSubway">
         <div class="SDSubwayLeft">
-          <v-img
-            src="@/assets/subwaygif.gif"
-            style="margin: 0 auto; border-radius: 2rem"
-          ></v-img>
+          <v-img src="@/assets/subwaygif.gif" style="margin: 0 auto; border-radius: 2rem"></v-img>
         </div>
         <div class="SDSubwayRight">
           <h1>직선거리 500m 이내의</h1>
           <h1>지하철역은 {{ StationApt[0].stationList.length }}개 입니다.</h1>
           <br />
-          <div
-            v-for="(station, index) in StationApt[0].stationList"
-            :key="index"
-          >
-            <v-chip class="ma-2" color="green" text-color="white">
-              2호선
-            </v-chip>
+          <div v-for="(station, index) in StationApt[0].stationList" :key="index">
+            <v-chip class="ma-2" color="green" text-color="white"> 2호선 </v-chip>
             <strong>{{ StationApt[0].stationList[index].name }}역</strong>까지
             {{ StationApt[0].stationList[index].distance }} 거리입니다.
           </div>
@@ -218,6 +187,7 @@ export default {
   },
   created() {
     this.sido = "서울특별시";
+    console.log(this.sido);
     this.searchGugunList(this.sido);
   },
   methods: {
@@ -239,12 +209,7 @@ export default {
     searchResult() {
       this.getRecommandResult(this.dong);
     },
-    ...mapActions([
-      "searchGugunList",
-      "searchDongList",
-      "searchDongcode",
-      "getRecommandResult",
-    ]),
+    ...mapActions(["searchGugunList", "searchDongList", "searchDongcode", "getRecommandResult"]),
   },
 };
 </script>
