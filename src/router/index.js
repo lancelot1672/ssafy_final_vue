@@ -5,6 +5,7 @@ import BoardList from "@/components/Board/BoardList";
 import BoardRead from "@/components/Board/BoardRead";
 import BoardWrite from "@/components/Board/BoardWrite";
 import BoardModify from "@/components/Board/BoardModify";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -37,6 +38,11 @@ const routes = [
     path: "/modify",
     name: "modify",
     component: BoardModify,
+  },
+  {
+    path: "/rmAnimalView",
+    name: "RMAnimalView",
+    component: () => import("@/views/RMAnimalView"),
   },
   {
     path: "/recommend",

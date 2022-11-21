@@ -28,6 +28,7 @@ export default new Vuex.Store({
     aptList: Object,
     aptDetailInfo: Object,
     StationApt: null,
+    AnimalApt:null,
     isLogin: false,
     isLoginError: false,
     userInfo: null,
@@ -91,6 +92,9 @@ export default new Vuex.Store({
 
     STATION_APT(state, StationApt) {
       state.StationApt = StationApt;
+    },
+    ANIMAL_APT(state, AnimalApt) {
+      state.AnimalApt = AnimalApt;
     },
 
     //user
@@ -252,6 +256,15 @@ export default new Vuex.Store({
         )
         .then(({ data }) => {
           commit("STATION_APT", data);
+        });
+    },
+    getRecommandAnimalResult({ commit }, dongName) {
+      http
+        .get(
+          `/animal/list?dongName=${dongName}`
+        )
+        .then(({ data }) => {
+          commit("ANIMAL_APT", data);
         });
     },
     async userConfirm({ commit }, user) {
