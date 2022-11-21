@@ -755,6 +755,15 @@ export default {
   margin: 60px 200px;
 
   display: flex;
+  -webkit-animation: fadein 1s;
+}
+  @keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 .info-section {
   margin: 0px 250px;
