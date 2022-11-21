@@ -704,6 +704,7 @@ export default {
     this.sido = "서울특별시";
     console.log(this.sido);
     this.searchGugunList(this.sido);
+    this.$store.commit("STATION_APT", null);
   },
   methods: {
     gugunChange() {

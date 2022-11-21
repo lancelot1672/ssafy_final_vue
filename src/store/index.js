@@ -27,7 +27,7 @@ export default new Vuex.Store({
     month: "",
     aptList: Object,
     aptDetailInfo: Object,
-    StationApt: Object,
+    StationApt: null,
     isLogin: false,
     isLoginError: false,
     userInfo: null,

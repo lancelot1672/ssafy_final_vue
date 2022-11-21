@@ -14,7 +14,7 @@ export default {
   created() {
     console.log("새로고침 맨~");
     //싹 다 초기화
-    // this.$store.commit("CLEAR_APT");
+    this.$store.commit("CLEAR_APT");
   },
 };
 </script>

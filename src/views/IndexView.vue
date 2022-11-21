@@ -12,9 +12,6 @@ export default {
   name: "App",
   components: {
     HeaderNav,
-    // SelectCondition,
-    // AptInfoList,
-    // SimpleInfoList,
   },
   data: () => ({
     //

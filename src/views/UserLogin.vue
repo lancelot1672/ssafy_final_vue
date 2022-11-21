@@ -15,14 +15,19 @@
           <h3 class="login_title">
             <label for="memberId">아이디</label>
           </h3>
-          <input type="text" v-model="user.userId" @keyup.enter="confirm" placeholder="아이디" />
+          <v-text-field
+            type="text"
+            v-model="user.userId"
+            @keyup.enter="confirm"
+            placeholder="아이디"
+          />
         </div>
 
         <div>
           <h3 class="login_title">
             <label for="password">비밀번호</label>
           </h3>
-          <input
+          <v-text-field
             type="password"
             v-model="user.userPw"
             @keyup.enter="confirm"
@@ -73,7 +78,7 @@ export default {
       //발급 받은 토큰을 통해 비동기로 데이터 요청
       if (this.isLogin) {
         await this.getUserInfo(token);
-        this.$router.push({ name: "main" });
+        this.$router.push({ name: "aptMain" });
       }
     },
   },
@@ -114,17 +119,6 @@ h3 {
   margin: 30px 0 10px;
   font-size: 16px;
   font-weight: 700;
-}
-
-input {
-  width: 100%;
-  height: 50px;
-  padding: 10px 14px 10px 14px;
-  box-sizing: border-box;
-  position: relative;
-  font-size: 15px;
-  border-radius: 5px;
-  border: 2px solid rgb(224, 224, 224);
 }
 
 input ::placeholder {
