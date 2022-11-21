@@ -112,7 +112,7 @@
       </v-card>
     </div>
     <div class="info-section">
-      <p>※ 추천 매물은 교통의 종합적인 데이터를 바탕으로 ..</p>
+      <p>※ 추천 매물은 교통의 종합적인 데이터를 바탕으로 .. 여기 내용 수정</p>
     </div>
 
     <div class="stationDetail" v-if="StationApt != null">
@@ -123,24 +123,151 @@
       </div>
       <div class="stationDetailSubway">
         <div class="SDSubwayLeft">
-          <v-img src="@/assets/subwaygif.gif" style="margin: 0 auto; border-radius: 2rem"></v-img>
+          <v-img
+            src="@/assets/subwaygif.gif"
+            style="margin: 0 auto; border-radius: 2rem"
+            max-height="300px"
+          ></v-img>
         </div>
         <div class="SDSubwayRight">
-          <h1>직선거리 500m 이내의</h1>
-          <h1>지하철역은 {{ StationApt[0].stationList.length }}개 입니다.</h1>
-          <br />
-          <div v-for="(station, index) in StationApt[0].stationList" :key="index">
-            <v-chip class="ma-2" color="green" text-color="white"> 2호선 </v-chip>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
+          <h1 style="text-align: center">
+            지하철역은 {{ StationApt[0].stationList.length }}개 입니다.
+          </h1>
+          <div
+            style="margin-left: 25%"
+            v-for="(station, index) in StationApt[0].stationList"
+            :key="index"
+          >
+            <!-- 호선 색깔-->
+            <v-chip
+              class="ma-2"
+              color="#044E94"
+              text-color="white"
+              v-if="StationApt[0].stationList[index].line == `01호선`"
+            >
+              {{ StationApt[0].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#0FA34F"
+              text-color="white"
+              v-if="StationApt[0].stationList[index].line == `02호선`"
+            >
+              {{ StationApt[0].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#EB712A"
+              text-color="white"
+              v-if="StationApt[0].stationList[index].line == `03호선`"
+            >
+              {{ StationApt[0].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#029FDA"
+              text-color="white"
+              v-if="StationApt[0].stationList[index].line == `04호선`"
+            >
+              {{ StationApt[0].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#8C629E"
+              text-color="white"
+              v-if="StationApt[0].stationList[index].line == `05호선`"
+            >
+              {{ StationApt[0].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#BA6A36"
+              text-color="white"
+              v-if="StationApt[0].stationList[index].line == `06호선`"
+            >
+              {{ StationApt[0].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#5D6A19"
+              text-color="white"
+              v-if="StationApt[0].stationList[index].line == `07호선`"
+            >
+              {{ StationApt[0].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#E33168"
+              text-color="white"
+              v-if="StationApt[0].stationList[index].line == `08호선`"
+            >
+              {{ StationApt[0].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#A7977E"
+              text-color="white"
+              v-if="StationApt[0].stationList[index].line == `09호선`"
+            >
+              {{ StationApt[0].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#F6AA0C"
+              text-color="white"
+              v-if="StationApt[0].stationList[index].line == `분당선`"
+            >
+              {{ StationApt[0].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#3EB9C2"
+              text-color="white"
+              v-if="StationApt[0].stationList[index].line == `경의선`"
+            >
+              {{ StationApt[0].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#0088CA"
+              text-color="white"
+              v-if="StationApt[0].stationList[index].line == `공항철도`"
+            >
+              {{ StationApt[0].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#BFC932"
+              text-color="white"
+              v-if="StationApt[0].stationList[index].line == `우이신설경전철`"
+            >
+              {{ StationApt[0].stationList[index].line }}
+            </v-chip>
+            <!-- 호선 색깔-->
             <strong>{{ StationApt[0].stationList[index].name }}역</strong>까지
-            {{ StationApt[0].stationList[index].distance }} 거리입니다.
+            {{ StationApt[0].stationList[index].distance | distance }}
+            m 떨어져 있습니다.
           </div>
         </div>
       </div>
+      <!-- 버스 시작 -->
       <div class="stationDetailBus">
         <div class="SDBusLeft">
-          <h1>직선거리 100m 이내의</h1>
-          <h1>버스정류장은 {{ StationApt[0].busList.length }}개 입니다.</h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
+          <h1 style="text-align: center">
+            버스정류장은 {{ StationApt[0].busList.length }}개 입니다.
+          </h1>
+          <div v-for="(bus, index) in StationApt[0].busList" :key="index">
+            <v-chip class="ma-2" color="#FF6450" text-color="white">
+              {{ StationApt[0].busList[index].stop_nm }}
+            </v-chip>
+            정류소까지
+            {{ StationApt[0].busList[index].dis | distance }}
+            m 떨어져 있습니다.
+          </div>
         </div>
+        <div class="SDBBusMid"></div>
         <div class="SDBusRight">
           <v-img
             src="@/assets/busgif.gif"
@@ -158,10 +285,398 @@
           ></v-img>
         </div>
         <div class="SDBikeRight">
-          <h1>직선거리 100m 이내의</h1>
-          <h1>따릉이는 {{ StationApt[1].bikeList.length }}개 입니다.</h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
+          <h1 style="text-align: center">따릉이는 {{ StationApt[0].bikeList.length }}개 입니다.</h1>
+          <div
+            v-for="(bike, index) in StationApt[0].bikeList"
+            :key="index"
+            style="margin-left: 20%"
+          >
+            <v-chip class="ma-2" color="#06A0E6" text-color="white">
+              {{ StationApt[0].bikeList[index].rent_name }}
+            </v-chip>
+            까지
+            {{ StationApt[0].bikeList[index].dis | distance }}
+            m 떨어져 있습니다.
+          </div>
         </div>
       </div>
+      <v-divider></v-divider>
+      <!-- **********************************************************************아파트 시작1개 -->
+      <div>
+        <div class="traffic-info">
+          <h1>{{ StationApt[1].apartmentName }} 아파트 상세 정보</h1>
+        </div>
+      </div>
+      <div class="stationDetailSubway">
+        <div class="SDSubwayLeft">
+          <v-img
+            src="@/assets/subwaygif.gif"
+            style="margin: 0 auto; border-radius: 2rem"
+            max-height="300px"
+          ></v-img>
+        </div>
+        <div class="SDSubwayRight">
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
+          <h1 style="text-align: center">
+            지하철역은 {{ StationApt[1].stationList.length }}개 입니다.
+          </h1>
+          <div
+            style="margin-left: 25%"
+            v-for="(station, index) in StationApt[1].stationList"
+            :key="index"
+          >
+            <!-- 호선 색깔-->
+            <v-chip
+              class="ma-2"
+              color="#044E94"
+              text-color="white"
+              v-if="StationApt[1].stationList[index].line == `01호선`"
+            >
+              {{ StationApt[1].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#0FA34F"
+              text-color="white"
+              v-if="StationApt[1].stationList[index].line == `02호선`"
+            >
+              {{ StationApt[1].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#EB712A"
+              text-color="white"
+              v-if="StationApt[1].stationList[index].line == `03호선`"
+            >
+              {{ StationApt[1].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#029FDA"
+              text-color="white"
+              v-if="StationApt[1].stationList[index].line == `04호선`"
+            >
+              {{ StationApt[1].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#8C629E"
+              text-color="white"
+              v-if="StationApt[1].stationList[index].line == `05호선`"
+            >
+              {{ StationApt[1].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#BA6A36"
+              text-color="white"
+              v-if="StationApt[1].stationList[index].line == `06호선`"
+            >
+              {{ StationApt[1].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#5D6A19"
+              text-color="white"
+              v-if="StationApt[1].stationList[index].line == `07호선`"
+            >
+              {{ StationApt[1].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#E33168"
+              text-color="white"
+              v-if="StationApt[1].stationList[index].line == `08호선`"
+            >
+              {{ StationApt[1].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#A7977E"
+              text-color="white"
+              v-if="StationApt[1].stationList[index].line == `09호선`"
+            >
+              {{ StationApt[1].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#F6AA0C"
+              text-color="white"
+              v-if="StationApt[1].stationList[index].line == `분당선`"
+            >
+              {{ StationApt[1].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#3EB9C2"
+              text-color="white"
+              v-if="StationApt[1].stationList[index].line == `경의선`"
+            >
+              {{ StationApt[1].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#0088CA"
+              text-color="white"
+              v-if="StationApt[1].stationList[index].line == `공항철도`"
+            >
+              {{ StationApt[1].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#BFC932"
+              text-color="white"
+              v-if="StationApt[1].stationList[index].line == `우이신설경전철`"
+            >
+              {{ StationApt[1].stationList[index].line }}
+            </v-chip>
+            <!-- 호선 색깔-->
+            <strong>{{ StationApt[1].stationList[index].name }}역</strong>까지
+            {{ StationApt[1].stationList[index].distance | distance }}
+            m 떨어져 있습니다.
+          </div>
+        </div>
+      </div>
+      <!-- 버스 시작 -->
+      <div class="stationDetailBus">
+        <div class="SDBusLeft">
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
+          <h1 style="text-align: center">
+            버스정류장은 {{ StationApt[1].busList.length }}개 입니다.
+          </h1>
+          <div v-for="(bus, index) in StationApt[1].busList" :key="index">
+            <v-chip class="ma-2" color="#FF6450" text-color="white">
+              {{ StationApt[1].busList[index].stop_nm }}
+            </v-chip>
+            정류소까지
+            {{ StationApt[1].busList[index].dis | distance }}
+            m 떨어져 있습니다.
+          </div>
+        </div>
+        <div class="SDBBusMid"></div>
+        <div class="SDBusRight">
+          <v-img
+            src="@/assets/busgif.gif"
+            style="margin: 0 auto; border-radius: 2rem"
+            max-height="280px"
+          ></v-img>
+        </div>
+      </div>
+      <div class="stationDetailBike">
+        <div class="SDBikeLeft">
+          <v-img
+            src="@/assets/bikegif.gif"
+            style="margin: 0 auto; border-radius: 2rem"
+            max-height="300px"
+          ></v-img>
+        </div>
+        <div class="SDBikeRight">
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
+          <h1 style="text-align: center">따릉이는 {{ StationApt[1].bikeList.length }}개 입니다.</h1>
+          <div
+            v-for="(bike, index) in StationApt[1].bikeList"
+            :key="index"
+            style="margin-left: 20%"
+          >
+            <v-chip class="ma-2" color="#06A0E6" text-color="white">
+              {{ StationApt[1].bikeList[index].rent_name }}
+            </v-chip>
+            까지
+            {{ StationApt[1].bikeList[index].dis | distance }}
+            m 떨어져 있습니다.
+          </div>
+        </div>
+      </div>
+      <!-- 끝-->
+      <v-divider></v-divider>
+      <!-- **********************************************************************아파트 시작3개 -->
+      <div>
+        <div class="traffic-info">
+          <h1>{{ StationApt[2].apartmentName }} 아파트 상세 정보</h1>
+        </div>
+      </div>
+      <div class="stationDetailSubway">
+        <div class="SDSubwayLeft">
+          <v-img
+            src="@/assets/subwaygif.gif"
+            style="margin: 0 auto; border-radius: 2rem"
+            max-height="300px"
+          ></v-img>
+        </div>
+        <div class="SDSubwayRight">
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
+          <h1 style="text-align: center">
+            지하철역은 {{ StationApt[2].stationList.length }}개 입니다.
+          </h1>
+          <div
+            style="margin-left: 25%"
+            v-for="(station, index) in StationApt[2].stationList"
+            :key="index"
+          >
+            <!-- 호선 색깔-->
+            <v-chip
+              class="ma-2"
+              color="#044E94"
+              text-color="white"
+              v-if="StationApt[2].stationList[index].line == `01호선`"
+            >
+              {{ StationApt[2].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#0FA34F"
+              text-color="white"
+              v-if="StationApt[2].stationList[index].line == `02호선`"
+            >
+              {{ StationApt[2].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#EB712A"
+              text-color="white"
+              v-if="StationApt[2].stationList[index].line == `03호선`"
+            >
+              {{ StationApt[2].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#029FDA"
+              text-color="white"
+              v-if="StationApt[2].stationList[index].line == `04호선`"
+            >
+              {{ StationApt[2].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#8C629E"
+              text-color="white"
+              v-if="StationApt[2].stationList[index].line == `05호선`"
+            >
+              {{ StationApt[2].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#BA6A36"
+              text-color="white"
+              v-if="StationApt[2].stationList[index].line == `06호선`"
+            >
+              {{ StationApt[2].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#5D6A19"
+              text-color="white"
+              v-if="StationApt[2].stationList[index].line == `07호선`"
+            >
+              {{ StationApt[2].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#E33168"
+              text-color="white"
+              v-if="StationApt[2].stationList[index].line == `08호선`"
+            >
+              {{ StationApt[2].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#A7977E"
+              text-color="white"
+              v-if="StationApt[2].stationList[index].line == `09호선`"
+            >
+              {{ StationApt[2].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#F6AA0C"
+              text-color="white"
+              v-if="StationApt[2].stationList[index].line == `분당선`"
+            >
+              {{ StationApt[2].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#3EB9C2"
+              text-color="white"
+              v-if="StationApt[2].stationList[index].line == `경의선`"
+            >
+              {{ StationApt[2].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#0088CA"
+              text-color="white"
+              v-if="StationApt[2].stationList[index].line == `공항철도`"
+            >
+              {{ StationApt[2].stationList[index].line }}
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              color="#BFC932"
+              text-color="white"
+              v-if="StationApt[2].stationList[index].line == `우이신설경전철`"
+            >
+              {{ StationApt[2].stationList[index].line }}
+            </v-chip>
+            <!-- 호선 색깔-->
+            <strong>{{ StationApt[2].stationList[index].name }}역</strong>까지
+            {{ StationApt[2].stationList[index].distance | distance }}
+            m 떨어져 있습니다.
+          </div>
+        </div>
+      </div>
+      <!-- 버스 시작 -->
+      <div class="stationDetailBus">
+        <div class="SDBusLeft">
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
+          <h1 style="text-align: center">
+            버스정류장은 {{ StationApt[2].busList.length }}개 입니다.
+          </h1>
+          <div v-for="(bus, index) in StationApt[2].busList" :key="index">
+            <v-chip class="ma-2" color="#FF6450" text-color="white">
+              {{ StationApt[2].busList[index].stop_nm }}
+            </v-chip>
+            정류소까지
+            {{ StationApt[2].busList[index].dis | distance }}
+            m 떨어져 있습니다.
+          </div>
+        </div>
+        <div class="SDBBusMid"></div>
+        <div class="SDBusRight">
+          <v-img
+            src="@/assets/busgif.gif"
+            style="margin: 0 auto; border-radius: 2rem"
+            max-height="280px"
+          ></v-img>
+        </div>
+      </div>
+      <div class="stationDetailBike">
+        <div class="SDBikeLeft">
+          <v-img
+            src="@/assets/bikegif.gif"
+            style="margin: 0 auto; border-radius: 2rem"
+            max-height="300px"
+          ></v-img>
+        </div>
+        <div class="SDBikeRight">
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
+          <h1 style="text-align: center">따릉이는 {{ StationApt[2].bikeList.length }}개 입니다.</h1>
+          <div
+            v-for="(bike, index) in StationApt[2].bikeList"
+            :key="index"
+            style="margin-left: 20%"
+          >
+            <v-chip class="ma-2" color="#06A0E6" text-color="white">
+              {{ StationApt[2].bikeList[index].rent_name }}
+            </v-chip>
+            까지
+            {{ StationApt[2].bikeList[index].dis | distance }}
+            m 떨어져 있습니다.
+          </div>
+        </div>
+      </div>
+      <!-- 끝-->
     </div>
   </v-container>
 </template>
@@ -210,6 +725,11 @@ export default {
       this.getRecommandResult(this.dong);
     },
     ...mapActions(["searchGugunList", "searchDongList", "searchDongcode", "getRecommandResult"]),
+  },
+  filters: {
+    distance(value) {
+      return parseInt(value);
+    },
   },
 };
 </script>
@@ -271,10 +791,11 @@ export default {
 .basil--text {
   color: #356859 !important;
 }
+/* detail 상세 들어가는 곳 */
 .stationDetail {
   width: 70%;
   margin: 0 auto;
-  height: 1000px;
+  height: 1200px;
 }
 .stationDetailSubway {
   height: 33.3%;
@@ -295,13 +816,16 @@ export default {
   width: 60%;
   height: 100%;
   float: left;
-  text-align: center;
 }
 .SDBusLeft {
-  width: 60%;
+  width: 40%;
   height: 100%;
   float: left;
-  text-align: center;
+}
+.SDBBusMid {
+  width: 10%;
+  height: 100%;
+  float: left;
 }
 .SDBusRight {
   width: 40%;
@@ -317,6 +841,5 @@ export default {
   width: 60%;
   height: 100%;
   float: left;
-  text-align: center;
 }
 </style>
