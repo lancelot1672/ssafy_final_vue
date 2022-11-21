@@ -52,7 +52,7 @@
         min-width="300"
         max-height="300"
         elevation="17"
-        color="#F06EC9"
+        color="#F7A4A4"
         style="text-align: center; padding-top: 2.5rem; border-radius: 1rem"
         round
       >
@@ -74,7 +74,7 @@
         min-width="300"
         max-height="300"
         elevation="17"
-        color="#D4F000"
+        color="#FFFBC1"
         style="text-align: center; padding-top: 2.5rem; border-radius: 1rem"
         round
       >
@@ -96,7 +96,7 @@
         min-width="300"
         max-height="300"
         elevation="17"
-        color="#6333C6"
+        color="#B6E2A1"
         style="text-align: center; padding-top: 2.5rem; border-radius: 1rem"
         round
       >
