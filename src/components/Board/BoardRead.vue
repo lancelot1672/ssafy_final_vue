@@ -14,66 +14,34 @@
         <button
           class="update-btn"
           @click="
-            moveBoardModifyPage(
-              board.bno,
-              board.title,
-              board.user_id,
-              board.content,
-              board.gugun
-            )
+            moveBoardModifyPage(board.bno, board.title, board.user_id, board.content, board.gugun)
           "
         >
           <v-icon style="color: rgb(255, 255, 255)">fa-light fa-wrench</v-icon>
         </button>
         <button class="delete-btn" @click="boardDelete(board.bno)">
-          <v-icon style="color: rgb(255, 255, 255)"
-            >fa-regular fa-trash-can</v-icon
-          >
+          <v-icon style="color: rgb(255, 255, 255)">fa-regular fa-trash-can</v-icon>
         </button>
       </div>
       <div class="writerclass">
-        <v-chip
-          v-if="1"
-          :color="`red lighten-4`"
-          class="ml-0 mr-2 black--text"
-          label
-          small
-        >
+        <v-chip v-if="1" :color="`red lighten-4`" class="ml-0 mr-2 black--text" label small>
           작성자
         </v-chip>
 
         <span> {{ board.user_id }}</span>
         <br />
         <br />
-        <v-chip
-          v-if="1"
-          :color="`red lighten-4`"
-          class="ml-0 mr-2 black--text"
-          label
-          small
-        >
+        <v-chip v-if="1" :color="`red lighten-4`" class="ml-0 mr-2 black--text" label small>
           주소
         </v-chip>
         <span> {{ board.sido }} {{ board.gugun }}</span>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <v-chip
-          v-if="1"
-          :color="`red lighten-4`"
-          class="ml-0 mr-2 black--text"
-          label
-          small
-        >
+        <v-chip v-if="1" :color="`red lighten-4`" class="ml-0 mr-2 black--text" label small>
           등록일자
         </v-chip>
         <span> {{ board.regtime }}</span>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <v-chip
-          v-if="1"
-          :color="`red lighten-4`"
-          class="ml-0 mr-2 black--text"
-          label
-          small
-        >
+        <v-chip v-if="1" :color="`red lighten-4`" class="ml-0 mr-2 black--text" label small>
           조회수
         </v-chip>
         <span> {{ board.hit }}</span>
@@ -81,8 +49,21 @@
         <br />
         <v-divider></v-divider>
         <div class="contentclass" v-html="board.content"></div>
-        <v-divider></v-divider>
         <!-- comment -->
+        <div class="commentclass">
+          <div class="comment">
+            <v-text-field
+              placeholder="댓글 추가..."
+              autocomplete="off"
+              @focus="focusComment = true"
+              v-model="content"
+            />
+            <div style="text-align: right" v-show="focusComment">
+              <v-btn rounded @click="commentInsert">등록</v-btn>
+              <v-btn rounded @click="clearComment">취소</v-btn>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -90,14 +71,21 @@
 
 <script>
 import http from "@/util/http-common";
+import { commentWrite } from "@/api/board";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       board: [],
+      focusComment: false,
+      content: "",
     };
   },
   created() {
     this.detailBoard(this.$route.query.bno);
+  },
+  computed: {
+    ...mapState(["userInfo"]),
   },
   methods: {
     detailBoard(bno) {
@@ -122,6 +110,37 @@ export default {
         query: { bno, title, user_id, content, gugun },
       });
     },
+    clearComment() {
+      this.focusComment = false;
+      this.content = "";
+    },
+    async commentInsert() {
+      if (!this.content) {
+        return false;
+      }
+      let comment = {
+        bno: this.board.bno,
+        userId: this.userInfo.userId,
+        content: this.content,
+      };
+
+      await commentWrite(
+        comment,
+        async ({ data }) => {
+          if (data === "success") {
+            //댓글 목록 불러와
+            console.log("댓글 등록 성공");
+            this.clearComment();
+          } else {
+            //작성 실패..
+            console.log("댓글 등록 실패");
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
   },
 };
 </script>
@@ -141,7 +160,6 @@ export default {
   border: 1px solid rgb(224, 224, 224);
 
   min-height: 80vh;
-  max-height: 100vh;
   margin-top: 10px;
 }
 .titleclass {
@@ -177,7 +195,9 @@ export default {
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(224, 224, 224);
 }
-
+.comment {
+  margin: 20px;
+}
 .update-btn {
   position: absolute;
   right: 50px;

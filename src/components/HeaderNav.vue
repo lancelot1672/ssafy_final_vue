@@ -33,7 +33,7 @@
         </template>
 
         <v-list>
-          <v-list-item-group v-model="selectedItem" color="primary">
+          <v-list-item-group color="primary">
             <v-subheader>{{ this.userInfo.userName }}</v-subheader>
             <v-list-item dense>
               <v-list-item-title @click="onclickLogout">로그아웃</v-list-item-title>
