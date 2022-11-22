@@ -64,6 +64,13 @@
             </div>
           </div>
         </div>
+        <!-- end input Comment -->
+        <table>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
@@ -71,7 +78,7 @@
 
 <script>
 import http from "@/util/http-common";
-import { commentWrite } from "@/api/board";
+import { commentWrite, commnetList } from "@/api/board";
 import { mapState } from "vuex";
 export default {
   data() {
@@ -79,17 +86,21 @@ export default {
       board: [],
       focusComment: false,
       content: "",
+      comment: [],
     };
   },
   created() {
     this.detailBoard(this.$route.query.bno);
+
+    //댓글 가져와.
+    this.getCommentList(this.$route.query.bno);
   },
   computed: {
     ...mapState(["userInfo"]),
   },
   methods: {
-    detailBoard(bno) {
-      http.get(`board/read?bno=` + bno).then(({ data }) => {
+    async detailBoard(bno) {
+      await http.get(`board/read?bno=` + bno).then(({ data }) => {
         this.board = data;
         console.log(data);
       });
@@ -134,6 +145,22 @@ export default {
           } else {
             //작성 실패..
             console.log("댓글 등록 실패");
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    async getCommentList(bno) {
+      await commnetList(
+        bno,
+        async ({ data }) => {
+          console.log(data);
+          if (data) {
+            data.forEach((c) => {
+              this.comment.push(c);
+            });
           }
         },
         (error) => {
