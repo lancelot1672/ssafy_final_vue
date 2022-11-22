@@ -59,20 +59,34 @@
               v-model="content"
             />
             <div style="text-align: right" v-show="focusComment">
-              <v-btn rounded @click="commentInsert">등록</v-btn>
+              <v-btn rounded @click="commentInsert" :disabled="content.length < 1">등록</v-btn>
               <v-btn rounded @click="clearComment">취소</v-btn>
             </div>
           </div>
         </div>
-        <!-- end input Comment -->
-        <table>
-          <tr>
-            <td></td>
-            <td></td>
-          </tr>
-        </table>
+
       </div>
     </div>
+        <!-- end input Comment -->
+        <div class="comment-list-section" v-for="c in comment" :key="c.no" >
+          <div class="user-image-section">
+            <v-avatar
+            class="hidden-sm-and-down"
+            color="grey darken-1 shrink"
+            size="32"
+          ><span style="color:aliceblue; font-weight: bold;">{{c.userId[0]}}</span></v-avatar>
+          </div>
+          <div class="comment-content-section">
+            <div><b>{{c.userId}}</b>  <span style="font-size: 11px;">{{c.writeDate}}</span></div>
+            <div>{{c.content}}</div>
+            <div>
+              <v-btn icon color="#e57373">
+                <v-icon>mdi-thumb-up</v-icon>
+              </v-btn>
+            </div>
+          </div>
+        </div>
+
   </div>
 </template>
 
@@ -85,6 +99,7 @@ export default {
     return {
       board: [],
       focusComment: false,
+      focusEnroll : false,
       content: "",
       comment: [],
     };
@@ -129,6 +144,10 @@ export default {
       if (!this.content) {
         return false;
       }
+      //로그인 정보가 없으면
+      if(!this.userInfo){
+        return false;
+      }
       let comment = {
         bno: this.board.bno,
         userId: this.userInfo.userId,
@@ -142,6 +161,8 @@ export default {
             //댓글 목록 불러와
             console.log("댓글 등록 성공");
             this.clearComment();
+
+            this.getCommentList(this.board.bno);
           } else {
             //작성 실패..
             console.log("댓글 등록 실패");
@@ -224,6 +245,14 @@ export default {
 }
 .comment {
   margin: 20px;
+
+}
+.comment-list-section{
+  display: flex;
+  margin : 20px 0;
+}
+.user-image-section {
+  padding : 7px 15px;
 }
 .update-btn {
   position: absolute;
