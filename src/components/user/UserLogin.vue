@@ -1,6 +1,6 @@
 <template>
-<!-- 로그인폼 시작 -->
-<div class="login-wrapper">
+  <!-- 로그인폼 시작 -->
+  <div class="login-wrapper">
     <div class="login_content">
       <div class="logo-section">
         <a class="logo" href="/">
@@ -11,33 +11,21 @@
       </div>
 
       <form class="loginFrm" v-on:submit.prevent>
-        <div>
-          <h3 class="login_title">
-            <label for="memberId">아이디</label>
-          </h3>
-          <v-text-field
-            type="text"
-            v-model="user.userId"
-            @keyup.enter="confirm"
-            placeholder="아이디"
-          />
-        </div>
-
-        <div>
-          <h3 class="login_title">
-            <label for="password">비밀번호</label>
-          </h3>
-          <v-text-field
-            type="password"
-            v-model="user.userPw"
-            @keyup.enter="confirm"
-            placeholder="비밀번호"
-          />
-        </div>
-
-        <div class="login_btn_area">
-          <button type="submit" class="login" @click="confirm">로그인</button>
-        </div>
+        <v-text-field
+          type="text"
+          v-model="user.userId"
+          @keyup.enter="confirm"
+          label="ID"
+          placeholder="아이디"
+        />
+        <v-text-field
+          type="password"
+          v-model="user.userPw"
+          @keyup.enter="confirm"
+          placeholder="비밀번호"
+          label="Password"
+        />
+        <v-btn type="submit" class="login-btn" @click="confirm">로그인</v-btn>
       </form>
       <div class="service">
         <ul>
@@ -89,25 +77,13 @@ form {
   margin-bottom: 0px;
 }
 
-#logo {
-  width: 220px;
-  height: 100px;
-  cursor: pointer;
-}
-
-#header {
-  padding-top: 70px;
-  padding-bottom: 15px;
-  text-align: center;
-}
-
 .login-wrapper {
   margin-top: 100px;
   position: relative;
   height: 100%;
   -webkit-animation: fadein 1s;
 }
-  @keyframes fadein {
+@keyframes fadein {
   from {
     opacity: 0;
   }
@@ -133,10 +109,6 @@ input ::placeholder {
   color: rgb(94, 94, 94);
 }
 
-.login_btn_area {
-  margin: 30px 0 0px;
-}
-
 .login {
   width: 100%;
   padding: 21px 0 17px;
@@ -160,7 +132,6 @@ input ::placeholder {
 a {
   text-decoration: none;
   color: black;
-
 }
 
 .service > ul {
@@ -173,7 +144,7 @@ a {
 
 .service > ul > li::after {
   color: rgb(224, 224, 224);
-  content: "|";
+  content: " | ";
   font-weight: 600;
 }
 
@@ -183,5 +154,14 @@ a {
 
 .logo-section {
   text-align: center;
+}
+.v-input {
+  margin-top: 20px;
+}
+.login-btn {
+  width: 100%;
+  min-height: 40px;
+  max-height: 40px;
+  margin: 10px 0;
 }
 </style>

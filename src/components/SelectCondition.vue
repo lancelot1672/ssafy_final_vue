@@ -73,7 +73,7 @@
               {{ month }}
             </option>
           </v-select>
-          <v-btn color="#FFFFFF" elevation="2" @click="search()"
+          <v-btn class="search-btn" color="#FFFFFF" elevation="2" @click="search()"
             ><strong>검색</strong></v-btn
           >
         </div>
@@ -102,11 +102,17 @@ export default {
   created() {
     this.searchSidoList();
   },
-  computed:{
-    ...mapState(["sidoList","gugunList", "dongList"]),
+  computed: {
+    ...mapState(["sidoList", "gugunList", "dongList"]),
   },
   methods: {
-    ...mapMutations(["SET_SIDOLIST","SET_GUGUNLIST","SET_DONGLIST","CLEAR_APT", "CLEAR_APT_DETAIL"]),
+    ...mapMutations([
+      "SET_SIDOLIST",
+      "SET_GUGUNLIST",
+      "SET_DONGLIST",
+      "CLEAR_APT",
+      "CLEAR_APT_DETAIL",
+    ]),
     sidoChange() {
       //선택된 시도를 state에 저장
       this.searchSido(this.sido);
@@ -120,8 +126,8 @@ export default {
 
       //action
       this.searchDongList({
-        sido : this.sido,
-        gugun : this.gugun,
+        sido: this.sido,
+        gugun: this.gugun,
       });
     },
     dongChange() {
@@ -140,12 +146,11 @@ export default {
       this.searchMonth(this.month);
 
       this.searchDongcode({
-        dong : this.dong,
-        sido : this.sido
+        dong: this.dong,
+        sido: this.sido,
       });
-      
     },
-    search(){
+    search() {
       this.searchApt();
     },
     ...mapActions([
@@ -179,7 +184,7 @@ export default {
   margin-top: 10px;
   background: none;
 }
-.v-btn {
+.search-btn {
   background: none;
   width: 200px;
 }

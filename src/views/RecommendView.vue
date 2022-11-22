@@ -38,9 +38,7 @@
               {{ dong }}
             </option>
           </v-select>
-          <v-btn color="#FFFFFF" elevation="2" @click="searchResult()"
-            ><strong>검색</strong></v-btn
-          >
+          <v-btn color="#FFFFFF" elevation="2" @click="searchResult()"><strong>검색</strong></v-btn>
         </div>
       </div>
     </div>
@@ -132,9 +130,7 @@
           ></v-img>
         </div>
         <div class="SDSubwayRight">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 500m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
           <h1 style="text-align: center">
             지하철역은 {{ StationApt[0].stationList.length }}개 입니다.
           </h1>
@@ -258,12 +254,11 @@
       <!-- 버스 시작 -->
       <div class="stationDetailBus">
         <div class="SDBusLeft">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 100m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
           <h1 style="text-align: center">
             버스정류장은 {{ StationApt[0].busList.length }}개 입니다.
           </h1>
+          <br />
           <div v-for="(bus, index) in StationApt[0].busList" :key="index">
             <v-chip class="ma-2" color="#FF6450" text-color="white">
               {{ StationApt[0].busList[index].stop_nm }}
@@ -291,12 +286,8 @@
           ></v-img>
         </div>
         <div class="SDBikeRight">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 100m 이내의
-          </h1>
-          <h1 style="text-align: center">
-            따릉이는 {{ StationApt[0].bikeList.length }}개 입니다.
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
+          <h1 style="text-align: center">따릉이는 {{ StationApt[0].bikeList.length }}개 입니다.</h1>
           <div
             v-for="(bike, index) in StationApt[0].bikeList"
             :key="index"
@@ -327,9 +318,7 @@
           ></v-img>
         </div>
         <div class="SDSubwayRight">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 500m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
           <h1 style="text-align: center">
             지하철역은 {{ StationApt[1].stationList.length }}개 입니다.
           </h1>
@@ -453,9 +442,7 @@
       <!-- 버스 시작 -->
       <div class="stationDetailBus">
         <div class="SDBusLeft">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 100m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
           <h1 style="text-align: center">
             버스정류장은 {{ StationApt[1].busList.length }}개 입니다.
           </h1>
@@ -486,12 +473,8 @@
           ></v-img>
         </div>
         <div class="SDBikeRight">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 100m 이내의
-          </h1>
-          <h1 style="text-align: center">
-            따릉이는 {{ StationApt[1].bikeList.length }}개 입니다.
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
+          <h1 style="text-align: center">따릉이는 {{ StationApt[1].bikeList.length }}개 입니다.</h1>
           <div
             v-for="(bike, index) in StationApt[1].bikeList"
             :key="index"
@@ -523,9 +506,7 @@
           ></v-img>
         </div>
         <div class="SDSubwayRight">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 500m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
           <h1 style="text-align: center">
             지하철역은 {{ StationApt[2].stationList.length }}개 입니다.
           </h1>
@@ -649,9 +630,7 @@
       <!-- 버스 시작 -->
       <div class="stationDetailBus">
         <div class="SDBusLeft">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 100m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
           <h1 style="text-align: center">
             버스정류장은 {{ StationApt[2].busList.length }}개 입니다.
           </h1>
@@ -682,12 +661,8 @@
           ></v-img>
         </div>
         <div class="SDBikeRight">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 100m 이내의
-          </h1>
-          <h1 style="text-align: center">
-            따릉이는 {{ StationApt[2].bikeList.length }}개 입니다.
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
+          <h1 style="text-align: center">따릉이는 {{ StationApt[2].bikeList.length }}개 입니다.</h1>
           <div
             v-for="(bike, index) in StationApt[2].bikeList"
             :key="index"
@@ -751,12 +726,7 @@ export default {
     searchResult() {
       this.getRecommandResult(this.dong);
     },
-    ...mapActions([
-      "searchGugunList",
-      "searchDongList",
-      "searchDongcode",
-      "getRecommandResult",
-    ]),
+    ...mapActions(["searchGugunList", "searchDongList", "searchDongcode", "getRecommandResult"]),
   },
   filters: {
     distance(value) {
@@ -806,7 +776,8 @@ export default {
 }
 .traffic-info {
   display: flex;
-  margin: 40px 0;
+  margin-top: 80px;
+  margin-bottom: 40px;
 }
 
 .traffic-detail {
@@ -840,7 +811,8 @@ export default {
 }
 .stationDetailSubway {
   height: 33.3%;
-  margin: 1rem;
+  margin: 2rem;
+  display: flex;
 }
 .stationDetailBus {
   height: 33.3%;

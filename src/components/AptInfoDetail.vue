@@ -174,6 +174,7 @@ export default {
         };
         await this.like(likeInfo);
 
+        this.$store.commit("POP", { msg: "관심 매물에 등록되었습니다.", color: "dark" });
         this.isLike = true;
       }
     },

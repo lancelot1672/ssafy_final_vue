@@ -28,12 +28,17 @@ export default new Vuex.Store({
     aptList: Object,
     aptDetailInfo: Object,
     StationApt: null,
-    AnimalApt:null,
+    AnimalApt: null,
     isLogin: false,
     isLoginError: false,
     userInfo: null,
     likeList: [],
     isValidToken: false,
+    sb: {
+      act: false,
+      msg: '',
+      color: 'error'
+    }
 
   },
   getters: {},
@@ -113,8 +118,13 @@ export default new Vuex.Store({
     },
     SET_LIKE_LIST: (state, likeList) => {
       state.likeList = likeList;
+    },
+    POP: (state, data) => {
+      state.sb.msg = data.msg;
+      state.sb.color = data.color;
+      state.sb.act = false;
+      if (data.act === undefined) state.sb.act = true;
     }
-
   },
   actions: {
     simpleHouse({ commit }, house) {

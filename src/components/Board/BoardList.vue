@@ -63,7 +63,7 @@
                       v-if="!selected.includes(item)"
                       :key="item.text"
                       :disabled="loading"
-                      @click="selected.push(item), changeTable(item)"
+                      @click="selected.push(item)"
                     >
                       <v-list-item-avatar>
                         <v-icon :disabled="loading" v-text="item.icon"></v-icon>
@@ -208,7 +208,19 @@ export default {
 
   watch: {
     selected() {
-      this.search = "";
+      console.log(this.selected.length);
+      let url = `board/test?page=1`;
+      this.selected.forEach((gugun) => {
+        url += `&gugun=${gugun.text}`;
+      });
+      console.log(url);
+      //구 정보를 선택했을 때 처음 가지고 오는 boardList
+
+      http.get(url).then(({ data }) => {
+        console.log(data);
+        this.boardList = data;
+        console.log(this.boardList);
+      });
     },
   },
 
@@ -221,15 +233,6 @@ export default {
         this.selected = [];
         this.loading = false;
       }, 2000);
-    },
-    changeTable(item) {
-      //구 정보를 선택했을 때 처음 가지고 오는 boardList
-      console.log(item.text);
-      http.get(`board?page=1&gugun=${item.text}`).then(({ data }) => {
-        console.log(data);
-        this.boardList = data;
-        console.log(this.boardList);
-      });
     },
     close() {
       this.boardlist = [];
@@ -253,8 +256,15 @@ export default {
       return list;
     },
     getBoardList(page) {
-      let selected = this.selected;
-      http.get(`board?page=${page}&gugun=${selected[0].text}`).then(({ data }) => {
+      let url = `board/test?page=${page}`;
+      this.selected.forEach((gugun) => {
+        url += `&gugun=${gugun.text}`;
+      });
+      console.log(url);
+      //구 정보를 선택했을 때 처음 가지고 오는 boardList
+
+      http.get(url).then(({ data }) => {
+        console.log(data);
         this.boardList = data;
         console.log(this.boardList);
       });
