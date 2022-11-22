@@ -157,7 +157,6 @@ export default {
     async changeLike() {
       if (this.isLike) {
         //좋아요 되어 있으면 delete하고 바꾸기
-        console.log("싫어요~");
 
         let no;
         this.likeList.forEach((info) => {
@@ -167,7 +166,6 @@ export default {
         this.isLike = false;
       } else {
         // 좋아요 처리
-        console.log("좋아요~~");
         let likeInfo = {
           userId: this.userInfo.userId,
           houseCode: this.aptDetailInfo.no,

@@ -33,13 +33,11 @@ export default {
     },
   },
   methods: {
-    initMap() {
-      this.markers.forEach((marker) => {
-        marker.setMap(null);
-      });
-      console.log(this.aptList);
-      if (this.aptList) {
-        const container = document.getElementById("place1");
+    async initMap() {
+      this.clear_markers();
+
+      const container = document.getElementById("place1");
+      if (this.aptList.boardList) {
         const options = {
           center: new kakao.maps.LatLng(
             this.aptList.boardList[0].lat,
@@ -72,7 +70,37 @@ export default {
             })
           );
         }
+      } else {
+        let now = await this.getNowLocation();
+
+        const options = {
+          center: new kakao.maps.LatLng(now.nowLat, now.nowLng),
+          level: 4,
+        };
+        //지도 객체를 등록합니다.
+        //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
+        const map = new kakao.maps.Map(container, options); // 지도를 생성합니다.
+        this.map = map;
       }
+    },
+    clear_markers() {
+      this.markers.forEach((marker) => {
+        marker.setMap(null);
+      });
+    },
+    async getNowLocation() {
+      let data = Object;
+      let position = await this.getMyGps();
+      data = {
+        nowLat: position.coords.latitude,
+        nowLng: position.coords.longitude,
+      };
+      return data;
+    },
+    getMyGps() {
+      return new Promise((resolve, rejected) => {
+        navigator.geolocation.getCurrentPosition(resolve, rejected);
+      });
     },
     displayInfoWindow() {
       if (this.infowindow && this.infowindow.getMap()) {

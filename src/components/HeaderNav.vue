@@ -4,12 +4,7 @@
       :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'"
       size="32"
     ></v-avatar>
-    <img
-      src="@/assets/logoleft1.png"
-      @click="movePage"
-      class="header_title"
-      width="240px"
-    />
+    <img src="@/assets/logoleft1.png" @click="movePage" class="header_title" width="240px" />
     <v-tabs centered class="ml-n9" color="grey darken-1">
       <v-tab v-for="(link, index) in links" :key="index" @click="movePage(link)">
         <router-link :to="link.path">{{ link.name }}</router-link>
@@ -22,11 +17,30 @@
       size="32"
     ></v-avatar> -->
     <span class="auth" v-if="!userInfo">
-      <router-link :to="{name : 'login'}">Login</router-link>
-      <router-link :to="{name : 'join'}">Regist</router-link>
+      <router-link :to="{ name: 'login' }">Login</router-link>
+      <router-link :to="{ name: 'join' }">Regist</router-link>
     </span>
-    <span class="auth" v-show="userInfo">
-      <a @click="onclickLogout">Logout</a>
+    <span class="auth" v-else>
+      <v-menu open-on-hover bottom offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-avatar
+            class="hidden-sm-and-down"
+            v-bind="attrs"
+            v-on="on"
+            color="grey darken-1 shrink"
+            size="32"
+          ></v-avatar>
+        </template>
+
+        <v-list>
+          <v-list-item-group v-model="selectedItem" color="primary">
+            <v-subheader>{{ this.userInfo.userName }}</v-subheader>
+            <v-list-item dense>
+              <v-list-item-title @click="onclickLogout">로그아웃</v-list-item-title>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-menu>
     </span>
   </v-app-bar>
 </template>
@@ -53,7 +67,7 @@ export default {
   methods: {
     ...mapActions(["userLogout"]),
     movePage(link) {
-      this.$router.push({ path: link.path });
+      this.$router.push({ path: link.path }).catch(() => {});
     },
     onclickLogout() {
       console.log(this.userInfo.userid);

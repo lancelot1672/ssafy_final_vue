@@ -30,13 +30,13 @@
                 required
                 outlined
                 dense
+                disabled
               ></v-text-field>
               <v-combobox
                 outlined
                 v-model="select"
                 :items="items"
                 label="구 / 군을 선택해주세요"
-                multiple
                 chips
               >
                 <template v-slot:selection="data">
@@ -116,11 +116,12 @@ export default {
       let board = {
         title: this.title,
         user_id: this.user_id,
-        gugun: this.select[0],
+        gugun: this.select,
         content: this.editorData,
         sido: this.sido,
       };
       boardWrite(
+        //api
         board,
         ({ data }) => {
           if (data === "success") {
@@ -135,8 +136,9 @@ export default {
         }
       );
     },
+    //
     moveBoardListPage() {
-      this.$router.push({ name: "board" });
+      this.$router.push({ name: "board" }).catch(() => {});
     },
   },
 };
