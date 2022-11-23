@@ -4,6 +4,7 @@ import http from "@/util/http-common";
 import jwtDecode from "jwt-decode";
 import { login, findById, tokenRegeneration, logout } from "@/api/member";
 import { like, unlike } from "@/api/house";
+import { news } from "@/api/news";
 import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 
@@ -41,6 +42,7 @@ export default new Vuex.Store({
       color: "error",
     },
     likeAptDetailList: Object,
+    newsInfo: null,
   },
   getters: {},
   mutations: {
@@ -130,7 +132,14 @@ export default new Vuex.Store({
     },
     TOGGLE_IS_SHOW: (state, isShow) => {
       state.isShow = isShow;
-    }
+    },
+    //News
+    CLEAR_NEWS_INFO: (state) => {
+      state.newsInfo = null;
+    },
+    SET_NEWS_INFO: (state, newsInfo) => {
+      state.newsInfo = newsInfo;
+    },
   },
   actions: {
     simpleHouse({ commit }, house) {
@@ -425,6 +434,40 @@ export default new Vuex.Store({
         }
       );
     },
+    //News
+    async searchNews({ commit }, keyword) {
+      await news(
+        keyword,
+        async ({ data }) => {
+          // if (data.message === "success") {
+          console.log(data.items);
+          let newsInfo = [];
+          let items = [
+            {
+              color: "red lighten-2",
+              icon: "mdi-star",
+            },
+            {
+              color: "green lighten-1",
+              icon: "mdi-airballoon",
+            },
+            {
+              color: "indigo",
+              icon: 'mdi-book-variant',
+            },
+          ];
+          for (let i = 0; i < 3; i++) {
+            data.items[i].attr = items[i];
+            newsInfo.push(data.items[i]);
+          }
+          commit("SET_NEWS_INFO", newsInfo);
+          // }
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+    }
   },
   modules: {},
 });

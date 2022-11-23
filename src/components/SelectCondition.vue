@@ -73,11 +73,7 @@
               {{ month }}
             </option>
           </v-select>
-          <v-btn
-            class="search-btn"
-            color="#FFFFFF"
-            elevation="2"
-            @click="search()"
+          <v-btn class="search-btn" color="#FFFFFF" elevation="2" @click="search()"
             ><strong>검색</strong></v-btn
           >
         </div>
@@ -105,6 +101,7 @@ export default {
   },
   created() {
     this.searchSidoList();
+    this.CLEAR_NEWS_INFO();
   },
   computed: {
     ...mapState(["sidoList", "gugunList", "dongList"]),
@@ -116,6 +113,7 @@ export default {
       "SET_DONGLIST",
       "CLEAR_APT",
       "CLEAR_APT_DETAIL",
+      "CLEAR_NEWS_INFO",
     ]),
     sidoChange() {
       //선택된 시도를 state에 저장
@@ -163,6 +161,9 @@ export default {
         sido: this.sido,
       });
       this.searchApt();
+
+      //News 가져와
+      this.searchNews(this.dong);
     },
     ...mapActions([
       "searchSidoList",
@@ -176,6 +177,7 @@ export default {
       "searchMonth",
       "searchDongcode",
       "searchApt",
+      "searchNews",
     ]),
   },
 };

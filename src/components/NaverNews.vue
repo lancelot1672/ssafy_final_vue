@@ -1,21 +1,24 @@
 <template>
   <div>
-    <v-timeline align-top :dense="$vuetify.breakpoint.smAndDown">
+    <v-timeline align-top :reverse="false" dense>
       <v-timeline-item
-        v-for="(item, i) in items"
+        v-for="(news, i) in newsInfo"
         :key="i"
-        :color="item.color"
-        :icon="item.icon"
+        :color="news.attr.color"
+        :icon="news.attr.icon"
         fill-dot
       >
-        <v-card :color="item.color" dark>
-          <v-card-title class="text-h8"> Lorem Ipsum Dolor </v-card-title>
-          <v-card-text class="white text--primary">
-            <p>
-              Lorem ipsum dolor sit amet, no nam oblique veritus. Commune
-              scaevola imperdiet nec ut, sed euismod convenire principes at. Est
-            </p>
-            <v-btn :color="item.color" class="mx-0" outlined> Button </v-btn>
+        <v-card :color="news.attr.color" dark>
+          <v-card-title
+            class="text-h8 new-title"
+            v-html="news.title"
+            style="margin: 10px"
+            @click="moveLink(news.link)"
+          >
+          </v-card-title>
+          <v-card-text class="white text--primary news-text">
+            <br />
+            <p v-html="news.description"></p>
           </v-card-text>
         </v-card>
       </v-timeline-item>
@@ -24,6 +27,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data: () => ({
     items: [
@@ -41,8 +45,25 @@ export default {
       },
     ],
   }),
+  computed: {
+    ...mapState(["newsInfo"]),
+  },
+  methods: {
+    moveLink(link) {
+      window.open(link);
+    },
+  },
 };
 </script>
 
 <style>
+.v-timeline {
+  padding-right: 90px;
+}
+/* .news-text{
+  overflow: hidden;
+} */
+.new-title:hover {
+  text-decoration: underline;
+}
 </style>
