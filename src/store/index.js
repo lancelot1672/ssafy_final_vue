@@ -39,7 +39,7 @@ export default new Vuex.Store({
       msg: "",
       color: "error",
     },
-    likeAptDetailList: Object,
+    likeAptDetailList: null,
   },
   getters: {},
   mutations: {

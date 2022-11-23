@@ -97,7 +97,7 @@ export default {
       if (this.$route.path != "/") this.$router.push({ name: "main" });
     },
     moveLikePage() {
-      this.$router.push({ name: "like" });
+      this.$router.push({ name: "like" }).catch(() => {});
     },
   },
 };
