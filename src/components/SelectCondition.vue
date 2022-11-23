@@ -73,7 +73,11 @@
               {{ month }}
             </option>
           </v-select>
-          <v-btn class="search-btn" color="#FFFFFF" elevation="2" @click="search()"
+          <v-btn
+            class="search-btn"
+            color="#FFFFFF"
+            elevation="2"
+            @click="search()"
             ><strong>검색</strong></v-btn
           >
         </div>
@@ -134,14 +138,23 @@ export default {
       for (let i = 2022; i >= 2000; i--) {
         this.yearList.push(i);
       }
+      this.searchDong(this.dong);
+      this.searchDongcode({
+        dong: this.dong,
+        sido: this.sido,
+      });
     },
     yearChange() {
       for (let i = 1; i <= 12; i++) {
         this.monthList.push(i);
       }
+      // this.searchYear(this.year);
     },
     monthChange() {
-      this.searchDong(this.dong);
+      // this.searchYear(this.year);
+      // this.searchMonth(this.month);
+    },
+    search() {
       this.searchYear(this.year);
       this.searchMonth(this.month);
 
@@ -149,8 +162,6 @@ export default {
         dong: this.dong,
         sido: this.sido,
       });
-    },
-    search() {
       this.searchApt();
     },
     ...mapActions([

@@ -6,7 +6,7 @@
     ></v-avatar>
     <img
       src="@/assets/logoleft1.png"
-      @click="movePage"
+      @click="moveMainPage"
       class="header_title"
       width="240px"
     />
@@ -98,6 +98,9 @@ export default {
     },
     moveLikePage() {
       this.$router.push({ name: "like" }).catch(() => {});
+    },
+    moveMainPage() {
+      this.$router.push({ name: "main" }).catch(() => {});
     },
   },
 };

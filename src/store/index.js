@@ -206,7 +206,8 @@ export default new Vuex.Store({
           `home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${this.state.month}&page=${page}`
         )
         .then(({ data }) => {
-          console.log(data.boardList.length);
+          console.log(data);
+          console.log("길이 비교 " + data.boardList.length);
           if (data.boardList.length == 0) {
             data = null;
           }
