@@ -38,9 +38,7 @@
               {{ dong }}
             </option>
           </v-select>
-          <v-btn color="#FFFFFF" elevation="2" @click="searchResult()"
-            ><strong>검색</strong></v-btn
-          >
+          <v-btn color="#FFFFFF" elevation="2" @click="searchResult()"><strong>검색</strong></v-btn>
         </div>
       </div>
     </div>
@@ -136,18 +134,13 @@
           ></v-img>
         </div>
         <div class="SDSubwayRight">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 500m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
           <h1 style="text-align: center">
             동물병원은 {{ AnimalApt[0].animalHosList.length }}개 입니다.
           </h1>
           <div
             style="margin-left: 25%"
-            v-for="(station, index) in Math.min(
-              AnimalApt[0].animalHosList.length,
-              3
-            )"
+            v-for="(station, index) in Math.min(AnimalApt[0].animalHosList.length, 3)"
             :key="index"
           >
             <v-chip class="ma-2" color="#06A0E6" text-color="white">
@@ -165,17 +158,12 @@
       <!-- 버스 시작 -->
       <div class="stationDetailBus">
         <div class="SDBusLeft">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 500m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
           <h1 style="text-align: center">
             동물 약국은 {{ AnimalApt[0].animalPharList.length }}개 입니다.
           </h1>
           <div
-            v-for="(phar, index) in Math.min(
-              AnimalApt[0].animalPharList.length,
-              3
-            )"
+            v-for="(phar, index) in Math.min(AnimalApt[0].animalPharList.length, 3)"
             :key="index"
           >
             <v-chip class="ma-2" color="#06A0E6" text-color="white">
@@ -217,18 +205,13 @@
           ></v-img>
         </div>
         <div class="SDSubwayRight">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 500m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
           <h1 style="text-align: center">
             동물병원은 {{ AnimalApt[1].animalHosList.length }}개 입니다.
           </h1>
           <div
             style="margin-left: 25%"
-            v-for="(station, index) in Math.min(
-              AnimalApt[1].animalHosList.length,
-              3
-            )"
+            v-for="(station, index) in Math.min(AnimalApt[1].animalHosList.length, 3)"
             :key="index"
           >
             <v-chip class="ma-2" color="#06A0E6" text-color="white">
@@ -245,17 +228,12 @@
       <!-- 버스 시작 -->
       <div class="stationDetailBus">
         <div class="SDBusLeft">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 500m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
           <h1 style="text-align: center">
             동물 약국은 {{ AnimalApt[1].animalPharList.length }}개 입니다.
           </h1>
           <div
-            v-for="(phar, index) in Math.min(
-              AnimalApt[1].animalPharList.length,
-              3
-            )"
+            v-for="(phar, index) in Math.min(AnimalApt[1].animalPharList.length, 3)"
             :key="index"
           >
             <v-chip class="ma-2" color="#06A0E6" text-color="white">
@@ -299,18 +277,13 @@
           ></v-img>
         </div>
         <div class="SDSubwayRight">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 500m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
           <h1 style="text-align: center">
             동물병원은 {{ AnimalApt[2].animalHosList.length }}개 입니다.
           </h1>
           <div
             style="margin-left: 25%"
-            v-for="(station, index) in Math.min(
-              AnimalApt[2].animalHosList.length,
-              3
-            )"
+            v-for="(station, index) in Math.min(AnimalApt[2].animalHosList.length, 3)"
             :key="index"
           >
             <v-chip class="ma-2" color="#06A0E6" text-color="white">
@@ -327,17 +300,12 @@
       <!-- 버스 시작 -->
       <div class="stationDetailBus">
         <div class="SDBusLeft">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 500m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
           <h1 style="text-align: center">
             동물 약국은 {{ AnimalApt[2].animalPharList.length }}개 입니다.
           </h1>
           <div
-            v-for="(phar, index) in Math.min(
-              AnimalApt[2].animalPharList.length,
-              3
-            )"
+            v-for="(phar, index) in Math.min(AnimalApt[2].animalPharList.length, 3)"
             :key="index"
           >
             <v-chip class="ma-2" color="#06A0E6" text-color="white">
@@ -443,6 +411,15 @@ export default {
   margin: 60px 200px;
 
   display: flex;
+  -webkit-animation: fadein 1s;
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 .info-section {
   margin: 0px 250px;
