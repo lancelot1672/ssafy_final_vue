@@ -78,7 +78,7 @@ export default {
     return { dialog: false, detailInfo: [], idx: "" };
   },
   computed: {
-    ...mapState(["aptList"]),
+    ...mapState(["aptList", "isShow", "aptDetailInfo"]),
   },
   methods: {
     ...mapActions(["searchNextPage", "searchBeforePage", "getAptDetailInfo"]),
@@ -89,8 +89,16 @@ export default {
       this.searchBeforePage();
     },
     clickDetail(no) {
-      this.$store.commit("CLEAR_APT_DETAIL");
-      this.getAptDetailInfo(no);
+      if (this.aptDetailInfo) {
+        if (this.aptDetailInfo.no != no) {
+          this.$store.commit("CLEAR_APT_DETAIL");
+          this.getAptDetailInfo(no);
+        } else {
+          this.$store.commit("TOGGLE_IS_SHOW", !this.isShow);
+        }
+      } else {
+        this.getAptDetailInfo(no);
+      }
     },
   },
 };

@@ -27,6 +27,7 @@ export default new Vuex.Store({
     month: "",
     aptList: null,
     aptDetailInfo: null,
+    isShow: false,
     StationApt: null,
     AnimalApt: null,
     isLogin: false,
@@ -127,6 +128,9 @@ export default new Vuex.Store({
       state.sb.act = false;
       if (data.act === undefined) state.sb.act = true;
     },
+    TOGGLE_IS_SHOW: (state, isShow) => {
+      state.isShow = isShow;
+    }
   },
   actions: {
     simpleHouse({ commit }, house) {
@@ -218,8 +222,7 @@ export default new Vuex.Store({
       let currPage = this.state.aptList.currPage;
       http
         .get(
-          `home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${this.state.month}&page=${
-            currPage - 1
+          `home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${this.state.month}&page=${currPage - 1
           }`
         )
         .then(({ data }) => {
@@ -235,8 +238,7 @@ export default new Vuex.Store({
       let currPage = this.state.aptList.currPage;
       http
         .get(
-          `home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${this.state.month}&page=${
-            currPage + 1
+          `home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${this.state.month}&page=${currPage + 1
           }`
         )
         .then(({ data }) => {

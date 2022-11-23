@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 80%; margin: auto">
+  <div style="width: 80%; margin: auto" v-show="isShow">
     <v-card>
       <div class="detailMain">
         <div class="aptName">
@@ -14,16 +14,7 @@
         <div class="detailMiddle">
           <div class="detailMiddleLeft">
             <div class="detail-img">
-              <img
-                src="@/assets/detailbighouse.jpg"
-                width="200px"
-                style="
-                  border-radius: 50px;
-                  -moz-border-radius: 70px;
-                  -khtml-border-radius: 70px;
-                  -webkit-border-radius: 70px;
-                "
-              />
+              <img class="img" src="@/assets/detailbighouse.jpg" width="200px" />
               <br />
               <strong> {{ aptDetailInfo.area }} ㎡ </strong>
             </div>
@@ -52,10 +43,7 @@
                 </td>
                 <td>
                   &nbsp;
-                  <strong
-                    >{{ aptDetailInfo.dealYear }}년
-                    {{ aptDetailInfo.dealMonth }}월</strong
-                  >
+                  <strong>{{ aptDetailInfo.dealYear }}년 {{ aptDetailInfo.dealMonth }}월</strong>
                 </td>
               </tr>
               <tr>
@@ -119,7 +107,7 @@ export default {
   },
   created() {},
   computed: {
-    ...mapState(["aptDetailInfo", "sido", "likeList", "userInfo"]),
+    ...mapState(["aptDetailInfo", "sido", "likeList", "userInfo", "isShow"]),
   },
   methods: {
     initMap() {
@@ -130,20 +118,14 @@ export default {
       const container = document.getElementById("map");
 
       const options = {
-        center: new kakao.maps.LatLng(
-          this.aptDetailInfo.lat,
-          this.aptDetailInfo.lng
-        ),
+        center: new kakao.maps.LatLng(this.aptDetailInfo.lat, this.aptDetailInfo.lng),
         level: 4,
       };
       //지도 객체를 등록합니다.
       //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
       this.map = new kakao.maps.Map(container, options); // 지도를 생성합니다.
 
-      var markerPosition = new kakao.maps.LatLng(
-        this.aptDetailInfo.lat,
-        this.aptDetailInfo.lng
-      );
+      var markerPosition = new kakao.maps.LatLng(this.aptDetailInfo.lat, this.aptDetailInfo.lng);
 
       // 마커를 생성합니다
       var marker = new kakao.maps.Marker({
@@ -204,6 +186,7 @@ export default {
   },
   watch: {
     aptDetailInfo() {
+      this.$store.commit("TOGGLE_IS_SHOW", true);
       this.map = null;
       this.initMap();
       this.check_like();
@@ -256,5 +239,11 @@ export default {
 .info-item {
   width: 80px;
   text-align: center;
+}
+.img {
+  border-radius: 50px;
+  -moz-border-radius: 70px;
+  -khtml-border-radius: 70px;
+  -webkit-border-radius: 70px;
 }
 </style>

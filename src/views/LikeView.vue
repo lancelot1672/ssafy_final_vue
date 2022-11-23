@@ -7,7 +7,7 @@
         <span class="main-header-title"> &nbsp; 관심 매물을 살펴보세요</span>
       </div>
       <div class="section1">
-        <span class="main-header-title2">내용은 나중에</span>
+        <span class="main-header-title2">{{ userInfo.userName }}님의 관심 매물 목록입니다.</span>
       </div>
     </div>
     <!-- 관심 매물 보여주는 곳 -->
@@ -128,7 +128,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["likeList", "likeAptDetailList"]),
+    ...mapState(["likeList", "likeAptDetailList", "userInfo"]),
   },
 
   created() {
