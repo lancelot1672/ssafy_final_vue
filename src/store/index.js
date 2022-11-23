@@ -25,8 +25,8 @@ export default new Vuex.Store({
     dongCode: "",
     year: "",
     month: "",
-    aptList: Object,
-    aptDetailInfo: Object,
+    aptList: null,
+    aptDetailInfo: null,
     StationApt: null,
     AnimalApt: null,
     isLogin: false,
@@ -39,7 +39,7 @@ export default new Vuex.Store({
       msg: "",
       color: "error",
     },
-    likeAptDetailList: null,
+    likeAptDetailList: Object,
   },
   getters: {},
   mutations: {
@@ -87,11 +87,11 @@ export default new Vuex.Store({
       state.dongList = [];
     },
     CLEAR_APT(state) {
-      state.aptList = Object;
-      state.aptDetailInfo = Object;
+      state.aptList = null;
+      state.aptDetailInfo = null;
     },
     CLEAR_APT_DETAIL(state) {
-      state.aptDetailInfo = Object;
+      state.aptDetailInfo = null;
     },
 
     STATION_APT(state, StationApt) {
@@ -101,7 +101,7 @@ export default new Vuex.Store({
       state.AnimalApt = AnimalApt;
     },
     SET_LIKEDETAILLIST(state, likeAptDetailList) {
-      console.log(likeAptDetailList);
+      //console.log(likeAptDetailList);
       state.likeAptDetailList = likeAptDetailList;
     },
     //user
@@ -202,7 +202,7 @@ export default new Vuex.Store({
           `home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${this.state.month}&page=${page}`
         )
         .then(({ data }) => {
-          console.log(data.boardList);
+          console.log(data.boardList.length);
           if (data.boardList.length == 0) {
             data = null;
           }

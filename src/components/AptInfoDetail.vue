@@ -52,7 +52,10 @@
                 </td>
                 <td>
                   &nbsp;
-                  <strong>{{ aptDetailInfo.dealYear }}년 {{ aptDetailInfo.dealMonth }}월</strong>
+                  <strong
+                    >{{ aptDetailInfo.dealYear }}년
+                    {{ aptDetailInfo.dealMonth }}월</strong
+                  >
                 </td>
               </tr>
               <tr>
@@ -127,14 +130,20 @@ export default {
       const container = document.getElementById("map");
 
       const options = {
-        center: new kakao.maps.LatLng(this.aptDetailInfo.lat, this.aptDetailInfo.lng),
+        center: new kakao.maps.LatLng(
+          this.aptDetailInfo.lat,
+          this.aptDetailInfo.lng
+        ),
         level: 4,
       };
       //지도 객체를 등록합니다.
       //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
       this.map = new kakao.maps.Map(container, options); // 지도를 생성합니다.
 
-      var markerPosition = new kakao.maps.LatLng(this.aptDetailInfo.lat, this.aptDetailInfo.lng);
+      var markerPosition = new kakao.maps.LatLng(
+        this.aptDetailInfo.lat,
+        this.aptDetailInfo.lng
+      );
 
       // 마커를 생성합니다
       var marker = new kakao.maps.Marker({
@@ -172,7 +181,10 @@ export default {
         };
         await this.like(likeInfo);
 
-        this.$store.commit("POP", { msg: "관심 매물에 등록되었습니다.", color: "dark" });
+        this.$store.commit("POP", {
+          msg: "관심 매물에 등록되었습니다.",
+          color: "dark",
+        });
         this.isLike = true;
       }
     },
