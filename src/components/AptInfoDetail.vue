@@ -146,6 +146,12 @@ export default {
       });
     },
     async changeLike() {
+      //로그인 정보가 없으면 로그인 알람창 후 이동
+      if(!this.userInfo){
+        alert('로그인 후 이용해주세요');
+        this.$router.push({  name:'login'})
+      }
+
       if (this.isLike) {
         //좋아요 되어 있으면 delete하고 바꾸기
 

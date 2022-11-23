@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="card-section" v-if="aptList">
     <button v-if="aptList.currPage != aptList.startPage" @click="getBeforePage">
       <v-icon style="font-size: 40px; color: RGB(229, 115, 115)"
@@ -79,6 +80,14 @@
       >
     </button>
   </div>
+  <div v-else>
+    <v-img
+          src="@/assets/nothing.png"
+          width="1000"
+          style="margin: 0 auto"
+        ></v-img>
+  </div>
+</div>
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
