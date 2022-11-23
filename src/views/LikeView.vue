@@ -16,8 +16,8 @@
       <div class="card-section" v-for="i in list()" :key="i">
         <v-card
           class="mx-auto"
-          max-width="300"
-          min-width="300"
+          max-width="350"
+          min-width="350"
           min-height="400"
           elevation="17"
           style="text-align: center; padding-top: 2.5rem; border-radius: 1rem"
@@ -25,6 +25,9 @@
           v-for="j in Math.min(likeAptDetailList.length - i, 3)"
           :key="j"
         >
+          <v-btn icon class="deleteLike" @click="deleteLike(likeAptDetailList[i + j - 1].no)">
+            <v-icon>fa-solid fa-trash-can</v-icon>
+          </v-btn>
           <h2>
             {{ likeAptDetailList[i + j - 1].apartmentName }}
           </h2>
@@ -133,7 +136,20 @@ export default {
     console.log("하이");
   },
   methods: {
-    ...mapActions(["getLikeAptDetailInfo"]),
+    ...mapActions(["getLikeAptDetailInfo", "unlike"]),
+    async deleteLike(houseCode) {
+      let deleteNo = null;
+      this.likeList.forEach((like) => {
+        if (like.houseCode == houseCode) {
+          deleteNo = like.no;
+        }
+      });
+      if (deleteNo) {
+        console.log(deleteNo);
+        await this.unlike(deleteNo);
+        this.getLikeAptDetailInfo();
+      }
+    },
   },
 };
 </script>
@@ -145,5 +161,10 @@ export default {
 .likeMain {
   padding-left: 15rem;
   padding-right: 15rem;
+}
+.deleteLike {
+  position: absolute;
+  right: 20px;
+  top: 35px;
 }
 </style>
