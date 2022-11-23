@@ -4,13 +4,15 @@
       :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'"
       size="32"
     ></v-avatar>
-    <img
-      src="@/assets/logoleft1.png"
-      @click="moveMainPage"
-      class="header_title"
-      width="240px"
-    />
+
     <v-tabs centered class="ml-n9" color="grey darken-1">
+      <span>
+        <img
+          src="@/assets/logoleft1.png"
+          @click="moveMainPage"
+          class="header_title"
+          width="240px"
+      /></span>
       <v-tab
         v-for="(link, index) in links"
         :key="index"
@@ -100,7 +102,7 @@ export default {
       this.$router.push({ name: "like" }).catch(() => {});
     },
     moveMainPage() {
-      this.$router.push({ name: "main" }).catch(() => {});
+      this.$router.push({ name: "home" }).catch(() => {});
     },
   },
 };

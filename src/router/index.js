@@ -55,6 +55,11 @@ const routes = [
     component: () => import("@/views/LikeView"),
   },
   {
+    path: "/home",
+    name: "home",
+    component: () => import("@/views/HomeView"),
+  },
+  {
     path: "/user",
     name: "user",
     component: () => import("@/views/UserView"),
