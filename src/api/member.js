@@ -5,10 +5,15 @@ const api = apiInstance();
 async function login(user, success, fail) {
   await api.post(`/user/login`, JSON.stringify(user)).then(success).catch(fail);
 }
-
+async function duplicateCheck(userId, success, fail) {
+  await api.get(`/user/check?userId=${userId}`).then(success).catch(fail);
+}
+async function registUser(user, success, fail) {
+  await api.post(`/user/join`, JSON.stringify(user)).then(success).catch(fail);
+}
 async function findById(userid, success, fail) {
   api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
-  await api.get(`/user/${userid}`).then(success).catch(fail);
+  await api.get(`/user/info/${userid}`).then(success).catch(fail);
 }
 
 async function tokenRegeneration(user, success, fail) {
@@ -20,4 +25,4 @@ async function logout(userid, success, fail) {
   await api.get(`/user/logout/${userid}`).then(success).catch(fail);
 }
 
-export { login, findById, tokenRegeneration, logout };
+export { login, duplicateCheck, registUser, findById, tokenRegeneration, logout };

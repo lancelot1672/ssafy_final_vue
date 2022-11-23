@@ -64,29 +64,27 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
-        <!-- end input Comment -->
-        <div class="comment-list-section" v-for="c in comment" :key="c.no" >
-          <div class="user-image-section">
-            <v-avatar
-            class="hidden-sm-and-down"
-            color="grey darken-1 shrink"
-            size="32"
-          ><span style="color:aliceblue; font-weight: bold;">{{c.userId[0]}}</span></v-avatar>
-          </div>
-          <div class="comment-content-section">
-            <div><b>{{c.userId}}</b>  <span style="font-size: 11px;">{{c.writeDate}}</span></div>
-            <div>{{c.content}}</div>
-            <div>
-              <v-btn icon color="#e57373">
-                <v-icon>mdi-thumb-up</v-icon>
-              </v-btn>
-            </div>
-          </div>
+    <!-- end input Comment -->
+    <div class="comment-list-section" v-for="c in comment" :key="c.no">
+      <div class="user-image-section">
+        <v-avatar class="hidden-sm-and-down" color="grey darken-1 shrink" size="32"
+          ><span style="color: aliceblue; font-weight: bold">{{ c.userId[0] }}</span></v-avatar
+        >
+      </div>
+      <div class="comment-content-section">
+        <div>
+          <b>{{ c.userId }}</b> <span style="font-size: 11px">{{ c.writeDate }}</span>
         </div>
-
+        <div>{{ c.content }}</div>
+        <div>
+          <v-btn icon color="#e57373">
+            <v-icon>mdi-thumb-up</v-icon>
+          </v-btn>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -99,7 +97,7 @@ export default {
     return {
       board: [],
       focusComment: false,
-      focusEnroll : false,
+      focusEnroll: false,
       content: "",
       comment: [],
     };
@@ -145,7 +143,7 @@ export default {
         return false;
       }
       //로그인 정보가 없으면
-      if(!this.userInfo){
+      if (!this.userInfo) {
         return false;
       }
       let comment = {
@@ -161,6 +159,7 @@ export default {
             //댓글 목록 불러와
             console.log("댓글 등록 성공");
             this.clearComment();
+            this.comment = [];
 
             this.getCommentList(this.board.bno);
           } else {
@@ -245,14 +244,13 @@ export default {
 }
 .comment {
   margin: 20px;
-
 }
-.comment-list-section{
+.comment-list-section {
   display: flex;
-  margin : 20px 0;
+  margin: 20px 0;
 }
 .user-image-section {
-  padding : 7px 15px;
+  padding: 7px 15px;
 }
 .update-btn {
   position: absolute;
