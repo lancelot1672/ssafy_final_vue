@@ -11,7 +11,7 @@
       </div>
     </div>
     <!-- 관심 매물 보여주는 곳 -->
-    <div class="likeMain">
+    <div class="likeMain" v-if="likeList != []">
       <!-- 1번줄 -->
       <div class="card-section" v-for="i in list()" :key="i">
         <v-card
