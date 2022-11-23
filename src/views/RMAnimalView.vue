@@ -114,7 +114,9 @@
       </v-card>
     </div>
     <div class="info-section">
-      <p>※ 추천 매물은 교통의 종합적인 데이터를 바탕으로 .. 여기 내용 수정</p>
+      <p>
+        ※ 추천 매물은 동물병원, 동물약국의 직선거리순의 개수를 비교했습니다.
+      </p>
     </div>
 
     <div class="stationDetail" v-if="AnimalApt != null">
@@ -176,7 +178,7 @@
             )"
             :key="index"
           >
-            <v-chip class="ma-2" color="#FF6450" text-color="white">
+            <v-chip class="ma-2" color="#06A0E6" text-color="white">
               {{ AnimalApt[0].animalPharList[index].name }}
             </v-chip>
             까지
@@ -229,7 +231,7 @@
             )"
             :key="index"
           >
-            <v-chip class="ma-2" color="#FF6450" text-color="white">
+            <v-chip class="ma-2" color="#06A0E6" text-color="white">
               {{ AnimalApt[1].animalHosList[index].name }} </v-chip
             >까지
             {{ AnimalApt[1].animalHosList[index].dis | distance }}
@@ -256,7 +258,7 @@
             )"
             :key="index"
           >
-            <v-chip class="ma-2" color="#FF6450" text-color="white">
+            <v-chip class="ma-2" color="#06A0E6" text-color="white">
               {{ AnimalApt[1].animalPharList[index].name }}
             </v-chip>
             까지
@@ -311,7 +313,7 @@
             )"
             :key="index"
           >
-            <v-chip class="ma-2" color="#FF6450" text-color="white">
+            <v-chip class="ma-2" color="#06A0E6" text-color="white">
               {{ AnimalApt[2].animalHosList[index].name }} </v-chip
             >까지
             {{ AnimalApt[2].animalHosList[index].dis | distance }}
@@ -338,7 +340,7 @@
             )"
             :key="index"
           >
-            <v-chip class="ma-2" color="#FF6450" text-color="white">
+            <v-chip class="ma-2" color="#06A0E6" text-color="white">
               {{ AnimalApt[2].animalPharList[index].name }}
             </v-chip>
             까지

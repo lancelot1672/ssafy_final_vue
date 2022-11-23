@@ -11,7 +11,7 @@
       </div>
     </div>
     <!-- 관심 매물 보여주는 곳 -->
-    <div class="likeMain" v-if="likeList != []">
+    <div class="likeMain" v-if="likeAptDetailList">
       <!-- 1번줄 -->
       <div class="card-section" v-for="i in list()" :key="i">
         <v-card
@@ -22,10 +22,12 @@
           elevation="17"
           style="text-align: center; padding-top: 2.5rem; border-radius: 1rem"
           round
-          v-for="j in Math.min(likeList.length - i, 3)"
+          v-for="j in Math.min(likeAptDetailList.length - i, 3)"
           :key="j"
         >
-          <h2>{{ likeAptDetailList[i + j - 1].apartmentName }}</h2>
+          <h2>
+            {{ likeAptDetailList[i + j - 1].apartmentName }}
+          </h2>
           <br />
           <table style="margin: 0 auto">
             <tr>
@@ -129,6 +131,7 @@ export default {
   },
   created() {
     this.getLikeAptDetailInfo();
+    console.log("하이");
   },
   methods: {
     ...mapActions(["getLikeAptDetailInfo"]),
