@@ -14,8 +14,13 @@
     <select-condition></select-condition>
     <apt-info-list></apt-info-list>
     <apt-info-detail v-if="aptDetailInfo"></apt-info-detail>
-    <div class="map_section" min-height="10vh" rounded="lg" v-if="aptList">
-      <kakao-map></kakao-map>
+    <div class="main_section">
+      <div class="map_section" min-height="10vh" v-if="aptList">
+        <kakao-map></kakao-map>
+      </div>
+      <div class="new_section" v-if="aptList">
+        <naver-news></naver-news>
+      </div>
     </div>
     <router-view />
   </v-container>
@@ -26,6 +31,7 @@ import SelectCondition from "@/components/SelectCondition.vue";
 import AptInfoList from "@/components/AptInfoList.vue";
 import KakaoMap from "./KakaoMap.vue";
 import AptInfoDetail from "@/components/AptInfoDetail.vue";
+import NaverNews from "@/components/NaverNews.vue";
 
 import { mapState } from "vuex";
 
@@ -36,6 +42,7 @@ export default {
     AptInfoList,
     KakaoMap,
     AptInfoDetail,
+    NaverNews,
   },
   computed: {
     ...mapState(["aptList", "aptDetailInfo"]),
@@ -65,8 +72,21 @@ export default {
   font-size: 25px;
   font-weight: bold;
 }
+.main_section {
+  display: flex;
+  height: 60vh;
+  margin-top: 100px;
+  margin-bottom: 109px;
+}
 .map_section {
-  margin: 50px 150px;
   box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 9%);
+  width: 40%;
+  float: left;
+}
+.new_section {
+  /* background-color: black; */
+  width: 60%;
+  height: 60vh;
+  float: left;
 }
 </style>

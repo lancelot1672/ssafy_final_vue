@@ -1,6 +1,10 @@
 <template>
   <div class="mapmain" v-if="aptList" style="border-radius: 1rem">
-    <div class="map" id="place1" style="width: 100%; height: 60vh; border-radius: 1rem"></div>
+    <div
+      class="map"
+      id="place1"
+      style="width: 100%; height: 60vh; border-radius: 1rem"
+    ></div>
   </div>
 </template>
 <script>
@@ -50,7 +54,8 @@ export default {
         const map = new kakao.maps.Map(container, options); // 지도를 생성합니다.
         this.map = map;
 
-        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+        var imageSrc =
+          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
         // 마커 이미지의 이미지 크기 입니다
         var imageSize = new kakao.maps.Size(24, 35);
 
