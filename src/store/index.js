@@ -36,10 +36,10 @@ export default new Vuex.Store({
     isValidToken: false,
     sb: {
       act: false,
-      msg: '',
-      color: 'error'
-    }
-
+      msg: "",
+      color: "error",
+    },
+    likeAptDetailList: Object,
   },
   getters: {},
   mutations: {
@@ -64,8 +64,7 @@ export default new Vuex.Store({
     },
     SET_DONGLIST(state, dongList) {
       state.dongList = dongList;
-    }
-    ,
+    },
     SET_YEAR(state, year) {
       state.year = year;
     },
@@ -101,7 +100,10 @@ export default new Vuex.Store({
     ANIMAL_APT(state, AnimalApt) {
       state.AnimalApt = AnimalApt;
     },
-
+    SET_LIKEDETAILLIST(state, likeAptDetailList) {
+      console.log(likeAptDetailList);
+      state.likeAptDetailList = likeAptDetailList;
+    },
     //user
     SET_IS_LOGIN: (state, isLogin) => {
       state.isLogin = isLogin;
@@ -124,7 +126,7 @@ export default new Vuex.Store({
       state.sb.color = data.color;
       state.sb.act = false;
       if (data.act === undefined) state.sb.act = true;
-    }
+    },
   },
   actions: {
     simpleHouse({ commit }, house) {
@@ -139,7 +141,6 @@ export default new Vuex.Store({
         }
         commit("SET_SIDOLIST", sidoList);
       });
-
     },
     searchGugunList({ commit }, sido) {
       //시도에 따른 구군 리스트를 검색합니다.
@@ -155,14 +156,12 @@ export default new Vuex.Store({
     searchDongList({ commit }, payload) {
       //구군에 따른 동 리스트를 검새합니다.
       let dongList = [];
-      http
-        .get(`home/dongName?sidoName=${payload.sido}&gugunName=${payload.gugun}`)
-        .then(({ data }) => {
-          for (let i = 0; i < data.length; i++) {
-            dongList.push(data[i].dongName);
-          }
-          commit("SET_DONGLIST", dongList);
-        });
+      http.get(`home/dongName?sidoName=${payload.sido}&gugunName=${payload.gugun}`).then(({ data }) => {
+        for (let i = 0; i < data.length; i++) {
+          dongList.push(data[i].dongName);
+        }
+        commit("SET_DONGLIST", dongList);
+      });
     },
     searchSido({ commit }, sido) {
       commit("SET_SIDO", sido);
@@ -181,15 +180,12 @@ export default new Vuex.Store({
     },
     searchDongcode({ commit }, payload) {
       let dongCode;
-      http
-        .get(`home/dongCode?dongName=${payload.dong}&sidoName=${payload.sido}`)
-        .then(({ data }) => {
-          console.log(data);
-          dongCode = data;
-          commit("SET_DONGCODE", dongCode);
-        });
+      http.get(`home/dongCode?dongName=${payload.dong}&sidoName=${payload.sido}`).then(({ data }) => {
+        console.log(data);
+        dongCode = data;
+        commit("SET_DONGCODE", dongCode);
+      });
       console.log(dongCode);
-
     },
     searchApt({ commit }, page) {
       // 검색 조건에 따른 아파트 리스트
@@ -222,8 +218,9 @@ export default new Vuex.Store({
       let currPage = this.state.aptList.currPage;
       http
         .get(
-          `home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${this.state.month
-          }&page=${currPage - 1}`
+          `home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${this.state.month}&page=${
+            currPage - 1
+          }`
         )
         .then(({ data }) => {
           commit("SET_APT", data);
@@ -238,8 +235,9 @@ export default new Vuex.Store({
       let currPage = this.state.aptList.currPage;
       http
         .get(
-          `home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${this.state.month
-          }&page=${currPage + 1}`
+          `home/list?dongCode=${this.state.dongCode}&dealYear=${this.state.year}&dealMonth=${this.state.month}&page=${
+            currPage + 1
+          }`
         )
         .then(({ data }) => {
           commit("SET_APT", data);
@@ -254,28 +252,32 @@ export default new Vuex.Store({
           if (info.no == no) {
             detail = info;
           }
-        })
+        });
       }
       commit("SET_APT_DETAIL", detail);
-
+    },
+    getLikeAptDetailInfo({ commit }) {
+      let likeAptDetailList = [];
+      this.state.likeList.forEach((likeList) => {
+        // console.log(likeList.houseCode);
+        http.get(`view/houseRead?no=${likeList.houseCode}`).then(({ data }) => {
+          // console.log(commit);
+          //console.log(data);
+          likeAptDetailList.push(data);
+        });
+      });
+      commit("SET_LIKEDETAILLIST", likeAptDetailList);
+      // console.log(likeAptDetailList);
     },
     getRecommandResult({ commit }, dongName) {
-      http
-        .get(
-          `station/list?dongName=${dongName}`
-        )
-        .then(({ data }) => {
-          commit("STATION_APT", data);
-        });
+      http.get(`station/list?dongName=${dongName}`).then(({ data }) => {
+        commit("STATION_APT", data);
+      });
     },
     getRecommandAnimalResult({ commit }, dongName) {
-      http
-        .get(
-          `/animal/list?dongName=${dongName}`
-        )
-        .then(({ data }) => {
-          commit("ANIMAL_APT", data);
-        });
+      http.get(`/animal/list?dongName=${dongName}`).then(({ data }) => {
+        commit("ANIMAL_APT", data);
+      });
     },
     async userConfirm({ commit }, user) {
       console.log(user);
@@ -401,8 +403,7 @@ export default new Vuex.Store({
         (error) => {
           console.log(error);
         }
-
-      )
+      );
     },
     async unlike({ dispatch }, no) {
       console.log(no);
@@ -419,10 +420,8 @@ export default new Vuex.Store({
         (error) => {
           console.log(error);
         }
-
-      )
+      );
     },
-
   },
   modules: {},
 });

@@ -50,24 +50,27 @@ const routes = [
     component: () => import("@/views/RecommendView"),
   },
   {
+    path: "/like",
+    name: "like",
+    component: () => import("@/views/LikeView"),
+  },
+  {
     path: "/user",
-    name : "user",
-    component : () => import("@/views/UserView"),
-    children : [
+    name: "user",
+    component: () => import("@/views/UserView"),
+    children: [
       {
-        path : "/login",
-        name : "login",
+        path: "/login",
+        name: "login",
         component: () => import("@/components/user/UserLogin"),
       },
       {
-        path : "/join",
-        name : "join",
+        path: "/join",
+        name: "join",
         component: () => import("@/components/user/UserJoin"),
-      }
-    ]
+      },
+    ],
   },
-
-
 ];
 
 const router = new VueRouter({

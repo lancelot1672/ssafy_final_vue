@@ -2,7 +2,7 @@
   <v-container>
     <div class="main-header-section">
       <div class="section1">
-        <img src="@/assets/detailsmallhouse.png" width="100px" />
+        <img src="@/assets/catdog.png" width="80px" />&nbsp;&nbsp;&nbsp;
         <span class="main-header-title">반려동물 정보 맞춤 매물 추천</span>
       </div>
       <div class="section1">
@@ -127,99 +127,239 @@
       </div>
       <div class="stationDetailSubway">
         <div class="SDSubwayLeft">
-          <!-- <v-img
-            src="@/assets/subwaygif.gif"
+          <v-img
+            src="@/assets/hosgif.gif"
             style="margin: 0 auto; border-radius: 2rem"
-            max-height="300px"
-          ></v-img> -->
+            max-height="400px"
+          ></v-img>
         </div>
         <div class="SDSubwayRight">
-          <!-- <h1 style="text-align: center; font-size: 1.5rem">
+          <h1 style="text-align: center; font-size: 1.5rem">
             직선거리 500m 이내의
           </h1>
           <h1 style="text-align: center">
-            지하철역은 {{ AnimalApt[0].stationList.length }}개 입니다.
+            동물병원은 {{ AnimalApt[0].animalHosList.length }}개 입니다.
           </h1>
           <div
             style="margin-left: 25%"
-            v-for="(station, index) in StationApt[0].stationList"
+            v-for="(station, index) in Math.min(
+              AnimalApt[0].animalHosList.length,
+              3
+            )"
             :key="index"
           >
-            <v-chip
-              class="ma-2"
-              color="#044E94"
-              text-color="white"
-              v-if="StationApt[0].stationList[index].line == `01호선`"
-            >
-              {{ StationApt[0].stationList[index].line }}
-            </v-chip>
-
-            <strong>{{ StationApt[0].stationList[index].name }}역</strong>까지
-            {{ StationApt[0].stationList[index].distance | distance }}
+            <v-chip class="ma-2" color="#06A0E6" text-color="white">
+              {{ AnimalApt[0].animalHosList[index].name }} </v-chip
+            >까지
+            {{ AnimalApt[0].animalHosList[index].dis | distance }}
             m 떨어져 있습니다.
-          </div> -->
+            <p style="color: gray; margin-left: 1rem; font-size: 0.9rem">
+              [ 주소 ]
+              <span> {{ AnimalApt[0].animalHosList[index].street_addr }} </span>
+            </p>
+          </div>
         </div>
       </div>
       <!-- 버스 시작 -->
-      <!-- <div class="stationDetailBus">
+      <div class="stationDetailBus">
         <div class="SDBusLeft">
           <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 100m 이내의
+            직선거리 500m 이내의
           </h1>
           <h1 style="text-align: center">
-            버스정류장은 {{ StationApt[0].busList.length }}개 입니다.
+            동물 약국은 {{ AnimalApt[0].animalPharList.length }}개 입니다.
           </h1>
-          <div v-for="(bus, index) in StationApt[0].busList" :key="index">
+          <div
+            v-for="(phar, index) in Math.min(
+              AnimalApt[0].animalPharList.length,
+              3
+            )"
+            :key="index"
+          >
             <v-chip class="ma-2" color="#FF6450" text-color="white">
-              {{ StationApt[0].busList[index].stop_nm }}
+              {{ AnimalApt[0].animalPharList[index].name }}
             </v-chip>
-            정류소까지
-            {{ StationApt[0].busList[index].dis | distance }}
+            까지
+            {{ AnimalApt[0].animalPharList[index].dis | distance }}
             m 떨어져 있습니다.
+            <p style="color: gray; margin-left: 1rem; font-size: 0.9rem">
+              [ 주소 ] {{ AnimalApt[0].animalPharList[index].street_addr }}
+            </p>
           </div>
         </div>
         <div class="SDBBusMid"></div>
         <div class="SDBusRight">
           <v-img
-            src="@/assets/busgif.gif"
+            src="@/assets/phargif.gif"
             style="margin: 0 auto; border-radius: 2rem"
             max-height="280px"
           ></v-img>
         </div>
-      </div> -->
-      <!-- <div class="stationDetailBike">
-        <div class="SDBikeLeft">
+      </div>
+      <v-divider></v-divider>
+      <!-- **********************************************************************아파트 시작1개 -->
+
+      <!-- 상세정보 step 1-->
+      <!-- 아파트 이름 -->
+      <div>
+        <div class="traffic-info">
+          <h1>{{ AnimalApt[1].apartmentName }} 아파트 상세 정보</h1>
+        </div>
+      </div>
+      <div class="stationDetailSubway">
+        <div class="SDSubwayLeft">
           <v-img
-            src="@/assets/bikegif.gif"
+            src="@/assets/hosgif.gif"
             style="margin: 0 auto; border-radius: 2rem"
-            max-height="300px"
+            max-height="400px"
           ></v-img>
         </div>
-        <div class="SDBikeRight">
+        <div class="SDSubwayRight">
           <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 100m 이내의
+            직선거리 500m 이내의
           </h1>
           <h1 style="text-align: center">
-            따릉이는 {{ StationApt[0].bikeList.length }}개 입니다.
+            동물병원은 {{ AnimalApt[1].animalHosList.length }}개 입니다.
           </h1>
           <div
-            v-for="(bike, index) in StationApt[0].bikeList"
+            style="margin-left: 25%"
+            v-for="(station, index) in Math.min(
+              AnimalApt[1].animalHosList.length,
+              3
+            )"
             :key="index"
-            style="margin-left: 20%"
           >
-            <v-chip class="ma-2" color="#06A0E6" text-color="white">
-              {{ StationApt[0].bikeList[index].rent_name }}
-            </v-chip>
-            까지
-            {{ StationApt[0].bikeList[index].dis | distance }}
+            <v-chip class="ma-2" color="#FF6450" text-color="white">
+              {{ AnimalApt[1].animalHosList[index].name }} </v-chip
+            >까지
+            {{ AnimalApt[1].animalHosList[index].dis | distance }}
             m 떨어져 있습니다.
+            <p style="color: gray; margin-left: 1rem; font-size: 0.9rem">
+              [ 주소 ] {{ AnimalApt[1].animalHosList[index].street_addr }}
+            </p>
           </div>
         </div>
-      </div> -->
+      </div>
+      <!-- 버스 시작 -->
+      <div class="stationDetailBus">
+        <div class="SDBusLeft">
+          <h1 style="text-align: center; font-size: 1.5rem">
+            직선거리 500m 이내의
+          </h1>
+          <h1 style="text-align: center">
+            동물 약국은 {{ AnimalApt[1].animalPharList.length }}개 입니다.
+          </h1>
+          <div
+            v-for="(phar, index) in Math.min(
+              AnimalApt[1].animalPharList.length,
+              3
+            )"
+            :key="index"
+          >
+            <v-chip class="ma-2" color="#FF6450" text-color="white">
+              {{ AnimalApt[1].animalPharList[index].name }}
+            </v-chip>
+            까지
+            {{ AnimalApt[1].animalPharList[index].dis | distance }}
+            m 떨어져 있습니다.
+            <p style="color: gray; margin-left: 1rem; font-size: 0.9rem">
+              [ 주소 ] {{ AnimalApt[1].animalPharList[index].street_addr }}
+            </p>
+          </div>
+        </div>
+        <div class="SDBBusMid"></div>
+        <div class="SDBusRight">
+          <v-img
+            src="@/assets/phargif.gif"
+            style="margin: 0 auto; border-radius: 2rem"
+            max-height="280px"
+          ></v-img>
+        </div>
+      </div>
       <v-divider></v-divider>
       <!-- **********************************************************************아파트 시작1개 -->
 
       <!-- 끝-->
+
+      <!-- 상세정보 step 1-->
+      <!-- 아파트 이름 -->
+      <div>
+        <div class="traffic-info">
+          <h1>{{ AnimalApt[2].apartmentName }} 아파트 상세 정보</h1>
+        </div>
+      </div>
+      <div class="stationDetailSubway">
+        <div class="SDSubwayLeft">
+          <v-img
+            src="@/assets/hosgif.gif"
+            style="margin: 0 auto; border-radius: 2rem"
+            max-height="400px"
+          ></v-img>
+        </div>
+        <div class="SDSubwayRight">
+          <h1 style="text-align: center; font-size: 1.5rem">
+            직선거리 500m 이내의
+          </h1>
+          <h1 style="text-align: center">
+            동물병원은 {{ AnimalApt[2].animalHosList.length }}개 입니다.
+          </h1>
+          <div
+            style="margin-left: 25%"
+            v-for="(station, index) in Math.min(
+              AnimalApt[2].animalHosList.length,
+              3
+            )"
+            :key="index"
+          >
+            <v-chip class="ma-2" color="#FF6450" text-color="white">
+              {{ AnimalApt[2].animalHosList[index].name }} </v-chip
+            >까지
+            {{ AnimalApt[2].animalHosList[index].dis | distance }}
+            m 떨어져 있습니다.
+            <p style="color: gray; margin-left: 1rem; font-size: 0.9rem">
+              [ 주소 ] {{ AnimalApt[2].animalHosList[index].street_addr }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- 버스 시작 -->
+      <div class="stationDetailBus">
+        <div class="SDBusLeft">
+          <h1 style="text-align: center; font-size: 1.5rem">
+            직선거리 500m 이내의
+          </h1>
+          <h1 style="text-align: center">
+            동물 약국은 {{ AnimalApt[2].animalPharList.length }}개 입니다.
+          </h1>
+          <div
+            v-for="(phar, index) in Math.min(
+              AnimalApt[2].animalPharList.length,
+              3
+            )"
+            :key="index"
+          >
+            <v-chip class="ma-2" color="#FF6450" text-color="white">
+              {{ AnimalApt[2].animalPharList[index].name }}
+            </v-chip>
+            까지
+            {{ AnimalApt[2].animalPharList[index].dis | distance }}
+            m 떨어져 있습니다.
+            <p style="color: gray; margin-left: 1rem; font-size: 0.9rem">
+              [ 주소 ] {{ AnimalApt[2].animalPharList[index].street_addr }}
+            </p>
+          </div>
+        </div>
+        <div class="SDBBusMid"></div>
+        <div class="SDBusRight">
+          <v-img
+            src="@/assets/phargif.gif"
+            style="margin: 0 auto; border-radius: 2rem"
+            max-height="280px"
+          ></v-img>
+        </div>
+      </div>
+      <v-divider></v-divider>
+      <!-- **********************************************************************아파트 시작1개 -->
     </div>
   </v-container>
 </template>

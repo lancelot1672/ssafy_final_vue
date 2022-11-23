@@ -4,9 +4,18 @@
       :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'"
       size="32"
     ></v-avatar>
-    <img src="@/assets/logoleft1.png" @click="movePage" class="header_title" width="240px" />
+    <img
+      src="@/assets/logoleft1.png"
+      @click="movePage"
+      class="header_title"
+      width="240px"
+    />
     <v-tabs centered class="ml-n9" color="grey darken-1">
-      <v-tab v-for="(link, index) in links" :key="index" @click="movePage(link)">
+      <v-tab
+        v-for="(link, index) in links"
+        :key="index"
+        @click="movePage(link)"
+      >
         <router-link :to="link.path">{{ link.name }}</router-link>
       </v-tab>
     </v-tabs>
@@ -21,6 +30,13 @@
       <router-link :to="{ name: 'join' }">Regist</router-link>
     </span>
     <span class="auth" v-else>
+      <img
+        src="@/assets/like1.png"
+        @click="moveLikePage"
+        width="30rem"
+        style="margin-right: 1rem"
+      />
+
       <v-menu open-on-hover bottom offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-avatar
@@ -36,7 +52,9 @@
           <v-list-item-group color="primary">
             <v-subheader>{{ this.userInfo.userName }}</v-subheader>
             <v-list-item dense>
-              <v-list-item-title @click="onclickLogout">로그아웃</v-list-item-title>
+              <v-list-item-title @click="onclickLogout"
+                >로그아웃</v-list-item-title
+              >
             </v-list-item>
           </v-list-item-group>
         </v-list>
@@ -77,6 +95,9 @@ export default {
       sessionStorage.removeItem("refresh-token"); //저장된 토큰 없애기
 
       if (this.$route.path != "/") this.$router.push({ name: "main" });
+    },
+    moveLikePage() {
+      this.$router.push({ name: "like" });
     },
   },
 };
