@@ -16,7 +16,7 @@
       <div class="map_section" min-height="10vh" v-if="aptList">
         <kakao-map></kakao-map>
       </div>
-      <div class="new_section" v-if="newsInfo">
+      <div class="new_section" v-if="aptList">
         <naver-news></naver-news>
       </div>
     </div>
