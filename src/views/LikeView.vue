@@ -11,7 +11,7 @@
       </div>
     </div>
     <!-- 관심 매물 보여주는 곳 -->
-    <div class="likeMain">
+    <div class="likeMain" v-if="likeAptDetailList">
       <!-- 1번줄 -->
       <div class="card-section" v-for="i in list()" :key="i">
         <v-card
@@ -87,9 +87,7 @@
               </td>
               <td>
                 &nbsp;
-                <strong
-                  >{{ likeAptDetailList[i + j - 1].dealAmount }}만원</strong
-                >
+                <strong>{{ likeAptDetailList[i + j - 1].dealAmount }}만원</strong>
               </td>
             </tr>
             <tr>
@@ -127,6 +125,7 @@ export default {
   computed: {
     ...mapState(["likeList", "likeAptDetailList"]),
   },
+
   created() {
     this.getLikeAptDetailInfo();
   },
