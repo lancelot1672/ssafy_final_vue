@@ -47,6 +47,7 @@
     </div>
     <!--  -->
     <div class="card-section" v-if="StationApt != null">
+      <!-- 첫번째 추천 아파트  -->
       <v-card
         class="mx-auto"
         max-width="300"
@@ -57,7 +58,74 @@
         style="text-align: center; padding-top: 2.5rem; border-radius: 1rem"
         round
       >
-        <h1 style="color: white">{{ StationApt[0].apartmentName }}</h1>
+        <!--여기 모달창 step 1 -->
+        <div class="text-center">
+          <v-dialog v-model="dialog1" width="900">
+            <template v-slot:activator="{ on, attrs }">
+              <h1 style="color: black" v-bind="attrs" v-on="on">
+                {{ StationApt[0].apartmentName }}
+              </h1>
+            </template>
+            <v-card>
+              <v-card-title style="text-align: center">
+                {{ StationApt[0].apartmentName }}
+              </v-card-title>
+
+              <v-card-text>
+                <!-- 테이블 -->
+                <v-data-table
+                  :headers="headers2"
+                  :items="data2"
+                  :items-per-page="5"
+                  class="elevation-1"
+                ></v-data-table>
+              </v-card-text>
+
+              <br />
+              <!-- 그래프 -->
+              <v-card
+                class="mx-auto text-center"
+                color="green"
+                dark
+                max-width="600"
+              >
+                <v-card-text>
+                  <v-sheet color="rgba(0, 0, 0, .12)">
+                    <v-sparkline
+                      :value="value2"
+                      color="rgba(255, 255, 255, .7)"
+                      height="100"
+                      padding="24"
+                      stroke-linecap="round"
+                      smooth
+                    >
+                      <template v-slot:label="item">
+                        ${{ item.value2 }}
+                      </template>
+                    </v-sparkline>
+                  </v-sheet>
+                </v-card-text>
+
+                <v-card-text>
+                  <div style="font-family: LINESeedKR-Bd; font-size: 2rem">
+                    3년간 거래 내역 그래프
+                  </div>
+                </v-card-text>
+              </v-card>
+              <!-- 그래프 끝-->
+              <v-divider></v-divider>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" text @click="dialog1 = false">
+                  Close
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </div>
+
+        <!-- 여기 모달창 끝-->
         <p style="color: white; font-size: 13px">
           {{ sido }} {{ StationApt[0].dongName }} {{ StationApt[0].roadName }}
           {{ StationApt[0].jibun }}
@@ -69,6 +137,8 @@
           style="margin: 0 auto"
         ></v-img>
       </v-card>
+
+      <!-- 두번째 추천 아파트  -->
       <v-card
         class="mx-auto"
         max-width="300"
@@ -79,7 +149,73 @@
         style="text-align: center; padding-top: 2.5rem; border-radius: 1rem"
         round
       >
-        <h1 style="color: black">{{ StationApt[1].apartmentName }}</h1>
+        <!--여기 모달창 step 1 -->
+        <div class="text-center">
+          <v-dialog v-model="dialog2" width="900">
+            <template v-slot:activator="{ on, attrs }">
+              <h1 style="color: black" v-bind="attrs" v-on="on">
+                {{ StationApt[1].apartmentName }}
+              </h1>
+            </template>
+            <v-card>
+              <v-card-title style="text-align: center">
+                {{ StationApt[1].apartmentName }}
+              </v-card-title>
+
+              <v-card-text>
+                <v-data-table
+                  :headers="headers1"
+                  :items="data1"
+                  :items-per-page="5"
+                  class="elevation-1"
+                ></v-data-table>
+              </v-card-text>
+
+              <br />
+              <!-- 그래프 -->
+              <v-card
+                class="mx-auto text-center"
+                color="green"
+                dark
+                max-width="600"
+              >
+                <v-card-text>
+                  <v-sheet color="rgba(0, 0, 0, .12)">
+                    <v-sparkline
+                      :value="value1"
+                      color="rgba(255, 255, 255, .7)"
+                      height="100"
+                      padding="24"
+                      stroke-linecap="round"
+                      smooth
+                    >
+                      <template v-slot:label="item">
+                        ${{ item.value1 }}
+                      </template>
+                    </v-sparkline>
+                  </v-sheet>
+                </v-card-text>
+
+                <v-card-text>
+                  <div style="font-family: LINESeedKR-Bd; font-size: 2rem">
+                    3년간 거래 내역 그래프
+                  </div>
+                </v-card-text>
+              </v-card>
+              <!-- 그래프 끝-->
+              <v-divider></v-divider>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" text @click="dialog2 = false">
+                  Close
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </div>
+
+        <!-- 여기 모달창 끝-->
         <p style="color: black; font-size: 13px">
           {{ sido }} {{ StationApt[1].dongName }} {{ StationApt[1].roadName }}
           {{ StationApt[1].jibun }}
@@ -101,7 +237,74 @@
         style="text-align: center; padding-top: 2.5rem; border-radius: 1rem"
         round
       >
-        <h1 style="color: white">{{ StationApt[2].apartmentName }}</h1>
+        <!--여기 모달창 step 1 -->
+        <div class="text-center">
+          <v-dialog v-model="dialog3" width="900">
+            <template v-slot:activator="{ on, attrs }">
+              <h1 style="color: black" v-bind="attrs" v-on="on">
+                {{ StationApt[2].apartmentName }}
+              </h1>
+            </template>
+            <v-card>
+              <v-card-title style="text-align: center">
+                {{ StationApt[2].apartmentName }}
+              </v-card-title>
+
+              <v-card-text>
+                <!-- 테이블 -->
+                <v-data-table
+                  :headers="headers3"
+                  :items="data3"
+                  :items-per-page="5"
+                  class="elevation-1"
+                ></v-data-table>
+              </v-card-text>
+
+              <br />
+              <!-- 그래프 -->
+              <v-card
+                class="mx-auto text-center"
+                color="green"
+                dark
+                max-width="600"
+              >
+                <v-card-text>
+                  <v-sheet color="rgba(0, 0, 0, .12)">
+                    <v-sparkline
+                      :value="value3"
+                      color="rgba(255, 255, 255, .7)"
+                      height="100"
+                      padding="24"
+                      stroke-linecap="round"
+                      smooth
+                    >
+                      <template v-slot:label="item">
+                        ${{ item.value3 }}
+                      </template>
+                    </v-sparkline>
+                  </v-sheet>
+                </v-card-text>
+
+                <v-card-text>
+                  <div style="font-family: LINESeedKR-Bd; font-size: 2rem">
+                    3년간 거래 내역 그래프
+                  </div>
+                </v-card-text>
+              </v-card>
+              <!-- 그래프 끝-->
+              <v-divider></v-divider>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" text @click="dialog3 = false">
+                  Close
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </div>
+
+        <!-- 여기 모달창 끝-->
         <p style="color: white; font-size: 13px">
           {{ sido }} {{ StationApt[2].dongName }} {{ StationApt[2].roadName }}
           {{ StationApt[2].jibun }}
@@ -726,6 +929,81 @@ export default {
       tab: null,
       items: ["지하철", "버스", "따릉이"],
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      dialog1: false,
+      dialog2: false,
+      dialog3: false,
+      value1: [423, 446, 675, 510, 590, 610, 760],
+      headers1: [
+        {
+          text: "아파트 이름",
+          align: "start",
+          sortable: false,
+          value: "apartmentName",
+        },
+        { text: "floor", value: "floor" },
+        { text: "area", value: "area" },
+        { text: "dealAmount", value: "dealAmount" },
+        { text: "dealYear", value: "dealYear" },
+        { text: "dealMonth", value: "dealMonth" },
+      ],
+      data1: [
+        {
+          apartmentName: "Frozen Yogurt",
+          floor: 159,
+          area: 6.0,
+          dealAmount: 24,
+          dealYear: 4.0,
+          dealMonth: "1%",
+        },
+      ],
+      headers2: [
+        {
+          text: "아파트 이름",
+          align: "start",
+          sortable: false,
+          value: "apartmentName",
+        },
+        { text: "floor", value: "floor" },
+        { text: "area", value: "area" },
+        { text: "dealAmount", value: "dealAmount" },
+        { text: "dealYear", value: "dealYear" },
+        { text: "dealMonth", value: "dealMonth" },
+      ],
+      value2: [423, 446, 675, 510, 590, 610, 760],
+      data2: [
+        {
+          apartmentName: "Frozen Yogurt",
+          floor: 159,
+          area: 6.0,
+          dealAmount: 24,
+          dealYear: 4.0,
+          dealMonth: "1%",
+        },
+      ],
+      headers3: [
+        {
+          text: "아파트 이름",
+          align: "start",
+          sortable: false,
+          value: "apartmentName",
+        },
+        { text: "floor", value: "floor" },
+        { text: "area", value: "area" },
+        { text: "dealAmount", value: "dealAmount" },
+        { text: "dealYear", value: "dealYear" },
+        { text: "dealMonth", value: "dealMonth" },
+      ],
+      value3: [423, 446, 675, 510, 590, 610, 760],
+      data3: [
+        {
+          apartmentName: "Frozen Yogurt",
+          floor: 159,
+          area: 6.0,
+          dealAmount: 24,
+          dealYear: 4.0,
+          dealMonth: "1%",
+        },
+      ],
     };
   },
   computed: {
@@ -772,6 +1050,13 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: "LINESeedKR-Bd";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
 .select_section {
   display: flex;
   margin-left: 100px;
