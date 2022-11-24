@@ -33,21 +33,23 @@
     </span>
     <span class="auth" v-else>
       <img
-        src="@/assets/like1.png"
+        src="@/assets/bas.png"
         @click="moveLikePage"
-        width="30rem"
-        style="margin-right: 1rem"
+        style="margin-top: 0.2rem"
+        width="45rem"
+        height="55rem"
       />
 
       <v-menu open-on-hover bottom offset-y>
         <template v-slot:activator="{ on, attrs }">
-          <v-avatar
+          <v-img
+            src="@/assets/mangif.gif"
             class="hidden-sm-and-down"
             v-bind="attrs"
             v-on="on"
             color="grey darken-1 shrink"
-            size="32"
-          ></v-avatar>
+            width="4rem"
+          ></v-img>
         </template>
 
         <v-list>

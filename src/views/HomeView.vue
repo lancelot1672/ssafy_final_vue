@@ -500,6 +500,6 @@ export default {};
   height: 600px;
   padding-left: 15rem;
   padding-top: 15rem;
-  background-color: rgb(242, 234, 234);
+  background-color: rgb(255, 230, 227);
 }
 </style>
