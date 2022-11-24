@@ -72,7 +72,7 @@ export default {
 }
 .main_section {
   display: flex;
-  height: 60vh;
+  max-height: 60vh;
   margin-top: 100px;
   margin-bottom: 109px;
 }

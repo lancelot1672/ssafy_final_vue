@@ -83,7 +83,7 @@ form {
   margin-top: 100px;
   position: relative;
   height: 100%;
-  -webkit-animation: fadein 1s;
+  animation: fadein 1s;
 }
 @keyframes fadein {
   from {
