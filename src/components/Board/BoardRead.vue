@@ -17,14 +17,14 @@
           @click="
             moveBoardModifyPage(board.bno, board.title, board.user_id, board.content, board.gugun)
           "
-          v-if="userInfo && board.userId == userInfo.userId"
+          v-if="userInfo && board.user_id == userInfo.userId"
         >
           <v-icon style="color: rgb(255, 255, 255)">fa-light fa-wrench</v-icon>
         </button>
         <button
           class="delete-btn"
           @click="boardDelete(board.bno)"
-          v-if="userInfo && board.userId == userInfo.userId"
+          v-if="userInfo && board.user_id == userInfo.userId"
         >
           <v-icon style="color: rgb(255, 255, 255)">fa-regular fa-trash-can</v-icon>
         </button>
