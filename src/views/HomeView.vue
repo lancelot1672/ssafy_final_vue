@@ -1,12 +1,8 @@
 <template>
   <div>
     <div class="HomeMain">
-      <p style="font-size: 4rem; font-family: LINESeedKR-Bd">
-        집 구하기의 모든 것
-      </p>
-      <p style="font-size: 4rem; font-family: LINESeedKR-Bd">
-        다나와 홈즈에서 쉽고 간편하게
-      </p>
+      <p style="font-size: 4rem; font-family: LINESeedKR-Bd">집 구하기의 모든 것</p>
+      <p style="font-size: 4rem; font-family: LINESeedKR-Bd">다나와 홈즈에서 쉽고 간편하게</p>
       <br />
       <br />
       <br />
@@ -52,9 +48,7 @@
     </div>
     <div class="HomeMid3">
       <div class="HomeMid3Left">
-        <p style="font-size: 4rem; font-family: LINESeedKR-Bd">
-          원하는 지역 매물 보기
-        </p>
+        <p style="font-size: 4rem; font-family: LINESeedKR-Bd">원하는 지역 매물 보기</p>
         <p style="font-size: 1.5rem; font-family: LINESeedKR-Bd; color: gray">
           내 집 마련이 하고 싶은가요??
         </p>
@@ -104,34 +98,13 @@
             filter: drop-shadow(5px 5px 5px #000);
           "
         ></v-img>
-        <p
-          style="
-            font-size: 1.5rem;
-            font-family: LINESeedKR-Bd;
-            margin-left: 10%;
-            margin-top: 3%;
-          "
-        >
+        <p style="font-size: 1.5rem; font-family: LINESeedKR-Bd; margin-left: 10%; margin-top: 3%">
           시도, 구/군, 동, 거래년월을
         </p>
-        <p
-          style="
-            font-size: 1.5rem;
-            font-family: LINESeedKR-Bd;
-            margin-left: 10%;
-            margin-top: 1%;
-          "
-        >
+        <p style="font-size: 1.5rem; font-family: LINESeedKR-Bd; margin-left: 10%; margin-top: 1%">
           통해 조회한 후 상세 정보를
         </p>
-        <p
-          style="
-            font-size: 1.5rem;
-            font-family: LINESeedKR-Bd;
-            margin-left: 10%;
-            margin-top: 1%;
-          "
-        >
+        <p style="font-size: 1.5rem; font-family: LINESeedKR-Bd; margin-left: 10%; margin-top: 1%">
           확인할 수 있어요.
         </p>
       </div>
@@ -139,9 +112,7 @@
     <v-divider></v-divider>
     <div class="HomeMid4">
       <div class="HomeMid3Left">
-        <p style="font-size: 4rem; font-family: LINESeedKR-Bd">
-          맞춤 추천 매물
-        </p>
+        <p style="font-size: 4rem; font-family: LINESeedKR-Bd">맞춤 추천 매물</p>
         <p style="font-size: 1.5rem; font-family: LINESeedKR-Bd; color: gray">
           교통 정보 추천 매물 지하철, 버스, 집 주변
         </p>
@@ -191,34 +162,13 @@
             filter: drop-shadow(5px 5px 5px #000);
           "
         ></v-img>
-        <p
-          style="
-            font-size: 1.5rem;
-            font-family: LINESeedKR-Bd;
-            margin-left: 10%;
-            margin-top: 3%;
-          "
-        >
+        <p style="font-size: 1.5rem; font-family: LINESeedKR-Bd; margin-left: 10%; margin-top: 3%">
           시도, 구/군, 동을 선택하여
         </p>
-        <p
-          style="
-            font-size: 1.5rem;
-            font-family: LINESeedKR-Bd;
-            margin-left: 10%;
-            margin-top: 1%;
-          "
-        >
+        <p style="font-size: 1.5rem; font-family: LINESeedKR-Bd; margin-left: 10%; margin-top: 1%">
           교통에 최적화된 아파트 3곳을
         </p>
-        <p
-          style="
-            font-size: 1.5rem;
-            font-family: LINESeedKR-Bd;
-            margin-left: 10%;
-            margin-top: 1%;
-          "
-        >
+        <p style="font-size: 1.5rem; font-family: LINESeedKR-Bd; margin-left: 10%; margin-top: 1%">
           추천 받을 수 있습니다.
         </p>
       </div>
@@ -236,34 +186,13 @@
             filter: drop-shadow(5px 5px 5px #000);
           "
         ></v-img>
-        <p
-          style="
-            font-size: 1.5rem;
-            font-family: LINESeedKR-Bd;
-            margin-left: 45%;
-            margin-top: 3%;
-          "
-        >
+        <p style="font-size: 1.5rem; font-family: LINESeedKR-Bd; margin-left: 45%; margin-top: 3%">
           시도, 구/군, 동을 선택하여
         </p>
-        <p
-          style="
-            font-size: 1.5rem;
-            font-family: LINESeedKR-Bd;
-            margin-left: 45%;
-            margin-top: 1%;
-          "
-        >
+        <p style="font-size: 1.5rem; font-family: LINESeedKR-Bd; margin-left: 45%; margin-top: 1%">
           반려동물과 함께 살기 좋은 아파트 3곳을
         </p>
-        <p
-          style="
-            font-size: 1.5rem;
-            font-family: LINESeedKR-Bd;
-            margin-left: 45%;
-            margin-top: 1%;
-          "
-        >
+        <p style="font-size: 1.5rem; font-family: LINESeedKR-Bd; margin-left: 45%; margin-top: 1%">
           추천 받을 수 있습니다.
         </p>
       </div>
@@ -286,9 +215,7 @@
     <v-divider></v-divider>
     <div class="HomeMid5">
       <div class="HomeMid3Left">
-        <p style="font-size: 4rem; font-family: LINESeedKR-Bd">
-          지역구 정보 게시판
-        </p>
+        <p style="font-size: 4rem; font-family: LINESeedKR-Bd">지역구 정보 게시판</p>
         <p style="font-size: 1.5rem; font-family: LINESeedKR-Bd; color: gray">
           지역구 별 QnA 게시판으로
         </p>
@@ -338,34 +265,13 @@
             filter: drop-shadow(5px 5px 5px #000);
           "
         ></v-img>
-        <p
-          style="
-            font-size: 1.5rem;
-            font-family: LINESeedKR-Bd;
-            margin-left: 10%;
-            margin-top: 3%;
-          "
-        >
+        <p style="font-size: 1.5rem; font-family: LINESeedKR-Bd; margin-left: 10%; margin-top: 3%">
           원하는 지역구를 선택해서
         </p>
-        <p
-          style="
-            font-size: 1.5rem;
-            font-family: LINESeedKR-Bd;
-            margin-left: 10%;
-            margin-top: 1%;
-          "
-        >
+        <p style="font-size: 1.5rem; font-family: LINESeedKR-Bd; margin-left: 10%; margin-top: 1%">
           글을 작성해보세요.
         </p>
-        <p
-          style="
-            font-size: 1.5rem;
-            font-family: LINESeedKR-Bd;
-            margin-left: 10%;
-            margin-top: 1%;
-          "
-        >
+        <p style="font-size: 1.5rem; font-family: LINESeedKR-Bd; margin-left: 10%; margin-top: 1%">
           여러분의 대답은 댓글로 확인할 수 있습니다.
         </p>
       </div>
@@ -374,15 +280,27 @@
 
     <div class="HomeFoot">
       <p style="font-size: 4rem; font-family: LINESeedKR-Bd">이제,</p>
-      <p style="font-size: 4rem; font-family: LINESeedKR-Bd">
-        다나와 홈즈와 만날 시간
-      </p>
+      <p style="font-size: 4rem; font-family: LINESeedKR-Bd">다나와 홈즈와 만날 시간</p>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import ChannelService from "./ChannelService";
+export default {
+  created() {
+    ChannelService.boot({
+      pluginKey: "fbf904cc-1ebf-4c8b-9ec9-b6ad75c2ebcf",
+      memberId: "lancelot1672@naver.com", //fill with user id
+      profile: {
+        name: "김동률", //fill with user name
+        mobileNumber: "01040548749", //fill with user phone number
+        CUSTOM_VALUE_1: "VALUE_1", //any other custom meta data
+        CUSTOM_VALUE_2: "VALUE_2",
+      },
+    });
+  },
+};
 </script>
 
 <style>
