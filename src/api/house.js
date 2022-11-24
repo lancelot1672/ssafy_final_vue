@@ -16,4 +16,7 @@ async function like(likeInfo, success, fail) {
 async function unlike(no, success, fail) {
     await http.delete(`home/like/${no}`).then(success).catch(fail);
 }
-export { sidoList, gugunList, like, unlike };
+async function selectAllByAptName(aptInfo, success, fail) {
+    await http.post(`home/search`, JSON.stringify(aptInfo)).then(success).catch(fail);
+}
+export { sidoList, gugunList, like, unlike, selectAllByAptName };

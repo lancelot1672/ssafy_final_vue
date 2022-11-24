@@ -161,6 +161,7 @@ export default {
             if (data === "success") {
               //사용 가능
               alert("회원가입이 완료되었습니다.");
+              this.movePage("/home");
             } else {
               // 사용 불가능
               alert("회원가입 오류.");

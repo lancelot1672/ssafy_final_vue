@@ -147,6 +147,12 @@ export default {
       if (deleteNo) {
         console.log(deleteNo);
         await this.unlike(deleteNo);
+
+        this.$store.commit("POP", {
+          msg: "관심 매물에서 삭제되었습니다.",
+          color: "dark",
+        });
+
         this.getLikeAptDetailInfo();
       }
     },

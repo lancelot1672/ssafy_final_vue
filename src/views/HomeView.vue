@@ -420,4 +420,7 @@ export default {
   padding-top: 15rem;
   background-color: rgb(255, 230, 227);
 }
+p {
+  font-family: "LINESeedKR-Bd";
+}
 </style>

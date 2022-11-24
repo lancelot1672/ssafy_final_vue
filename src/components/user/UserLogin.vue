@@ -25,13 +25,15 @@
           placeholder="비밀번호"
           label="Password"
         />
-        <v-btn type="submit" class="login-btn" @click="confirm">로그인</v-btn>
+        <v-btn type="submit" class="login-btn" @click="confirm" @keyup.enter="confirm"
+          >로그인</v-btn
+        >
       </form>
       <div class="service">
         <ul>
-          <li><a href="/member?action=join"> 회원가입 </a></li>
-          <li><a href="/member?action=findId">아이디 찾기</a></li>
-          <li><a href="/member?action=findPw">비밀번호 찾기</a></li>
+          <li><a href="/user/join"> 회원가입 </a></li>
+          <li><a href="/user/findId">아이디 찾기</a></li>
+          <li><a href="/user/findPw">비밀번호 찾기</a></li>
         </ul>
       </div>
     </div>
@@ -131,7 +133,9 @@ input ::placeholder {
 
 a {
   text-decoration: none;
+  font-weight: bold;
   color: black;
+  margin: 0 10px;
 }
 
 .service > ul {

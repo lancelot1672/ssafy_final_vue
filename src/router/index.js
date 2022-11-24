@@ -65,12 +65,12 @@ const routes = [
     component: () => import("@/views/UserView"),
     children: [
       {
-        path: "/login",
+        path: "/user/login",
         name: "login",
         component: () => import("@/components/user/UserLogin"),
       },
       {
-        path: "/join",
+        path: "/user/join",
         name: "join",
         component: () => import("@/components/user/UserJoin"),
       },

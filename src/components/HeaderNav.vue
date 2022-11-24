@@ -7,17 +7,9 @@
 
     <v-tabs centered class="ml-n9" color="grey darken-1">
       <span>
-        <img
-          src="@/assets/logoleft1.png"
-          @click="moveMainPage"
-          class="header_title"
-          width="240px"
+        <img src="@/assets/logoleft1.png" @click="moveMainPage" class="header_title" width="240px"
       /></span>
-      <v-tab
-        v-for="(link, index) in links"
-        :key="index"
-        @click="movePage(link)"
-      >
+      <v-tab v-for="(link, index) in links" :key="index" @click="movePage(link)">
         <router-link :to="link.path">{{ link.name }}</router-link>
       </v-tab>
     </v-tabs>
@@ -28,8 +20,8 @@
       size="32"
     ></v-avatar> -->
     <span class="auth" v-if="!userInfo">
-      <router-link :to="{ name: 'login' }">Login</router-link>
-      <router-link :to="{ name: 'join' }">Regist</router-link>
+      <router-link :to="{ name: 'login' }">LOGIN</router-link>
+      <router-link :to="{ name: 'join' }">JOIN</router-link>
     </span>
     <span class="auth" v-else>
       <img
@@ -54,11 +46,13 @@
 
         <v-list>
           <v-list-item-group color="primary">
-            <v-subheader>{{ this.userInfo.userName }}</v-subheader>
             <v-list-item dense>
-              <v-list-item-title @click="onclickLogout"
-                >로그아웃</v-list-item-title
+              <v-list-item-title
+                ><b>{{ this.userInfo.userName }}</b></v-list-item-title
               >
+            </v-list-item>
+            <v-list-item dense>
+              <v-list-item-title @click="onclickLogout">로그아웃</v-list-item-title>
             </v-list-item>
           </v-list-item-group>
         </v-list>
@@ -112,7 +106,12 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
+
+  font-weight: bold;
   margin: 0px 10px;
+}
+a :hover {
+  text-decoration: underline;
 }
 .header_title {
   position: absolute;

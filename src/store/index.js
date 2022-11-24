@@ -41,7 +41,7 @@ export default new Vuex.Store({
       msg: "",
       color: "error",
     },
-    likeAptDetailList: Object,
+    likeAptDetailList: [],
     newsInfo: null,
   },
   getters: {},
@@ -268,13 +268,10 @@ export default new Vuex.Store({
       }
       commit("SET_APT_DETAIL", detail);
     },
-    getLikeAptDetailInfo({ commit }) {
+    async getLikeAptDetailInfo({ commit }) {
       let likeAptDetailList = [];
       this.state.likeList.forEach((likeList) => {
-        // console.log(likeList.houseCode);
         http.get(`view/houseRead?no=${likeList.houseCode}`).then(({ data }) => {
-          // console.log(commit);
-          //console.log(data);
           likeAptDetailList.push(data);
         });
       });
@@ -300,14 +297,14 @@ export default new Vuex.Store({
             let accessToken = data["access-token"];
             let refreshToken = data["refresh-token"];
 
-            console.log("login success token created!!!! >> ", accessToken, refreshToken);
-
             commit("SET_IS_LOGIN", true);
             commit("SET_IS_LOGIN_ERROR", false);
             commit("SET_IS_VALID_TOKEN", true);
             sessionStorage.setItem("access-token", accessToken);
             sessionStorage.setItem("refresh-token", refreshToken);
           } else {
+            //로그인 정보가 없음.
+            alert('아이디 또는 비밀번호를 확인해주세요!!');
             commit("SET_IS_LOGIN", false);
             commit("SET_IS_LOGIN_ERROR", true);
             commit("SET_IS_VALID_TOKEN", false);
@@ -364,7 +361,7 @@ export default new Vuex.Store({
                 } else {
                   console.log("리프레시 토큰 제거 실패");
                 }
-                alert("RefreshToken 기간 만료!!! 다시 로그인해 주세요.");
+                alert("다시 로그인해 주세요.");
                 commit("SET_IS_LOGIN", false);
                 commit("SET_USER_INFO", null);
                 commit("SET_LIKE_LIST", null);
@@ -376,6 +373,8 @@ export default new Vuex.Store({
                 commit("SET_IS_LOGIN", false);
                 commit("SET_LIKE_LIST", null);
                 commit("SET_USER_INFO", null);
+                alert("다시 로그인해 주세요.");
+                this.$route.push({ name: "login" });
               }
             );
           }

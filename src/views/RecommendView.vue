@@ -39,9 +39,7 @@
               {{ dong }}
             </option>
           </v-select>
-          <v-btn color="#FFFFFF" elevation="2" @click="searchResult()"
-            ><strong>검색</strong></v-btn
-          >
+          <v-btn color="#FFFFFF" elevation="2" @click="searchResult()"><strong>검색</strong></v-btn>
         </div>
       </div>
     </div>
@@ -62,7 +60,12 @@
         <div class="text-center">
           <v-dialog v-model="dialog1" width="900">
             <template v-slot:activator="{ on, attrs }">
-              <h1 style="color: black" v-bind="attrs" v-on="on">
+              <h1
+                style="color: black"
+                v-bind="attrs"
+                v-on="on"
+                @click="getTotalApt(StationApt[0].apartmentName)"
+              >
                 {{ StationApt[0].apartmentName }}
               </h1>
             </template>
@@ -74,8 +77,8 @@
               <v-card-text>
                 <!-- 테이블 -->
                 <v-data-table
-                  :headers="headers2"
-                  :items="data2"
+                  :headers="headers"
+                  :items="data"
                   :items-per-page="5"
                   class="elevation-1"
                 ></v-data-table>
@@ -83,25 +86,17 @@
 
               <br />
               <!-- 그래프 -->
-              <v-card
-                class="mx-auto text-center"
-                color="green"
-                dark
-                max-width="600"
-              >
+              <v-card class="mx-auto text-center" color="green" dark max-width="600">
                 <v-card-text>
                   <v-sheet color="rgba(0, 0, 0, .12)">
                     <v-sparkline
-                      :value="value2"
+                      :value="dealAmount"
                       color="rgba(255, 255, 255, .7)"
                       height="100"
                       padding="24"
                       stroke-linecap="round"
                       smooth
                     >
-                      <template v-slot:label="item">
-                        ${{ item.value2 }}
-                      </template>
                     </v-sparkline>
                   </v-sheet>
                 </v-card-text>
@@ -117,9 +112,7 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" text @click="dialog1 = false">
-                  Close
-                </v-btn>
+                <v-btn color="primary" text @click="dialog1 = false"> Close </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -153,7 +146,12 @@
         <div class="text-center">
           <v-dialog v-model="dialog2" width="900">
             <template v-slot:activator="{ on, attrs }">
-              <h1 style="color: black" v-bind="attrs" v-on="on">
+              <h1
+                style="color: black"
+                v-bind="attrs"
+                v-on="on"
+                @click="getTotalApt(StationApt[1].apartmentName)"
+              >
                 {{ StationApt[1].apartmentName }}
               </h1>
             </template>
@@ -164,8 +162,8 @@
 
               <v-card-text>
                 <v-data-table
-                  :headers="headers1"
-                  :items="data1"
+                  :headers="headers"
+                  :items="data"
                   :items-per-page="5"
                   class="elevation-1"
                 ></v-data-table>
@@ -173,25 +171,17 @@
 
               <br />
               <!-- 그래프 -->
-              <v-card
-                class="mx-auto text-center"
-                color="green"
-                dark
-                max-width="600"
-              >
+              <v-card class="mx-auto text-center" color="green" dark max-width="600">
                 <v-card-text>
                   <v-sheet color="rgba(0, 0, 0, .12)">
                     <v-sparkline
-                      :value="value1"
+                      :value="dealAmount"
                       color="rgba(255, 255, 255, .7)"
                       height="100"
                       padding="24"
                       stroke-linecap="round"
                       smooth
                     >
-                      <template v-slot:label="item">
-                        ${{ item.value1 }}
-                      </template>
                     </v-sparkline>
                   </v-sheet>
                 </v-card-text>
@@ -207,9 +197,7 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" text @click="dialog2 = false">
-                  Close
-                </v-btn>
+                <v-btn color="primary" text @click="dialog2 = false"> Close </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -241,7 +229,12 @@
         <div class="text-center">
           <v-dialog v-model="dialog3" width="900">
             <template v-slot:activator="{ on, attrs }">
-              <h1 style="color: black" v-bind="attrs" v-on="on">
+              <h1
+                style="color: black"
+                v-bind="attrs"
+                v-on="on"
+                @click="getTotalApt(StationApt[2].apartmentName)"
+              >
                 {{ StationApt[2].apartmentName }}
               </h1>
             </template>
@@ -253,8 +246,8 @@
               <v-card-text>
                 <!-- 테이블 -->
                 <v-data-table
-                  :headers="headers3"
-                  :items="data3"
+                  :headers="headers"
+                  :items="data"
                   :items-per-page="5"
                   class="elevation-1"
                 ></v-data-table>
@@ -262,25 +255,17 @@
 
               <br />
               <!-- 그래프 -->
-              <v-card
-                class="mx-auto text-center"
-                color="green"
-                dark
-                max-width="600"
-              >
+              <v-card class="mx-auto text-center" color="green" dark max-width="600">
                 <v-card-text>
                   <v-sheet color="rgba(0, 0, 0, .12)">
                     <v-sparkline
-                      :value="value3"
+                      :value="dealAmount"
                       color="rgba(255, 255, 255, .7)"
                       height="100"
                       padding="24"
                       stroke-linecap="round"
                       smooth
                     >
-                      <template v-slot:label="item">
-                        ${{ item.value3 }}
-                      </template>
                     </v-sparkline>
                   </v-sheet>
                 </v-card-text>
@@ -296,9 +281,7 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" text @click="dialog3 = false">
-                  Close
-                </v-btn>
+                <v-btn color="primary" text @click="dialog3 = false"> Close </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -318,10 +301,8 @@
       </v-card>
     </div>
 
-    <div class="info-section">
-      <p>
-        ※ 추천 매물은 지하철, 버스, 따릉이의 직선거리순의 개수를 비교했습니다.
-      </p>
+    <div class="info-section" v-if="StationApt != null">
+      <b>※ 추천 매물은 지하철, 버스, 따릉이의 직선거리순의 개수를 비교했습니다.</b>
     </div>
 
     <div class="stationDetail" v-if="StationApt != null">
@@ -339,9 +320,7 @@
           ></v-img>
         </div>
         <div class="SDSubwayRight">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 500m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
           <h1 style="text-align: center">
             지하철역은 {{ StationApt[0].stationList.length }}개 입니다.
           </h1>
@@ -465,9 +444,7 @@
       <!-- 버스 시작 -->
       <div class="stationDetailBus">
         <div class="SDBusLeft">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 100m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
           <h1 style="text-align: center">
             버스정류장은 {{ StationApt[0].busList.length }}개 입니다.
           </h1>
@@ -476,7 +453,7 @@
             <v-chip class="ma-2" color="#FF6450" text-color="white">
               {{ StationApt[0].busList[index].stop_nm }}
             </v-chip>
-            정류소까지
+            까지
             {{ StationApt[0].busList[index].dis | distance }}
             m 떨어져 있습니다.
           </div>
@@ -499,12 +476,8 @@
           ></v-img>
         </div>
         <div class="SDBikeRight">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 100m 이내의
-          </h1>
-          <h1 style="text-align: center">
-            따릉이는 {{ StationApt[0].bikeList.length }}개 입니다.
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
+          <h1 style="text-align: center">따릉이는 {{ StationApt[0].bikeList.length }}개 입니다.</h1>
           <div
             v-for="(bike, index) in StationApt[0].bikeList"
             :key="index"
@@ -535,9 +508,7 @@
           ></v-img>
         </div>
         <div class="SDSubwayRight">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 500m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
           <h1 style="text-align: center">
             지하철역은 {{ StationApt[1].stationList.length }}개 입니다.
           </h1>
@@ -661,9 +632,7 @@
       <!-- 버스 시작 -->
       <div class="stationDetailBus">
         <div class="SDBusLeft">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 100m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
           <h1 style="text-align: center">
             버스정류장은 {{ StationApt[1].busList.length }}개 입니다.
           </h1>
@@ -671,7 +640,7 @@
             <v-chip class="ma-2" color="#FF6450" text-color="white">
               {{ StationApt[1].busList[index].stop_nm }}
             </v-chip>
-            정류소까지
+            까지
             {{ StationApt[1].busList[index].dis | distance }}
             m 떨어져 있습니다.
           </div>
@@ -694,12 +663,8 @@
           ></v-img>
         </div>
         <div class="SDBikeRight">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 100m 이내의
-          </h1>
-          <h1 style="text-align: center">
-            따릉이는 {{ StationApt[1].bikeList.length }}개 입니다.
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
+          <h1 style="text-align: center">따릉이는 {{ StationApt[1].bikeList.length }}개 입니다.</h1>
           <div
             v-for="(bike, index) in StationApt[1].bikeList"
             :key="index"
@@ -731,9 +696,7 @@
           ></v-img>
         </div>
         <div class="SDSubwayRight">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 500m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
           <h1 style="text-align: center">
             지하철역은 {{ StationApt[2].stationList.length }}개 입니다.
           </h1>
@@ -857,9 +820,7 @@
       <!-- 버스 시작 -->
       <div class="stationDetailBus">
         <div class="SDBusLeft">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 100m 이내의
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
           <h1 style="text-align: center">
             버스정류장은 {{ StationApt[2].busList.length }}개 입니다.
           </h1>
@@ -867,7 +828,7 @@
             <v-chip class="ma-2" color="#FF6450" text-color="white">
               {{ StationApt[2].busList[index].stop_nm }}
             </v-chip>
-            정류소까지
+            까지
             {{ StationApt[2].busList[index].dis | distance }}
             m 떨어져 있습니다.
           </div>
@@ -890,12 +851,8 @@
           ></v-img>
         </div>
         <div class="SDBikeRight">
-          <h1 style="text-align: center; font-size: 1.5rem">
-            직선거리 100m 이내의
-          </h1>
-          <h1 style="text-align: center">
-            따릉이는 {{ StationApt[2].bikeList.length }}개 입니다.
-          </h1>
+          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
+          <h1 style="text-align: center">따릉이는 {{ StationApt[2].bikeList.length }}개 입니다.</h1>
           <div
             v-for="(bike, index) in StationApt[2].bikeList"
             :key="index"
@@ -917,7 +874,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-
+import { selectAllByAptName } from "@/api/house";
 export default {
   name: "RecommendView",
   data() {
@@ -932,8 +889,8 @@ export default {
       dialog1: false,
       dialog2: false,
       dialog3: false,
-      value1: [423, 446, 675, 510, 590, 610, 760],
-      headers1: [
+      dealAmount: [],
+      headers: [
         {
           text: "아파트 이름",
           align: "start",
@@ -946,62 +903,14 @@ export default {
         { text: "dealYear", value: "dealYear" },
         { text: "dealMonth", value: "dealMonth" },
       ],
-      data1: [
+      data: [
         {
-          apartmentName: "Frozen Yogurt",
-          floor: 159,
-          area: 6.0,
-          dealAmount: 24,
+          apartmentName: "",
+          floor: 1,
+          area: 0,
+          dealAmount: 19900,
           dealYear: 4.0,
-          dealMonth: "1%",
-        },
-      ],
-      headers2: [
-        {
-          text: "아파트 이름",
-          align: "start",
-          sortable: false,
-          value: "apartmentName",
-        },
-        { text: "floor", value: "floor" },
-        { text: "area", value: "area" },
-        { text: "dealAmount", value: "dealAmount" },
-        { text: "dealYear", value: "dealYear" },
-        { text: "dealMonth", value: "dealMonth" },
-      ],
-      value2: [423, 446, 675, 510, 590, 610, 760],
-      data2: [
-        {
-          apartmentName: "Frozen Yogurt",
-          floor: 159,
-          area: 6.0,
-          dealAmount: 24,
-          dealYear: 4.0,
-          dealMonth: "1%",
-        },
-      ],
-      headers3: [
-        {
-          text: "아파트 이름",
-          align: "start",
-          sortable: false,
-          value: "apartmentName",
-        },
-        { text: "floor", value: "floor" },
-        { text: "area", value: "area" },
-        { text: "dealAmount", value: "dealAmount" },
-        { text: "dealYear", value: "dealYear" },
-        { text: "dealMonth", value: "dealMonth" },
-      ],
-      value3: [423, 446, 675, 510, 590, 610, 760],
-      data3: [
-        {
-          apartmentName: "Frozen Yogurt",
-          floor: 159,
-          area: 6.0,
-          dealAmount: 24,
-          dealYear: 4.0,
-          dealMonth: "1%",
+          dealMonth: "",
         },
       ],
     };
@@ -1034,12 +943,33 @@ export default {
     searchResult() {
       this.getRecommandResult(this.dong);
     },
-    ...mapActions([
-      "searchGugunList",
-      "searchDongList",
-      "searchDongcode",
-      "getRecommandResult",
-    ]),
+    getTotalApt(apartmentName) {
+      console.log(apartmentName);
+      console.log(this.dong);
+      // 초기화
+      this.data = [];
+      this.dealAmount = [];
+      let aptInfo = {
+        apartmentName: apartmentName,
+        dongName: this.dong,
+      };
+      //비동기 요청
+      selectAllByAptName(
+        aptInfo,
+        ({ data }) => {
+          console.log(data);
+          this.data = data;
+          data.forEach((aptInfo) => {
+            let price = Number(aptInfo.dealAmount.replace(",", ""));
+            this.dealAmount.push(price);
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    ...mapActions(["searchGugunList", "searchDongList", "searchDongcode", "getRecommandResult"]),
   },
   filters: {
     distance(value) {
@@ -1076,7 +1006,7 @@ export default {
   margin: 60px 200px;
 
   display: flex;
-  -webkit-animation: fadein 1s;
+  animation: fadein 1s;
 }
 @keyframes fadein {
   from {
@@ -1087,8 +1017,10 @@ export default {
   }
 }
 .info-section {
+  font-family: "LINESeedKR-Bd";
   margin: 0px 250px;
   text-align: right;
+  animation: fadein 1s;
 }
 
 .traffic-section {
@@ -1174,5 +1106,9 @@ export default {
   width: 60%;
   height: 100%;
   float: left;
+}
+p,
+span {
+  font-family: "LINESeedKR-Bd";
 }
 </style>
