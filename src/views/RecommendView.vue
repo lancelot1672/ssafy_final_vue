@@ -39,7 +39,9 @@
               {{ dong }}
             </option>
           </v-select>
-          <v-btn color="#FFFFFF" elevation="2" @click="searchResult()"><strong>검색</strong></v-btn>
+          <v-btn color="#FFFFFF" elevation="2" @click="searchResult()"
+            ><strong>검색</strong></v-btn
+          >
         </div>
       </div>
     </div>
@@ -70,10 +72,11 @@
               </h1>
             </template>
             <v-card>
-              <v-card-title style="text-align: center">
-                {{ StationApt[0].apartmentName }}
-              </v-card-title>
-
+              <br />
+              <div style="text-align: center">
+                <h1>{{ StationApt[0].apartmentName }} 아파트 거내 내역</h1>
+              </div>
+              <br />
               <v-card-text>
                 <!-- 테이블 -->
                 <v-data-table
@@ -86,7 +89,12 @@
 
               <br />
               <!-- 그래프 -->
-              <v-card class="mx-auto text-center" color="green" dark max-width="600">
+              <v-card
+                class="mx-auto text-center"
+                color="green"
+                dark
+                max-width="600"
+              >
                 <v-card-text>
                   <v-sheet color="rgba(0, 0, 0, .12)">
                     <v-sparkline
@@ -108,11 +116,14 @@
                 </v-card-text>
               </v-card>
               <!-- 그래프 끝-->
+              <br />
+              <br />
               <v-divider></v-divider>
-
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" text @click="dialog1 = false"> Close </v-btn>
+                <v-btn color="primary" text @click="dialog1 = false">
+                  Close
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -156,10 +167,11 @@
               </h1>
             </template>
             <v-card>
-              <v-card-title style="text-align: center">
-                {{ StationApt[1].apartmentName }}
-              </v-card-title>
-
+              <br />
+              <div style="text-align: center">
+                <h1>{{ StationApt[1].apartmentName }}</h1>
+              </div>
+              <br />
               <v-card-text>
                 <v-data-table
                   :headers="headers"
@@ -171,7 +183,12 @@
 
               <br />
               <!-- 그래프 -->
-              <v-card class="mx-auto text-center" color="green" dark max-width="600">
+              <v-card
+                class="mx-auto text-center"
+                color="green"
+                dark
+                max-width="600"
+              >
                 <v-card-text>
                   <v-sheet color="rgba(0, 0, 0, .12)">
                     <v-sparkline
@@ -193,11 +210,15 @@
                 </v-card-text>
               </v-card>
               <!-- 그래프 끝-->
+              <br />
+              <br />
               <v-divider></v-divider>
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" text @click="dialog2 = false"> Close </v-btn>
+                <v-btn color="primary" text @click="dialog2 = false">
+                  Close
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -239,10 +260,11 @@
               </h1>
             </template>
             <v-card>
-              <v-card-title style="text-align: center">
-                {{ StationApt[2].apartmentName }}
-              </v-card-title>
-
+              <br />
+              <div style="text-align: center">
+                <h1>{{ StationApt[2].apartmentName }}</h1>
+              </div>
+              <br />
               <v-card-text>
                 <!-- 테이블 -->
                 <v-data-table
@@ -255,7 +277,12 @@
 
               <br />
               <!-- 그래프 -->
-              <v-card class="mx-auto text-center" color="green" dark max-width="600">
+              <v-card
+                class="mx-auto text-center"
+                color="green"
+                dark
+                max-width="600"
+              >
                 <v-card-text>
                   <v-sheet color="rgba(0, 0, 0, .12)">
                     <v-sparkline
@@ -277,11 +304,15 @@
                 </v-card-text>
               </v-card>
               <!-- 그래프 끝-->
+              <br />
+              <br />
               <v-divider></v-divider>
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" text @click="dialog3 = false"> Close </v-btn>
+                <v-btn color="primary" text @click="dialog3 = false">
+                  Close
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -302,7 +333,10 @@
     </div>
 
     <div class="info-section" v-if="StationApt != null">
-      <b>※ 추천 매물은 지하철, 버스, 따릉이의 직선거리순의 개수를 비교했습니다.</b>
+      <b
+        >※ 추천 매물은 지하철, 버스, 따릉이의 직선거리순의 개수를
+        비교했습니다.</b
+      >
     </div>
 
     <div class="stationDetail" v-if="StationApt != null">
@@ -320,7 +354,9 @@
           ></v-img>
         </div>
         <div class="SDSubwayRight">
-          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
+          <h1 style="text-align: center; font-size: 1.5rem">
+            직선거리 500m 이내의
+          </h1>
           <h1 style="text-align: center">
             지하철역은 {{ StationApt[0].stationList.length }}개 입니다.
           </h1>
@@ -444,7 +480,9 @@
       <!-- 버스 시작 -->
       <div class="stationDetailBus">
         <div class="SDBusLeft">
-          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
+          <h1 style="text-align: center; font-size: 1.5rem">
+            직선거리 100m 이내의
+          </h1>
           <h1 style="text-align: center">
             버스정류장은 {{ StationApt[0].busList.length }}개 입니다.
           </h1>
@@ -476,8 +514,12 @@
           ></v-img>
         </div>
         <div class="SDBikeRight">
-          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
-          <h1 style="text-align: center">따릉이는 {{ StationApt[0].bikeList.length }}개 입니다.</h1>
+          <h1 style="text-align: center; font-size: 1.5rem">
+            직선거리 100m 이내의
+          </h1>
+          <h1 style="text-align: center">
+            따릉이는 {{ StationApt[0].bikeList.length }}개 입니다.
+          </h1>
           <div
             v-for="(bike, index) in StationApt[0].bikeList"
             :key="index"
@@ -508,7 +550,9 @@
           ></v-img>
         </div>
         <div class="SDSubwayRight">
-          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
+          <h1 style="text-align: center; font-size: 1.5rem">
+            직선거리 500m 이내의
+          </h1>
           <h1 style="text-align: center">
             지하철역은 {{ StationApt[1].stationList.length }}개 입니다.
           </h1>
@@ -632,7 +676,9 @@
       <!-- 버스 시작 -->
       <div class="stationDetailBus">
         <div class="SDBusLeft">
-          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
+          <h1 style="text-align: center; font-size: 1.5rem">
+            직선거리 100m 이내의
+          </h1>
           <h1 style="text-align: center">
             버스정류장은 {{ StationApt[1].busList.length }}개 입니다.
           </h1>
@@ -663,8 +709,12 @@
           ></v-img>
         </div>
         <div class="SDBikeRight">
-          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
-          <h1 style="text-align: center">따릉이는 {{ StationApt[1].bikeList.length }}개 입니다.</h1>
+          <h1 style="text-align: center; font-size: 1.5rem">
+            직선거리 100m 이내의
+          </h1>
+          <h1 style="text-align: center">
+            따릉이는 {{ StationApt[1].bikeList.length }}개 입니다.
+          </h1>
           <div
             v-for="(bike, index) in StationApt[1].bikeList"
             :key="index"
@@ -696,7 +746,9 @@
           ></v-img>
         </div>
         <div class="SDSubwayRight">
-          <h1 style="text-align: center; font-size: 1.5rem">직선거리 500m 이내의</h1>
+          <h1 style="text-align: center; font-size: 1.5rem">
+            직선거리 500m 이내의
+          </h1>
           <h1 style="text-align: center">
             지하철역은 {{ StationApt[2].stationList.length }}개 입니다.
           </h1>
@@ -820,7 +872,9 @@
       <!-- 버스 시작 -->
       <div class="stationDetailBus">
         <div class="SDBusLeft">
-          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
+          <h1 style="text-align: center; font-size: 1.5rem">
+            직선거리 100m 이내의
+          </h1>
           <h1 style="text-align: center">
             버스정류장은 {{ StationApt[2].busList.length }}개 입니다.
           </h1>
@@ -851,8 +905,12 @@
           ></v-img>
         </div>
         <div class="SDBikeRight">
-          <h1 style="text-align: center; font-size: 1.5rem">직선거리 100m 이내의</h1>
-          <h1 style="text-align: center">따릉이는 {{ StationApt[2].bikeList.length }}개 입니다.</h1>
+          <h1 style="text-align: center; font-size: 1.5rem">
+            직선거리 100m 이내의
+          </h1>
+          <h1 style="text-align: center">
+            따릉이는 {{ StationApt[2].bikeList.length }}개 입니다.
+          </h1>
           <div
             v-for="(bike, index) in StationApt[2].bikeList"
             :key="index"
@@ -969,7 +1027,12 @@ export default {
         }
       );
     },
-    ...mapActions(["searchGugunList", "searchDongList", "searchDongcode", "getRecommandResult"]),
+    ...mapActions([
+      "searchGugunList",
+      "searchDongList",
+      "searchDongcode",
+      "getRecommandResult",
+    ]),
   },
   filters: {
     distance(value) {
