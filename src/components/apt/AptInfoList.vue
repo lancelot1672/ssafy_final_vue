@@ -2,7 +2,7 @@
   <apt-info-item></apt-info-item>
 </template>
 <script>
-import AptInfoItem from "@/components/AptInfoItem.vue";
+import AptInfoItem from "@/components/apt/AptInfoItem.vue";
 export default {
   name: "AptInfoList",
   components: {

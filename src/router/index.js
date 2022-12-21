@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import AptMain from "@/components/AptMain";
+import AptMain from "@/components/apt/AptMain";
 import BoardList from "@/components/Board/BoardList";
 import BoardRead from "@/components/Board/BoardRead";
 import BoardWrite from "@/components/Board/BoardWrite";

@@ -26,10 +26,10 @@
 
 <script>
 import SelectCondition from "@/components/SelectCondition.vue";
-import AptInfoList from "@/components/AptInfoList.vue";
-import KakaoMap from "./KakaoMap.vue";
-import AptInfoDetail from "@/components/AptInfoDetail.vue";
-import NaverNews from "@/components/NaverNews.vue";
+import AptInfoList from "@/components/apt/AptInfoList.vue";
+import KakaoMap from "@/components/kakao/KakaoMap.vue";
+import AptInfoDetail from "@/components/apt/AptInfoDetail.vue";
+import NaverNews from "@/components/naver/NaverNews.vue";
 
 import { mapState } from "vuex";
 
