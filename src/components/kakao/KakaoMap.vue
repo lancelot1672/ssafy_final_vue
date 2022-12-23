@@ -5,6 +5,8 @@
 </template>
 <script>
 import { mapState } from "vuex";
+const aptStore = "aptStore";
+
 export default {
   name: "kakaoMap",
   data() {
@@ -14,7 +16,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["aptList"]),
+    ...mapState(aptStore, ["aptList"]),
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {

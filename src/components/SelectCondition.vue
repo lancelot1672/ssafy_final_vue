@@ -84,6 +84,8 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
+const aptStore = "aptStore";
+const newsStore = "newsStore";
 
 export default {
   name: "SelectCondition",
@@ -104,16 +106,36 @@ export default {
     this.CLEAR_NEWS_INFO();
   },
   computed: {
-    ...mapState(["sidoList", "gugunList", "dongList"]),
+    ...mapState(aptStore, ["sidoList", "gugunList", "dongList"]),
   },
   methods: {
-    ...mapMutations([
+    ...mapMutations(aptStore, [
       "SET_SIDOLIST",
       "SET_GUGUNLIST",
       "SET_DONGLIST",
       "CLEAR_APT",
       "CLEAR_APT_DETAIL",
+
+    ]),
+    ...mapMutations(newsStore, [
       "CLEAR_NEWS_INFO",
+    ]),
+    ...mapActions(aptStore, [
+      "searchSidoList",
+      "searchGugunList",
+      "searchDongList",
+      "searchApt",
+      "searchSido",
+      "searchGugun",
+      "searchDong",
+      "searchYear",
+      "searchMonth",
+      "searchDongcode",
+      "searchApt",
+      
+    ]),
+    ...mapActions(newsStore, [
+      "searchNews",
     ]),
     sidoChange() {
       //선택된 시도를 state에 저장
@@ -165,20 +187,6 @@ export default {
       //News 가져와
       this.searchNews(this.dong);
     },
-    ...mapActions([
-      "searchSidoList",
-      "searchGugunList",
-      "searchDongList",
-      "searchApt",
-      "searchSido",
-      "searchGugun",
-      "searchDong",
-      "searchYear",
-      "searchMonth",
-      "searchDongcode",
-      "searchApt",
-      "searchNews",
-    ]),
   },
 };
 </script>

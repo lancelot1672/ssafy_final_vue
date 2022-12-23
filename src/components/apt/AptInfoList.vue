@@ -3,6 +3,9 @@
 </template>
 <script>
 import AptInfoItem from "@/components/apt/AptInfoItem.vue";
+import { mapMutations } from 'vuex';
+const aptStore = "aptStore";
+
 export default {
   name: "AptInfoList",
   components: {
@@ -12,10 +15,12 @@ export default {
     return {};
   },
   created() {
-    console.log("새로고침 맨~");
     //싹 다 초기화
-    this.$store.commit("CLEAR_APT");
+    this.CLEAR_APT;
   },
+  methods:{
+    ...mapMutations(aptStore, ["CLEAR_APT"]),
+  }
 };
 </script>
 <style>

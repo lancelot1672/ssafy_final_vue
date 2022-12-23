@@ -91,6 +91,7 @@
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
+const aptStore = "aptStore";
 
 export default {
   name: "AptInfoItem",
@@ -98,10 +99,10 @@ export default {
     return { dialog: false, detailInfo: [], idx: "" };
   },
   computed: {
-    ...mapState(["aptList", "isShow", "aptDetailInfo"]),
+    ...mapState(aptStore, ["aptList", "isShow", "aptDetailInfo"]),
   },
   methods: {
-    ...mapActions(["searchNextPage", "searchBeforePage", "getAptDetailInfo"]),
+    ...mapActions(aptStore, ["searchNextPage", "searchBeforePage", "getAptDetailInfo"]),
     getNextPage() {
       this.searchNextPage();
     },

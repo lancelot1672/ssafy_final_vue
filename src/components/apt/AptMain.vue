@@ -31,7 +31,8 @@ import KakaoMap from "@/components/kakao/KakaoMap.vue";
 import AptInfoDetail from "@/components/apt/AptInfoDetail.vue";
 import NaverNews from "@/components/naver/NaverNews.vue";
 
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
+const aptStore = "aptStore";
 
 export default {
   name: "App",
@@ -43,7 +44,13 @@ export default {
     NaverNews,
   },
   computed: {
-    ...mapState(["aptList", "aptDetailInfo", "newsInfo"]),
+    ...mapState(aptStore, ["aptList", "aptDetailInfo", "newsInfo"]),
+  },
+  created(){
+    this.CLEAR_APT(); //aptList Clear
+  },
+  methods:{
+    ...mapMutations(aptStore, ["CLEAR_APT"]),
   },
   data: () => ({
     //
